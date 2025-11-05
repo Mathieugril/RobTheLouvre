@@ -173,9 +173,10 @@ public class ZorkULGame {
         }
     }
 
-    private String details() {
-        return player.getCurrentRoom().inspect();
+    private void details() {
+        System.out.println(player.getCurrentRoom().inspect());
     }
+
 
 
     public static void main(String[] args) {

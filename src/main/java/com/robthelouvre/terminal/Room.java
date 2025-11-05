@@ -14,6 +14,7 @@ public class Room {
         exits = new HashMap<>();
     }
 
+
     public void setDetails(String details) {
         this.details = details;
     }
@@ -22,9 +23,11 @@ public class Room {
         return details;
     }
 
+
     public String getDescription() {
         return description;
     }
+
 
     public void setExit(String direction, Room neighbor) {
         exits.put(direction, neighbor);
