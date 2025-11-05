@@ -15,8 +15,6 @@ emphasizing exploration and simple command-driven gameplay
 
 package com.robthelouvre.terminal;
 
-import java.util.Scanner;
-
 public class ZorkULGame {
     private Parser parser;
     private Character player;
@@ -27,74 +25,75 @@ public class ZorkULGame {
     }
 
     private void createRooms() {
-        Room outside, lobby, ballroom, bathroom, coatroom, kitchen, garden, office, stairwell, balcony, westhall, oak;
+        Room balcony, outside, lobby, regaliaGallery, mastersGallery, securityRoom, guardRoom, serviceTunnel, janitorCloset, deliveryDock, garden, secretPassage,
+                vip, basementTunnel;
 
-        // create rooms
-        outside = new Room("outside the front of the townhall");
-        lobby = new Room("in the lobby, guests mingle");
-        ballroom = new Room("now in the ballroom is filled with guests");
-        bathroom = new Room("in the bathroom");
-        coatroom = new Room("in a cloakroom");
-        kitchen = new Room("in the kitchen, busy with floor staff and chefs");
-        westhall = new Room("in the west-hallway, two doors in front of you and stairs further down hall");
-        garden = new Room("outside in the garden, fountain is the centrepiece");
-        oak = new Room("the shadow of a tall and broad oak tree sits in silence");
-
-
-        office = new Room("in the security office, cameras survey *nearly* every inch of the building");
-        stairwell = new Room("in the stairwell, it's guarded at the bottom");
-        balcony = new Room("overlooking the garden");
-        //upstairswesthall = new Room("overlooking the ballroom and can");
-
+        outside = new Room("are out of the Louvre");
+        balcony = new Room("stand on a narrow balcony above the riverside façade and gardens. The cherry picker sits below, beside a large tree; a glass window ahead leads into the museum's upper wing.");
+        lobby = new Room("are in the grand pyramid lobby as it pulses with visitors and guards. Ticket desks, security scanners and the echo of footsteps fill the space.");
+        regaliaGallery = new Room("see a glittering hall of crown jewels and diadems behind glass cases. Spotlights and no public make this the obvious prize zone.");
+        mastersGallery = new Room("are in long gallery of paintings: tourists pause before masterpieces while guards linger at doorways. The steady flow of foot-traffic provides cover.");
+        securityRoom = new Room("enter the control room. Monitors line the walls, each screen showing CCTV feeds of corridors, galleries, and exterior walls.");
+        guardRoom = new Room("enter a small break room with lockers, a coffee machine and spare uniforms. Footsteps echo through the thin walls.");
+        serviceTunnel = new Room("are under dim lights that hang over pipes and cables. Paint-stenciled crates line the walls — this tunnel connects hidden zones beneath the museum.");
+        janitorCloset = new Room("see buckets, mops and cleaning supplies in tight quarters. An old door behind stacked carts is interesting.");
+        deliveryDock = new Room("see wide loading doors and a rubber-rimmed ramp open to the street. A delivery van often idles outside while staff have a smoke");
+        garden = new Room("are surrounded by hedges cut into formal shapes, a silent fountain and statues under lights. A beaten path in the corner catches your eye.");
+        secretPassage = new Room("enter a hidden passage, a narrow corridor with a low ceiling. Old blueprints and staff scribbles mark this 'staff only' route.");
+        vip = new Room("are impressed by luxurious sofas and low tables, champagne flutes and private doors to the gallery. Guests in tuxedos are quietly monitored by nearby security.");
+        basementTunnel = new Room("are in a dim underground garage: engine rumble, an exit ramp to the street and the faint hum of air-conditioning.");
 
 
+        balcony.setExit("north", regaliaGallery);
+        balcony.setExit("down", garden);
+        balcony.setDetails("Scuffed paint marks the window frame; the latch looks old and might give with some force.");
+
+        lobby.setExit("west", outside);
+        lobby.setExit("east", mastersGallery);
+        lobby.setExit("south", vip);
+        lobby.setDetails("The sheer amount of people would make it easy to blend in");
+
+        regaliaGallery.setExit("north",mastersGallery);
+        regaliaGallery.setExit("south", balcony);
+        regaliaGallery.setExit("east", securityRoom);
+      //  regaliaGallery
+
+        mastersGallery.setExit("south",regaliaGallery);
+        mastersGallery.setExit("west", lobby);
+
+        securityRoom.setExit("west",regaliaGallery);
+        securityRoom.setExit("east", guardRoom);
+
+        guardRoom.setExit("west", securityRoom);
+        guardRoom.setExit("north", janitorCloset );
+
+        janitorCloset.setExit("south", guardRoom);
+        janitorCloset.setExit("north", serviceTunnel);
+       // janitorCloset.setExit("east", secretPassage);
+
+        serviceTunnel.setExit("north", deliveryDock);
+        serviceTunnel.setExit("south", janitorCloset);
+
+        deliveryDock.setExit("north", basementTunnel);
+        deliveryDock.setExit("south", serviceTunnel);
+
+        basementTunnel.setExit("north", outside);
+        basementTunnel.setExit("south", deliveryDock);
+
+        garden.setExit("up", balcony);
+        garden.setExit("south", outside);
+      //  garden.setExit("east", secretPassage);
+
+        secretPassage.setExit("north", janitorCloset);
+        secretPassage.setExit("south", garden);
+
+        vip.setExit("north", lobby);
 
 
-        // initialise room exits
-        outside.setExit("north", lobby);
-        // everywhere else goes to cars
-
-        lobby.setExit("north", ballroom);
-        lobby.setExit("south", outside);
-        // east brings you to paintings
-        lobby.setExit("west", westhall);
-
-
-        // north just makes you wander around room
-        ballroom.setExit("south", lobby);
-        ballroom.setExit("east", garden );
-        ballroom.setExit("west", kitchen); //costume
-
-        // only one option
-        bathroom.setExit("east", westhall);
-
-        // only one option
-        coatroom.setExit("east", westhall);
-
-        kitchen.setExit("south", westhall);
-        kitchen.setExit("east", ballroom);
-
-        westhall.setExit("north", kitchen); //costume + key
-        westhall.setExit("east", lobby);
-        // west should give option of bathroom, coatroom and stairwell
-
-        garden.setExit("west", ballroom);
-        garden.setExit("south", oak);
-
-        oak.setExit("north", garden);
-        oak.setExit("up", balcony);
-
-        // second floor
 
 
 
-
-
-
-
-
-        // create the player character and start outside
-        player = new Character("player", outside);
+                player = new Character("player", balcony );
     }
 
 
@@ -133,6 +132,9 @@ public class ZorkULGame {
             case "go":
                 goRoom(command);
                 break;
+            case "inspect":
+                details();
+                break;
             case "quit":
                 if (command.hasSecondWord()) {
                     System.out.println("Quit what?");
@@ -170,6 +172,11 @@ public class ZorkULGame {
             System.out.println(player.getCurrentRoom().getLongDescription());
         }
     }
+
+    private String details() {
+        return player.getCurrentRoom().inspect();
+    }
+
 
     public static void main(String[] args) {
         ZorkULGame game = new ZorkULGame();

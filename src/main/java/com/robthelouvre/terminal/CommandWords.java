@@ -11,7 +11,7 @@ public class CommandWords {
         validCommands.put("go", "Move to another room");
         validCommands.put("quit", "End the game");
         validCommands.put("help", "Show help");
-        validCommands.put("look", "Look around");
+        validCommands.put("inspect", "Inspect the room");
         validCommands.put("eat", "Eat something");
        // validCommands.put("climb", "Using a ladder");
     }

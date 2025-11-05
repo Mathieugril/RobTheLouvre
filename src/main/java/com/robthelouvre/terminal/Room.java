@@ -6,10 +6,20 @@ import java.util.Map;
 public class Room {
     private String description;
     private Map<String, Room> exits; // Map direction to neighboring Room
+    private String details;
 
     public Room(String description) {
         this.description = description;
+        this.details = description;
         exits = new HashMap<>();
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
+
+    public String inspect() {
+        return details;
     }
 
     public String getDescription() {
@@ -24,6 +34,8 @@ public class Room {
         return exits.get(direction);
     }
 
+
+
     public String getExitString() {
         StringBuilder sb = new StringBuilder();
         for (String direction : exits.keySet()) {
@@ -33,6 +45,6 @@ public class Room {
     }
 
     public String getLongDescription() {
-        return "You are " + description + ".\nExits: " + getExitString();
+        return "You " + description + "\nExits: " + getExitString();
     }
 }
