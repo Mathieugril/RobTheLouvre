@@ -34,12 +34,12 @@ public class ZorkULGame {
         regaliaGallery = new Room("see a glittering hall of crown jewels and diadems behind glass cases. Spotlights and no public make this the obvious prize zone.");
         mastersGallery = new Room("are in long gallery of paintings: tourists pause before masterpieces while guards linger at doorways. The steady flow of foot-traffic provides cover.");
         securityRoom = new Room("enter the control room. Monitors line the walls, each screen showing CCTV feeds of corridors, galleries, and exterior walls.");
-        guardRoom = new Room("enter a small break room with lockers, a coffee machine and spare uniforms. Footsteps echo through the thin walls.");
-        serviceTunnel = new Room("are under dim lights that hang over pipes and cables. Paint-stenciled crates line the walls — this tunnel connects hidden zones beneath the museum.");
+        guardRoom = new Room("enter a small break room with lockers, a coffee machine and a mini fridge. Footsteps echo through the thin walls.");
+        serviceTunnel = new Room("are under dim lights that hang over pipes and cables. OLd crates line the walls, this tunnel connects hidden zones beneath the museum.");
         janitorCloset = new Room("see buckets, mops and cleaning supplies in tight quarters. An old door behind stacked carts is interesting.");
         deliveryDock = new Room("see wide loading doors and a rubber-rimmed ramp open to the street. A delivery van often idles outside while staff have a smoke");
-        garden = new Room("are surrounded by hedges cut into formal shapes, a silent fountain and statues under lights. A beaten path in the corner catches your eye.");
-        secretPassage = new Room("enter a hidden passage, a narrow corridor with a low ceiling. Old blueprints and staff scribbles mark this 'staff only' route.");
+        garden = new Room("are surrounded by hedges cut into formal shapes, a silent fountain and statues under lights.");
+        secretPassage = new Room("enter a hidden passage, a narrow corridor with a low ceiling.");
         vip = new Room("are impressed by luxurious sofas and low tables, champagne flutes and private doors to the gallery. Guests in tuxedos are quietly monitored by nearby security.");
         basementTunnel = new Room("are in a dim underground garage: engine rumble, an exit ramp to the street and the faint hum of air-conditioning.");
 
@@ -51,43 +51,60 @@ public class ZorkULGame {
         lobby.setExit("west", outside);
         lobby.setExit("east", mastersGallery);
         lobby.setExit("south", vip);
-        lobby.setDetails("The sheer amount of people would make it easy to blend in");
+        lobby.setDetails("The sheer amount of people would make it easy to blend in.");
+
 
         regaliaGallery.setExit("north",mastersGallery);
         regaliaGallery.setExit("south", balcony);
         regaliaGallery.setExit("east", securityRoom);
-      //  regaliaGallery
+        regaliaGallery.setDetails("The is illuminated via the window and spotlights. Two guards are taking a break on a bench on the other side of the hall," +
+                                  " with all the displays it would be easy to get close without being spotted.");
+
 
         mastersGallery.setExit("south",regaliaGallery);
         mastersGallery.setExit("west", lobby);
+        mastersGallery.setDetails("The paintings would be a good score but way to many people here. The guards seem to be talking about something over the radio to each-other");
+
 
         securityRoom.setExit("west",regaliaGallery);
         securityRoom.setExit("east", guardRoom);
+        securityRoom.setDetails("Screens show the camera feed of nearly the whole museum. Guards rotate in-and-out from their break room, one forgets to logout...");
+
 
         guardRoom.setExit("west", securityRoom);
         guardRoom.setExit("north", janitorCloset );
+        guardRoom.setDetails("Half empty coffee cups are scattered on the counter, a card game is waiting to be finished. Lockers line the wall—one hangs ajar.");
+
 
         janitorCloset.setExit("south", guardRoom);
         janitorCloset.setExit("north", serviceTunnel);
+        janitorCloset.setDetails("The cramped closet smells of bleach. An old, taped-up door behind stacked carts is interesting.");
        // janitorCloset.setExit("east", secretPassage);
+
 
         serviceTunnel.setExit("north", deliveryDock);
         serviceTunnel.setExit("south", janitorCloset);
+        serviceTunnel.setDetails("Pipes hiss and ducts vibrate above. Not much to see here it seems.");
 
         deliveryDock.setExit("north", basementTunnel);
         deliveryDock.setExit("south", serviceTunnel);
+        deliveryDock.setDetails("Although quite open there is an annoying amount of guards around. It would be foolish to try anything without a disguise.");
 
         basementTunnel.setExit("north", outside);
         basementTunnel.setExit("south", deliveryDock);
+        basementTunnel.setDetails("Vans line the side wall. If done right they would be easy to hot wire in order to escape into the city.");
 
         garden.setExit("up", balcony);
         garden.setExit("south", outside);
       //  garden.setExit("east", secretPassage);
+        garden.setDetails("A beaten path in the corner catches your eye. An old seemingly locked door hides at the end of the path.");
 
         secretPassage.setExit("north", janitorCloset);
         secretPassage.setExit("south", garden);
+        secretPassage.setDetails("Old blueprints and staff scribbles mark this 'staff only' route.");
 
         vip.setExit("north", lobby);
+        vip.setDetails("Obnoxious tones and low lighting make these people and easy target, but be careful of the guards.");
 
 
 
