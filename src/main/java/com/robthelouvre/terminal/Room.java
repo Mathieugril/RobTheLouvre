@@ -1,5 +1,6 @@
 package com.robthelouvre.terminal;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,11 +8,20 @@ public class Room {
     private String description;
     private Map<String, Room> exits; // Map direction to neighboring Room
     private String details;
+    private ArrayList<Item> items;
 
     public Room(String description) {
         this.description = description;
         this.details = description;
         exits = new HashMap<>();
+        this.items = new ArrayList<Item>();
+    }
+
+    public Room(String description, ArrayList<Item> items) {
+        this.description = description;
+        this.details = description;
+        exits = new HashMap<>();
+        this.items = items;
     }
 
 
@@ -38,6 +48,36 @@ public class Room {
     }
 
 
+    public String searchRoom() {
+        StringBuilder itemsList = new StringBuilder();
+        if (getItems().isEmpty()) {
+            return "Nothing no see here";
+        }
+        if (getItems().size() == 1) {
+            return "I see a " + getItems().getFirst().getName() + "!";
+        }
+        itemsList.append("I see ");
+        for(int item = 0; item < getItems().size() - 1; item++) {
+            itemsList.append("a ");
+            itemsList.append(getItems().get(item).getName());
+            itemsList.append(", ");
+        }
+        itemsList.append("and a ");
+        itemsList.append(getItems().getLast().getName());
+        itemsList.append("!");
+        return itemsList.toString();
+    }
+
+    public void removeItem(Item item) {
+        items.remove(item);
+    }
+
+    public void addItem(Item item) {
+        items.add(item);
+    }
+    public ArrayList<Item> getItems() {
+        return items;
+    }
 
     public String getExitString() {
         StringBuilder sb = new StringBuilder();

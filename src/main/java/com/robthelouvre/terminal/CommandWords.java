@@ -14,6 +14,12 @@ public class CommandWords {
         validCommands.put("inspect", "Inspect the room");
         validCommands.put("eat", "Eat something");
        // validCommands.put("climb", "Using a ladder");
+       // validCommands.put("eavesdrop", "Listen in on someone's conversation");
+       // validCommands.put("pickpocket", "Steal items from an unsuspecting victim");
+        //validCommands.put("open", "Open an object that interests you");
+       // validCommands.put("0", "2");
+        validCommands.put("pick", "picks up an item");
+        validCommands.put("drop", "drops item on floor");
     }
 
     public boolean isCommand(String commandWord) {

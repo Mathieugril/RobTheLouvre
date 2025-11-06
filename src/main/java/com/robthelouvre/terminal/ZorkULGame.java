@@ -15,6 +15,8 @@ emphasizing exploration and simple command-driven gameplay
 
 package com.robthelouvre.terminal;
 
+import java.util.ArrayList;
+
 public class ZorkULGame {
     private Parser parser;
     private Character player;
@@ -28,9 +30,15 @@ public class ZorkULGame {
         Room balcony, outside, lobby, regaliaGallery, mastersGallery, securityRoom, guardRoom, serviceTunnel, janitorCloset, deliveryDock, garden, secretPassage,
                 vip, basementTunnel;
 
+        Item KeyCard;
+        ArrayList<Item> lobbyItems = new ArrayList<Item>();
+
+        KeyCard = new Item("keycard", "Might come in handy");
+        lobbyItems.add(KeyCard);
+
         outside = new Room("are out of the Louvre");
         balcony = new Room("stand on a narrow balcony above the riverside façade and gardens. The cherry picker sits below, beside a large tree; a glass window ahead leads into the museum's upper wing.");
-        lobby = new Room("are in the grand pyramid lobby as it pulses with visitors and guards. Ticket desks, security scanners and the echo of footsteps fill the space.");
+        lobby = new Room("are in the grand pyramid lobby as it pulses with visitors and guards. Ticket desks, security scanners and the echo of footsteps fill the space.",  lobbyItems);
         regaliaGallery = new Room("see a glittering hall of crown jewels and diadems behind glass cases. Spotlights and no public make this the obvious prize zone.");
         mastersGallery = new Room("are in long gallery of paintings: tourists pause before masterpieces while guards linger at doorways. The steady flow of foot-traffic provides cover.");
         securityRoom = new Room("enter the control room. Monitors line the walls, each screen showing CCTV feeds of corridors, galleries, and exterior walls.");
@@ -51,7 +59,7 @@ public class ZorkULGame {
         lobby.setExit("west", outside);
         lobby.setExit("east", mastersGallery);
         lobby.setExit("south", vip);
-        lobby.setDetails("The sheer amount of people would make it easy to blend in.");
+        lobby.setDetails("The sheer amount of people would make it easy to blend in. A keycard is on the ground");
 
 
         regaliaGallery.setExit("north",mastersGallery);
@@ -151,6 +159,29 @@ public class ZorkULGame {
                 break;
             case "inspect":
                 details();
+                System.out.println(player.getCurrentRoom().searchRoom());
+                break;
+            case "pick":
+                Item pickupItem = Items.checkItemAvailable(command.getSecondWord(), player.getCurrentRoom().getItems());
+                if (pickupItem == null) {
+                    System.out.println("I can't find that item!");
+                } else {
+                    System.out.println(player.pickUpItem(pickupItem));
+                }
+                break;
+            case "inventory":
+                System.out.println("Inventory:");
+                for (Item item : player.getInventory()) {
+                    System.out.println(item.getName());
+                }
+                break;
+            case "drop":
+                Item dropItem = Items.checkItemAvailable(command.getSecondWord(), player.getInventory());
+                if (dropItem == null) {
+                    System.out.println("I don't have that item!");
+                } else {
+                    player.dropItem(dropItem);
+                }
                 break;
             case "quit":
                 if (command.hasSecondWord()) {
