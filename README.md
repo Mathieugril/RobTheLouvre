@@ -7,9 +7,9 @@
        Tone: Quick-thinking, Stealth Game.
 
 
-3. Game Components
+2. Game Components
 
-       Rooms: Balcony - Starting point - Exits: Main Gallery | Garden
+       Rooms: Balcony - Starting point - Exits: Regalia Gallery | Garden
               Main Gallery - Key area - Exits: Balcony | Old Masters Gallery | Control Room
               Janitors Closet - Transtion point - Exits: Guard Break Room | Maintence Hall | Secret Passage
 
@@ -23,4 +23,11 @@
        Challenges: Some rooms require a keyard, a disguise or both - failure to meet requirments causes player to get caught
 
 
-4. Map
+3. Map
+<img width="902" height="755" alt="image" src="https://github.com/user-attachments/assets/3ddd2bdf-6f7a-40bc-9db9-f619ffd18808" />
+
+
+
+
+
+
