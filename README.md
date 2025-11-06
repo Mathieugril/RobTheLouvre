@@ -1,6 +1,7 @@
 # RobTheLouvre
 
-1. Overview
+<h1>Game Overview<h1/>
+1. Aspects
 
        Setting: The Louvre Museum, 19th October 2025.
        Goal: Rob Nepolianic Jewels and Escape.
@@ -24,7 +25,7 @@
 
 
 3. Map
-<img width="902" height="755" alt="image" src="https://github.com/user-attachments/assets/3ddd2bdf-6f7a-40bc-9db9-f619ffd18808" />
+<img width="802" height="655" alt="image" src="https://github.com/user-attachments/assets/3ddd2bdf-6f7a-40bc-9db9-f619ffd18808" />
 
 
 
