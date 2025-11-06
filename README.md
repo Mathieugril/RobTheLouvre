@@ -30,8 +30,8 @@
 
 
 <h2>Game Design</h2>
-<h3>   Class Name                     Attributes                                          Methods
   
+      Class Name                     Attributes                                          Methods
        Player                 name, currentRoom, inventory            getName, getCurrentRoom, getInventory, pickUpItem, dropItem
        Items             name, description, location, id, isVisible   getDescription, getName, getLocation, getId, isVisible     
        Room        description, exits, details, items       inspect, getDescription, getExit, searchRoom, removeItem, addItem, getItems, getLongDescription
