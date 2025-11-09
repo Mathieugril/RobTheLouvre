@@ -41,6 +41,7 @@ public class ZorkULGame {
         ArrayList<Item> masterGalleryItems = new ArrayList<Item>();
         ArrayList<Item> securityItems = new ArrayList<Item>();
         ArrayList<Item> tunnelRoomItems = new ArrayList<Item>();
+
         ArrayList<Item> janitorRoomItems = new ArrayList<Item>();
         ArrayList<Item> dockItems = new ArrayList<Item>();
         ArrayList<Item> passageItems = new ArrayList<Item>();
