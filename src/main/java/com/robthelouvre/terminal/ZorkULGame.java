@@ -30,26 +30,38 @@ public class ZorkULGame {
         Room balcony, outside, lobby, regaliaGallery, mastersGallery, securityRoom, guardRoom, serviceTunnel, janitorCloset, deliveryDock, garden, secretPassage,
                 vip, basementTunnel;
 
-        Item KeyCard;
-        ArrayList<Item> lobbyItems = new ArrayList<Item>();
 
-        KeyCard = new Item("keycard", "Might come in handy");
-        lobbyItems.add(KeyCard);
+        ArrayList<Item> lobbyItems = new ArrayList<Item>();
+        Item KeyCard = new Item("keycard", "Might come in handy.");
+
+        ArrayList<Item> guardRoomItems = new ArrayList<Item>();
+        Item Uniform = new Item("Guards Uniform", "This can be used to blend in.");
+
+        ArrayList<Item> regaliaGalleryItems = new ArrayList<Item>();
+        ArrayList<Item> masterGalleryItems = new ArrayList<Item>();
+        ArrayList<Item> securityItems = new ArrayList<Item>();
+        ArrayList<Item> tunnelRoomItems = new ArrayList<Item>();
+        ArrayList<Item> janitorRoomItems = new ArrayList<Item>();
+        ArrayList<Item> dockItems = new ArrayList<Item>();
+        ArrayList<Item> passageItems = new ArrayList<Item>();
+        ArrayList<Item> vipItems = new ArrayList<Item>();
+        ArrayList<Item> basementItems = new ArrayList<Item>();
+
 
         outside = new Room("are out of the Louvre");
         balcony = new Room("stand on a narrow balcony above the riverside façade and gardens. The cherry picker sits below, beside a large tree; a glass window ahead leads into the museum's upper wing.");
         lobby = new Room("are in the grand pyramid lobby as it pulses with visitors and guards. Ticket desks, security scanners and the echo of footsteps fill the space.",  lobbyItems);
-        regaliaGallery = new Room("see a glittering hall of crown jewels and diadems behind glass cases. Spotlights and no public make this the obvious prize zone.");
-        mastersGallery = new Room("are in long gallery of paintings: tourists pause before masterpieces while guards linger at doorways. The steady flow of foot-traffic provides cover.");
-        securityRoom = new Room("enter the control room. Monitors line the walls, each screen showing CCTV feeds of corridors, galleries, and exterior walls.");
-        guardRoom = new Room("enter a small break room with lockers, a coffee machine and a mini fridge. Footsteps echo through the thin walls.");
-        serviceTunnel = new Room("are under dim lights that hang over pipes and cables. OLd crates line the walls, this tunnel connects hidden zones beneath the museum.");
-        janitorCloset = new Room("see buckets, mops and cleaning supplies in tight quarters. An old door behind stacked carts is interesting.");
-        deliveryDock = new Room("see wide loading doors and a rubber-rimmed ramp open to the street. A delivery van often idles outside while staff have a smoke");
+        regaliaGallery = new Room("see a glittering hall of crown jewels and diadems behind glass cases. Spotlights and no public make this the obvious prize zone.", regaliaGalleryItems);
+        mastersGallery = new Room("are in long gallery of paintings: tourists pause before masterpieces while guards linger at doorways. The steady flow of foot-traffic provides cover.", masterGalleryItems);
+        securityRoom = new Room("enter the control room. Monitors line the walls, each screen showing CCTV feeds of corridors, galleries, and exterior walls.", securityItems);
+        guardRoom = new Room("enter a small break room with lockers, a coffee machine and a mini fridge. Footsteps echo through the thin walls.", guardRoomItems);
+        serviceTunnel = new Room("are under dim lights that hang over pipes and cables. OLd crates line the walls, this tunnel connects hidden zones beneath the museum.", tunnelRoomItems);
+        janitorCloset = new Room("see buckets, mops and cleaning supplies in tight quarters. An old door behind stacked carts is interesting.", janitorRoomItems);
+        deliveryDock = new Room("see wide loading doors and a rubber-rimmed ramp open to the street. A delivery van often idles outside while staff have a smoke", dockItems);
         garden = new Room("are surrounded by hedges cut into formal shapes, a silent fountain and statues under lights.");
-        secretPassage = new Room("enter a hidden passage, a narrow corridor with a low ceiling.");
-        vip = new Room("are impressed by luxurious sofas and low tables, champagne flutes and private doors to the gallery. Guests in tuxedos are quietly monitored by nearby security.");
-        basementTunnel = new Room("are in a dim underground garage: engine rumble, an exit ramp to the street and the faint hum of air-conditioning.");
+        secretPassage = new Room("enter a hidden passage, a narrow corridor with a low ceiling and no light.", passageItems);
+        vip = new Room("are impressed by luxurious sofas and low tables, champagne flutes and private doors to the gallery. Guests in tuxedos are quietly monitored by nearby security.", vipItems);
+        basementTunnel = new Room("are in a dim underground garage: engine rumble, an exit ramp to the street and the faint hum of air-conditioning.", basementItems);
 
 
         balcony.setExit("north", regaliaGallery);
@@ -59,8 +71,8 @@ public class ZorkULGame {
         lobby.setExit("west", outside);
         lobby.setExit("east", mastersGallery);
         lobby.setExit("south", vip);
-        lobby.setDetails("The sheer amount of people would make it easy to blend in. A keycard is on the ground");
-
+        lobby.setDetails("The sheer amount of people would make it easy to blend in. Whats that on the ground?");
+        lobbyItems.add(KeyCard);
 
         regaliaGallery.setExit("north",mastersGallery);
         regaliaGallery.setExit("south", balcony);
@@ -82,7 +94,7 @@ public class ZorkULGame {
         guardRoom.setExit("west", securityRoom);
         guardRoom.setExit("north", janitorCloset );
         guardRoom.setDetails("Half empty coffee cups are scattered on the counter, a card game is waiting to be finished. Lockers line the wall—one hangs ajar.");
-
+        guardRoomItems.add(Uniform);
 
         janitorCloset.setExit("south", guardRoom);
         janitorCloset.setExit("north", serviceTunnel);
@@ -136,7 +148,7 @@ public class ZorkULGame {
 
     private void printWelcome() {
         System.out.println();
-        System.out.println("Welcome to the University adventure!");
+        System.out.println("Welcome to Rob the Louvre!");
         System.out.println("Type 'help' if you need help.");
         System.out.println();
         System.out.println(player.getCurrentRoom().getLongDescription());
@@ -169,7 +181,7 @@ public class ZorkULGame {
                     System.out.println(player.pickUpItem(pickupItem));
                 }
                 break;
-            case "inventory":
+            case "inventory": // plan on displaying inventory whole time anyway
                 System.out.println("Inventory:");
                 for (Item item : player.getInventory()) {
                     System.out.println(item.getName());

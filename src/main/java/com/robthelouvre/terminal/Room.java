@@ -54,7 +54,7 @@ public class Room {
             return "Nothing no see here";
         }
         if (getItems().size() == 1) {
-            return "I see a " + getItems().getFirst().getName() + "!";
+            return "Is that... a " + getItems().getFirst().getName() + "!";
         }
         itemsList.append("I see ");
         for(int item = 0; item < getItems().size() - 1; item++) {
