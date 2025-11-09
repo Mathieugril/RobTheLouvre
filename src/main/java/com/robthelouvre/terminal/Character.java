@@ -2,7 +2,7 @@ package com.robthelouvre.terminal;
 
 import java.util.ArrayList;
 
-public class Character {
+public abstract class Character {
     private String name;
     private Room currentRoom;
     private ArrayList<Item> inventory;
@@ -51,4 +51,6 @@ public class Character {
         inventory.remove(item);
         System.out.println("Dropped " + item.getName() + "!");
     }
+
+    public abstract void behavior();
 }

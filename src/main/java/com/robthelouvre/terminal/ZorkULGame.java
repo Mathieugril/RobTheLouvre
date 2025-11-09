@@ -51,7 +51,7 @@ public class ZorkULGame {
 
         outside = new Room("are out of the Louvre");
         balcony = new Room("stand on a narrow balcony above the riverside façade and gardens. The cherry picker sits below, beside a large tree; a glass window ahead leads into the museum's upper wing.");
-        lobby = new Room("are in the grand pyramid lobby as it pulses with visitors and guards. Ticket desks, security scanners and the echo of footsteps fill the space.",  lobbyItems);
+        lobby = new Room("are in the grand pyramid lobby. Ticket desks, security scanners and the echo of footsteps fill the space.",  lobbyItems);
         regaliaGallery = new Room("see a glittering hall of crown jewels and diadems behind glass cases. Spotlights and no public make this the obvious prize zone.", regaliaGalleryItems);
         mastersGallery = new Room("are in long gallery of paintings: tourists pause before masterpieces while guards linger at doorways. The steady flow of foot-traffic provides cover.", masterGalleryItems);
         securityRoom = new Room("enter the control room. Monitors line the walls, each screen showing CCTV feeds of corridors, galleries, and exterior walls.", securityItems);
@@ -129,9 +129,10 @@ public class ZorkULGame {
 
 
 
+        ArrayList<Item> henryIn = new ArrayList<Item>();
+        player = new User("player", balcony );
+        Guards guard1 = new Guards("Henry", lobby, henryIn);
 
-
-                player = new Character("player", balcony );
     }
 
 
