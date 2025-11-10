@@ -131,13 +131,19 @@ public class ZorkULGame {
         vip.setExit("north", lobby, true);
         vip.setDetails("Obnoxious tones and low lighting make these people and easy target, but be careful of the guards.");
 
-        player = new User("player", lobby);
 
+        player = new User("player", lobby);
 
         Guards henry = new Guards("Henry", lobby);
         henry.getInventory().add(KeyCard);
         henry.getInventory().add(Gum);
         henry.getInventory().add(Smokes);
+
+        Guards staff1 = new Guards("Gerard", deliveryDock);
+        Guards staff2 = new Guards("Jean", deliveryDock);
+        Guards staff3 = new Guards("David", deliveryDock);
+        Guards staff4 = new Guards("Patrice", deliveryDock);
+        Guards staff5 = new Guards("Jude", deliveryDock);
 
         Character.addCharacter(player);
         Character.addCharacter(henry);
@@ -146,10 +152,13 @@ public class ZorkULGame {
             lobby.setExit("south", vip, true);
             mastersGallery.setExit("south", regaliaGallery, true);
             regaliaGallery.setExit("north", mastersGallery , true);
-          //  regaliaGallery.setExit("east", securityRoom , true);
             securityRoom.setExit("east", guardRoom  , true);
-          //  securityRoom.setExit("west", regaliaGallery  , true);
             deliveryDock.setExit("north", basementTunnel, true);
+        }
+        if (player.hasItem("Keycard") && (player.hasItem("Uniform"))) {
+              regaliaGallery.setExit("east", securityRoom , true);
+              securityRoom.setExit("west", regaliaGallery  , true);
+              guardRoom.setExit("west", securityRoom, true);
         }
 
     }
