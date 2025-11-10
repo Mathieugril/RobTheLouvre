@@ -56,6 +56,7 @@ public class Room {
     public boolean isOpen() { return access; }
     public void setOpen(boolean open) { this.access = open; }
 
+
     public void setExit(String direction,Room neighbor) {
         exits.put(direction, neighbor);
     }

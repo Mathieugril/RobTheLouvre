@@ -209,6 +209,8 @@ public class ZorkULGame {
                 break;
             case "pickpocket":
                 steal(command);
+               // System.out.println(player.getCurrentRoom().searchRoom());
+                System.out.println("\nAll Exits: " + player.getCurrentRoom().getExitString());
                 break;
             case "quit":
                 if (command.hasSecondWord()) {
@@ -272,6 +274,14 @@ public class ZorkULGame {
         System.out.println("There is no one named " + choice + " here to steal from.");
             }
 
+    public boolean hasItem(String itemName) {
+        for (Item item : player.getInventory()) {
+            if (item.getName().equalsIgnoreCase(itemName)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 
     private void goRoom(Command command) {
@@ -284,13 +294,20 @@ public class ZorkULGame {
 
         Room nextRoom = player.getCurrentRoom().getExit(direction);
 
-        if (nextRoom == null) {
-            System.out.println("There is no door!");
-        } else {
+
+            if (player.hasItem("Keycard")) {
+                player.getCurrentRoom().setExitOpen(direction, true);
+                System.out.println("Keycard opens the door");
+                nextRoom = player.getCurrentRoom().getExit(direction); // try again now that it's open
+            }  if (nextRoom == null) {
+                System.out.println("You cant go in there yet");
+            } else {
             player.setCurrentRoom(nextRoom);
             System.out.println(player.getCurrentRoom().getLongDescription());
         }
-    }
+
+}
+
 
     private void details() {
         System.out.println(player.getCurrentRoom().inspect());

@@ -39,6 +39,12 @@ public abstract class Character {
     public ArrayList<Item> getInventory() {
         return inventory;
     }
+    public boolean hasItem(String itemName) {
+        for (Item it : inventory) {
+            if (it.getName().equalsIgnoreCase(itemName)) return true;
+        }
+        return false;
+    }
 
     public String pickUpItem(Item item) {
             currentRoom.removeItem(item);
