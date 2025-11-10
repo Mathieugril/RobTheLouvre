@@ -69,12 +69,12 @@ public class ZorkULGame {
         basementTunnel = new Room("are in a dim underground garage: engine rumble, an exit ramp to the street and the faint hum of air-conditioning.", basementItems);
 
 
-        balcony.setExit("north", regaliaGallery);
-        balcony.setExit("down", garden);
+        balcony.setExit("north", regaliaGallery, true);
+        balcony.setExit("down", garden, true);
         balcony.setDetails("Scuffed paint marks the window frame; the latch looks old and might give with some force.");
 
-        lobby.setExit("west", outside);
-        lobby.setExit("east", mastersGallery);
+        lobby.setExit("west", outside, true);
+        lobby.setExit("east", mastersGallery, true);
         lobby.setExit("south", vip);
         lobby.setDetails("The sheer amount of people would make it easy to blend in. You see a guard not paying attention. His name badge displays 'Henry Dumoulin'");
        // lobbyItems.add(KeyCard);
@@ -87,7 +87,7 @@ public class ZorkULGame {
 
 
         mastersGallery.setExit("south",regaliaGallery);
-        mastersGallery.setExit("west", lobby);
+        mastersGallery.setExit("west", lobby, true);
         mastersGallery.setDetails("The paintings would be a good score but way to many people here. The guards seem to be talking about something over the radio to each-other");
 
 
@@ -97,38 +97,38 @@ public class ZorkULGame {
 
 
         guardRoom.setExit("west", securityRoom);
-        guardRoom.setExit("north", janitorCloset );
+        guardRoom.setExit("north", janitorCloset, true );
         guardRoom.setDetails("Half empty coffee cups are scattered on the counter, a card game is waiting to be finished. Lockers line the wall—one hangs ajar.");
         guardRoomItems.add(Uniform);
 
         janitorCloset.setExit("south", guardRoom);
-        janitorCloset.setExit("north", serviceTunnel);
+        janitorCloset.setExit("north", serviceTunnel, true);
         janitorCloset.setDetails("The cramped closet smells of bleach. An old, taped-up door behind stacked carts is interesting.");
-       // janitorCloset.setExit("east", secretPassage);
+        janitorCloset.setExit("east", secretPassage);
 
 
-        serviceTunnel.setExit("north", deliveryDock);
-        serviceTunnel.setExit("south", janitorCloset);
+        serviceTunnel.setExit("north", deliveryDock, true);
+        serviceTunnel.setExit("south", janitorCloset, true);
         serviceTunnel.setDetails("Pipes hiss and ducts vibrate above. Not much to see here it seems.");
 
         deliveryDock.setExit("north", basementTunnel);
-        deliveryDock.setExit("south", serviceTunnel);
+        deliveryDock.setExit("south", serviceTunnel, true);
         deliveryDock.setDetails("Although quite open there is an annoying amount of guards around. It would be foolish to try anything without a disguise.");
 
         basementTunnel.setExit("north", outside);
-        basementTunnel.setExit("south", deliveryDock);
+        basementTunnel.setExit("south", deliveryDock,true);
         basementTunnel.setDetails("Vans line the side wall. If done right they would be easy to hot wire in order to escape into the city.");
 
-        garden.setExit("up", balcony);
+        garden.setExit("up", balcony, true);
         garden.setExit("south", outside);
-      //  garden.setExit("east", secretPassage);
+        garden.setExit("east", secretPassage);
         garden.setDetails("A beaten path in the corner catches your eye. An old seemingly locked door hides at the end of the path.");
 
         secretPassage.setExit("north", janitorCloset);
         secretPassage.setExit("south", garden);
         secretPassage.setDetails("Old blueprints and staff scribbles mark this 'staff only' route.");
 
-        vip.setExit("north", lobby);
+        vip.setExit("north", lobby, true);
         vip.setDetails("Obnoxious tones and low lighting make these people and easy target, but be careful of the guards.");
 
         player = new User("player", lobby);

@@ -8,14 +8,13 @@ public class Room {
     private String details;
     private ArrayList<Item> items;
     private Map<String, Boolean> exitStates = new HashMap<>();
-    private boolean access;
+    private boolean access = false;
 
     public Room(String description) {
         this.description = description;
         this.details = description;
         exits = new HashMap<>();
         this.items = new ArrayList<Item>();
-        this.exitStates = exitStates;
 
     }
 
@@ -25,7 +24,6 @@ public class Room {
         exits = new HashMap<>();
         this.items = items;
         this.access = true;
-        this.exitStates = exitStates;
     }
 
 
@@ -132,6 +130,7 @@ public class Room {
     public ArrayList<Item> getItems() {
         return items;
     }
+
     public String getExitString() {
         StringBuilder sb = new StringBuilder();
         for (String direction : exits.keySet()) {
@@ -149,8 +148,7 @@ public class Room {
             sb.append(String.join(", ", openDirs));
         }
 
-
-        return "You " + description + "\nExits: " + getExitString()+ "\nOpen exits "+ sb.toString();
+        return "You " + description + "\nExits: " + getExitString()+ "\nOpen exits: "+ sb.toString();
     }
 
 
