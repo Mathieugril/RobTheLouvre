@@ -186,7 +186,7 @@ public class ZorkULGame {
                 System.out.println(player.getCurrentRoom().searchRoom());
                 break;
             case "pick":
-                Item pickupItem = Items.checkItemAvailable(command.getSecondWord(), player.getCurrentRoom().getItems());
+                Item pickupItem = Item.checkItemAvailable(command.getSecondWord(), player.getCurrentRoom().getItems());
                 if (pickupItem == null) {
                     System.out.println("I can't find that item!");
                 } else {
@@ -200,7 +200,7 @@ public class ZorkULGame {
                 }
                 break;
             case "drop":
-                Item dropItem = Items.checkItemAvailable(command.getSecondWord(), player.getInventory());
+                Item dropItem = Item.checkItemAvailable(command.getSecondWord(), player.getInventory());
                 if (dropItem == null) {
                     System.out.println("I don't have that item!");
                 } else {

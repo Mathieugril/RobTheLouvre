@@ -1,5 +1,7 @@
 package com.robthelouvre.terminal;
 
+import java.util.ArrayList;
+
 public class Item {
     private String description;
     private String name;
@@ -11,6 +13,15 @@ public class Item {
         this.name = name;
         this.description = description;
         this.isVisible = true;
+    }
+    public static Item checkItemAvailable(String itemName, ArrayList<Item> items) {
+        boolean itemAvailable = false;
+        for (Item item : items) {
+            if (item.getName().toLowerCase().equals(itemName)) {
+                return item;
+            }
+        }
+        return null;
     }
 
     public String getDescription() {
