@@ -30,7 +30,19 @@ public class Room {
     }
 
     public String inspect() {
-        return details;
+
+        StringBuilder list = new StringBuilder();
+        boolean found = false;
+
+        for(Character i : Character.getAllCharacters()) {
+            if(i.getCurrentRoom().equals(this)) {
+                list.append(" - ").append(i.getName()).append("\n");
+                found = true;
+            }
+        }
+        return "Who is here: \n" + list + details;
+      //  return details;
+
     }
 
 
@@ -90,4 +102,20 @@ public class Room {
     public String getLongDescription() {
         return "You " + description + "\nExits: " + getExitString();
     }
+
+  /*  public static String findCharacters() {
+        StringBuilder list = new StringBuilder();
+        boolean found = false;
+
+        for(Character i : Character.getAllCharacters()) {
+            if(i.getCurrentRoom().equals(player.getCurrentRoom())) {
+                list.append(i.getName()).append("\n");
+                found = true;
+            }
+        }
+        return "Who is here: " + list;
+
+    } */
+
+
 }
