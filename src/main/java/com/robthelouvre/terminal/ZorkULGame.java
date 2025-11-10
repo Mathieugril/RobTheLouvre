@@ -32,7 +32,7 @@ public class ZorkULGame {
         Room balcony, outside, lobby, regaliaGallery, mastersGallery, securityRoom, guardRoom, serviceTunnel, janitorCloset, deliveryDock, garden, secretPassage,
                 vip, basementTunnel;
 
-        Item KeyCard = new Item("keycard", "Might come in handy.");
+        Item KeyCard = new Item("Keycard", "Might come in handy.");
         Item Uniform = new Item("Guards Uniform", "This can be used to blend in.");
         Item Gum = new Item("Hollywood Chewing Gum", "Not much use other then fresh breath");
         Item Smokes = new Item("Marlboro Reds", "Be helping him taking these");
@@ -256,23 +256,21 @@ public class ZorkULGame {
 
                 Item stolenItem = null;
                 for (Item item : i.getInventory()) {
-                    if(!take.equalsIgnoreCase(item.getName())) {
-                       System.out.print(i.getName() + " does not have " + take);
+                    if (!take.equalsIgnoreCase(item.getName())) {
+                        System.out.print(i.getName() + " does not have " + take);
                         break;
                     }
                     stolenItem = item;
                     i.getInventory().remove(stolenItem);
                     player.getInventory().add(stolenItem);
 
-                    System.out.println("You stole the " + stolenItem.getName() + " from " + i.getName() + "!");
+                    System.out.println("You stole the " + stolenItem.getName() + " from " + i.getName() + "!\n" + item.getDescription());
                     return;
                 }
-            }// else {
-             //   System.out.println("There is no one named " + choice + " here to steal from.");
-           // }
-                }
             }
-
+               }
+        System.out.println("There is no one named " + choice + " here to steal from.");
+            }
 
 
 
