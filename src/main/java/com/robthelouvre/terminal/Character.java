@@ -53,4 +53,14 @@ public abstract class Character {
     }
 
     public abstract void behavior();
+
+    private static ArrayList<Character> allCharacters = new ArrayList<>();
+
+    public static void addCharacter(Character c) {
+        allCharacters.add(c);
+    }
+
+    public static ArrayList<Character> getAllCharacters() {
+        return allCharacters;
+    }
 }

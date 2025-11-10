@@ -16,10 +16,12 @@ emphasizing exploration and simple command-driven gameplay
 package com.robthelouvre.terminal;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class ZorkULGame {
     private Parser parser;
     private Character player;
+    Scanner ise = new Scanner(System.in);
 
     public ZorkULGame() {
         createRooms();
@@ -47,6 +49,8 @@ public class ZorkULGame {
         ArrayList<Item> passageItems = new ArrayList<Item>();
         ArrayList<Item> vipItems = new ArrayList<Item>();
         ArrayList<Item> basementItems = new ArrayList<Item>();
+
+
 
 
         outside = new Room("are out of the Louvre");
@@ -130,8 +134,13 @@ public class ZorkULGame {
 
 
         ArrayList<Item> henryIn = new ArrayList<Item>();
-        player = new User("player", balcony );
-        Guards guard1 = new Guards("Henry", lobby, henryIn);
+        ArrayList<Item> pocket = new ArrayList<Item>();
+        player = new User("player", balcony, pocket);
+        Guards henry = new Guards("Henry", lobby, henryIn);
+        henryIn.add(KeyCard);
+
+      Character.addCharacter(player);
+      Character.addCharacter(henry);
 
     }
 
@@ -197,6 +206,9 @@ public class ZorkULGame {
                     player.dropItem(dropItem);
                 }
                 break;
+            case "pickpocket":
+                steal(command);
+                break;
             case "quit":
                 if (command.hasSecondWord()) {
                     System.out.println("Quit what?");
@@ -216,6 +228,52 @@ public class ZorkULGame {
         System.out.print("Your command words are: ");
         parser.showCommands();
     }
+
+    private void steal(Command command) {
+        if (!command.hasSecondWord()) {
+            System.out.println("Steal what?");
+            return;
+        }
+
+        String choice = command.getSecondWord();
+
+        for (Character i : Character.getAllCharacters()) {
+            if (choice.equalsIgnoreCase(i.getName())) {
+
+                if (i.getInventory().isEmpty()) {
+                    System.out.println(i.getName() + " has nothing to steal.");
+                    return;
+                }
+
+                System.out.println(i.getName() + " has:");
+                for (Item item : i.getInventory()) {
+                    System.out.println(" - " + item.getName());
+                }
+
+                System.out.print("What would you like to take?");
+                String take = ise.nextLine();
+
+                Item stolenItem = null;
+                for (Item item : i.getInventory()) {
+                    if(take.equalsIgnoreCase(item.getName())) {
+                        stolenItem = item;
+                        break;
+                    }
+                    i.getInventory().remove(stolenItem);
+                    player.getInventory().add(stolenItem);
+
+                    System.out.println("You stole the " + stolenItem.getName() + " from " + i.getName() + "!");
+                    return;
+                }
+            }
+
+            System.out.println("There is no one named " + choice + " here to steal from.");
+
+                }
+            }
+
+
+
 
     private void goRoom(Command command) {
         if (!command.hasSecondWord()) {
