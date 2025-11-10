@@ -40,7 +40,7 @@ public class Room {
                 found = true;
             }
         }
-        return "Who is here: \n" + list + details;
+        return details + "\nWho is here: \n" + list;
       //  return details;
 
     }
@@ -63,7 +63,7 @@ public class Room {
     public String searchRoom() {
         StringBuilder itemsList = new StringBuilder();
         if (getItems().isEmpty()) {
-            return "Nothing no see here";
+            return "No items out in the open";
         }
         if (getItems().size() == 1) {
             return "Is that... a " + getItems().getFirst().getName() + "!";

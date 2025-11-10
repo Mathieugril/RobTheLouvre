@@ -32,16 +32,16 @@ public class ZorkULGame {
         Room balcony, outside, lobby, regaliaGallery, mastersGallery, securityRoom, guardRoom, serviceTunnel, janitorCloset, deliveryDock, garden, secretPassage,
                 vip, basementTunnel;
 
+        Item KeyCard = new Item("keycard", "Might come in handy.");
+        Item Uniform = new Item("Guards Uniform", "This can be used to blend in.");
+        Item Gum = new Item("Hollywood Chewing Gum", "Not much use other then fresh breath");
+        Item Smokes = new Item("Marlboro Reds", "Be helping him taking these");
 
         ArrayList<Item> lobbyItems = new ArrayList<Item>();
-        Item KeyCard = new Item("keycard", "Might come in handy.");
-
-        ArrayList<Item> guardRoomItems = new ArrayList<Item>();
-        Item Uniform = new Item("Guards Uniform", "This can be used to blend in.");
-
         ArrayList<Item> regaliaGalleryItems = new ArrayList<Item>();
         ArrayList<Item> masterGalleryItems = new ArrayList<Item>();
         ArrayList<Item> securityItems = new ArrayList<Item>();
+        ArrayList<Item> guardRoomItems = new ArrayList<Item>();
         ArrayList<Item> tunnelRoomItems = new ArrayList<Item>();
 
         ArrayList<Item> janitorRoomItems = new ArrayList<Item>();
@@ -76,8 +76,8 @@ public class ZorkULGame {
         lobby.setExit("west", outside);
         lobby.setExit("east", mastersGallery);
         lobby.setExit("south", vip);
-        lobby.setDetails("The sheer amount of people would make it easy to blend in. Whats that on the ground?");
-        lobbyItems.add(KeyCard);
+        lobby.setDetails("The sheer amount of people would make it easy to blend in. You see a guard not paying attention. His name badge displays 'Henry Dumoulin'");
+       // lobbyItems.add(KeyCard);
 
         regaliaGallery.setExit("north",mastersGallery);
         regaliaGallery.setExit("south", balcony);
@@ -131,16 +131,17 @@ public class ZorkULGame {
         vip.setExit("north", lobby);
         vip.setDetails("Obnoxious tones and low lighting make these people and easy target, but be careful of the guards.");
 
+        player = new User("player", lobby);
 
 
-        ArrayList<Item> henryIn = new ArrayList<Item>();
-        ArrayList<Item> pocket = new ArrayList<Item>();
-        player = new User("player", balcony, pocket);
-        Guards henry = new Guards("Henry", lobby, henryIn);
-        henryIn.add(KeyCard);
+        Guards henry = new Guards("Henry", lobby);
+        henry.getInventory().add(KeyCard);
+        henry.getInventory().add(Gum);
+        henry.getInventory().add(Smokes);
 
-      Character.addCharacter(player);
-      Character.addCharacter(henry);
+        Character.addCharacter(player);
+        Character.addCharacter(henry);
+
 
     }
 
@@ -250,25 +251,25 @@ public class ZorkULGame {
                     System.out.println(" - " + item.getName());
                 }
 
-                System.out.print("What would you like to take?");
+                System.out.print("What would you like to take? ");
                 String take = ise.nextLine();
 
                 Item stolenItem = null;
                 for (Item item : i.getInventory()) {
-                    if(take.equalsIgnoreCase(item.getName())) {
-                        stolenItem = item;
+                    if(!take.equalsIgnoreCase(item.getName())) {
+                       System.out.print(i.getName() + " does not have " + take);
                         break;
                     }
+                    stolenItem = item;
                     i.getInventory().remove(stolenItem);
                     player.getInventory().add(stolenItem);
 
                     System.out.println("You stole the " + stolenItem.getName() + " from " + i.getName() + "!");
                     return;
                 }
-            }
-
-            System.out.println("There is no one named " + choice + " here to steal from.");
-
+            }// else {
+             //   System.out.println("There is no one named " + choice + " here to steal from.");
+           // }
                 }
             }
 
