@@ -101,7 +101,7 @@ public class ZorkULGame {
         guardRoom.setDetails("Half empty coffee cups are scattered on the counter, a card game is waiting to be finished. Lockers line the wall—one hangs ajar.");
         guardRoomItems.add(Uniform);
 
-        janitorCloset.setExit("south", guardRoom);
+        janitorCloset.setExit("south", guardRoom, true);
         janitorCloset.setExit("north", serviceTunnel, true);
         janitorCloset.setDetails("The cramped closet smells of bleach. An old, taped-up door behind stacked carts is interesting.");
         janitorCloset.setExit("east", secretPassage);
@@ -142,6 +142,15 @@ public class ZorkULGame {
         Character.addCharacter(player);
         Character.addCharacter(henry);
 
+        if (player.hasItem("Keycard")) {
+            lobby.setExit("south", vip, true);
+            mastersGallery.setExit("south", regaliaGallery, true);
+            regaliaGallery.setExit("north", mastersGallery , true);
+          //  regaliaGallery.setExit("east", securityRoom , true);
+            securityRoom.setExit("east", guardRoom  , true);
+          //  securityRoom.setExit("west", regaliaGallery  , true);
+            deliveryDock.setExit("north", basementTunnel, true);
+        }
 
     }
 
@@ -272,7 +281,12 @@ public class ZorkULGame {
             }
                }
         System.out.println("There is no one named " + choice + " here to steal from.");
-            }
+
+      //  if (player.hasItem("Keycard")){
+
+
+        }
+
 
     public boolean hasItem(String itemName) {
         for (Item item : player.getInventory()) {
@@ -298,7 +312,7 @@ public class ZorkULGame {
             if (player.hasItem("Keycard")) {
                 player.getCurrentRoom().setExitOpen(direction, true);
                 System.out.println("Keycard opens the door");
-                nextRoom = player.getCurrentRoom().getExit(direction); // try again now that it's open
+                nextRoom = player.getCurrentRoom().getExit(direction);
             }  if (nextRoom == null) {
                 System.out.println("You cant go in there yet");
             } else {
