@@ -54,19 +54,19 @@ public class ZorkULGame {
 
 
         outside = new Room("are out of the Louvre");
-        balcony = new Room("stand on a narrow balcony above the riverside façade and gardens. The cherry picker sits below, beside a large tree; a glass window ahead leads into the museum's upper wing.");
-        lobby = new Room("are in the grand pyramid lobby. Ticket desks, security scanners and the echo of footsteps fill the space.",  lobbyItems);
-        regaliaGallery = new Room("see a glittering hall of crown jewels and diadems behind glass cases. Spotlights and no public make this the obvious prize zone.", regaliaGalleryItems);
-        mastersGallery = new Room("are in long gallery of paintings: tourists pause before masterpieces while guards linger at doorways. The steady flow of foot-traffic provides cover.", masterGalleryItems);
-        securityRoom = new Room("enter the control room. Monitors line the walls, each screen showing CCTV feeds of corridors, galleries, and exterior walls.", securityItems);
-        guardRoom = new Room("enter a small break room with lockers, a coffee machine and a mini fridge. Footsteps echo through the thin walls.", guardRoomItems);
-        serviceTunnel = new Room("are under dim lights that hang over pipes and cables. OLd crates line the walls, this tunnel connects hidden zones beneath the museum.", tunnelRoomItems);
-        janitorCloset = new Room("see buckets, mops and cleaning supplies in tight quarters. An old door behind stacked carts is interesting.", janitorRoomItems);
-        deliveryDock = new Room("see wide loading doors and a rubber-rimmed ramp open to the street. A delivery van often idles outside while staff have a smoke", dockItems);
-        garden = new Room("are surrounded by hedges cut into formal shapes, a silent fountain and statues under lights.");
-        secretPassage = new Room("enter a hidden passage, a narrow corridor with a low ceiling and no light.", passageItems);
-        vip = new Room("are impressed by luxurious sofas and low tables, champagne flutes and private doors to the gallery. Guests in tuxedos are quietly monitored by nearby security.", vipItems);
-        basementTunnel = new Room("are in a dim underground garage: engine rumble, an exit ramp to the street and the faint hum of air-conditioning.", basementItems);
+        balcony = new Room(Text.Descriptions.BALCONY);
+        lobby = new Room(Text.Descriptions.LOBBY, lobbyItems);
+        regaliaGallery = new Room(Text.Descriptions.REGALIA, regaliaGalleryItems);
+        mastersGallery = new Room(Text.Descriptions.MASTERS, masterGalleryItems);
+        securityRoom = new Room(Text.Descriptions.SECURITY, securityItems);
+        guardRoom = new Room(Text.Descriptions.GUARDS, guardRoomItems);
+        serviceTunnel = new Room(Text.Descriptions.SERVICE, tunnelRoomItems);
+        janitorCloset = new Room(Text.Descriptions.JANITOR, janitorRoomItems);
+        deliveryDock = new Room(Text.Descriptions.DELIVERY, dockItems);
+        garden = new Room(Text.Descriptions.GARDEN);
+        secretPassage = new Room(Text.Descriptions.PASSAGE, passageItems);
+        vip = new Room(Text.Descriptions.VIP, vipItems);
+        basementTunnel = new Room(Text.Descriptions.BASEMENT, basementItems);
 
 
         balcony.setExit("north", regaliaGallery, true);
@@ -142,8 +142,8 @@ public class ZorkULGame {
         Guards staff1 = new Guards("Gerard", deliveryDock);
         Guards staff2 = new Guards("Jean", deliveryDock);
         Guards staff3 = new Guards("David", deliveryDock);
-        Guards staff4 = new Guards("Patrice", deliveryDock);
-        Guards staff5 = new Guards("Jude", deliveryDock);
+        Guards staff4 = new Guards("Patrice", regaliaGallery);
+        Guards staff5 = new Guards("Jude", regaliaGallery);
 
         Character.addCharacter(player);
         Character.addCharacter(henry);
