@@ -9,6 +9,7 @@ public class Room {
     private ArrayList<Item> items;
     private Map<String, Boolean> exitStates = new HashMap<>();
     private boolean access = false;
+    private ArrayList<String> lines;
 
     public Room(String description) {
         this.description = description;
@@ -26,6 +27,15 @@ public class Room {
         this.access = true;
     }
 
+    public Room(String description, ArrayList<Item> items, ArrayList<String> lines) {
+        this.description = description;
+        this.details = description;
+        exits = new HashMap<>();
+        this.items = items;
+        this.access = true;
+        this.lines = lines;
+    }
+
 
 
 
@@ -35,17 +45,22 @@ public class Room {
     public String inspect() {
 
         StringBuilder list = new StringBuilder();
-        boolean found = false;
 
         for(Character i : Character.getAllCharacters()) {
             if(i.getCurrentRoom().equals(this)) {
                 list.append(" - ").append(i.getName()).append("\n");
-                found = true;
             }
         }
         return details + "\nWho is here: \n" + list;
       //  return details;
 
+    }
+
+    public void setLines(ArrayList<String> lines) {
+        this.lines = lines;
+    }
+    public ArrayList<String> getLines() {
+        return lines;
     }
 
     public String getDescription() {
@@ -149,7 +164,7 @@ public class Room {
             sb.append(String.join(", ", openDirs));
         }
 
-        return "You " + description + "\nExits: " + getExitString()+ "\nOpen exits: "+ sb.toString();
+        return "You " + description + "\nExits: " + getExitString()+ "\nOpen exits: "+ sb;
     }
 
 

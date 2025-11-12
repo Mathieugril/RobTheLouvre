@@ -56,7 +56,7 @@ public class ZorkULGame {
         outside = new Room("are out of the Louvre");
         balcony = new Room(Text.Descriptions.BALCONY);
         lobby = new Room(Text.Descriptions.LOBBY, lobbyItems);
-        regaliaGallery = new Room(Text.Descriptions.REGALIA, regaliaGalleryItems);
+        regaliaGallery = new Room(Text.Descriptions.REGALIA, regaliaGalleryItems, Text.Convos.regaliaConvo());
         mastersGallery = new Room(Text.Descriptions.MASTERS, masterGalleryItems);
         securityRoom = new Room(Text.Descriptions.SECURITY, securityItems);
         guardRoom = new Room(Text.Descriptions.GUARDS, guardRoomItems);
@@ -80,7 +80,7 @@ public class ZorkULGame {
        // lobbyItems.add(KeyCard);
 
         regaliaGallery.setExit("north",mastersGallery);
-        regaliaGallery.setExit("south", balcony);
+        regaliaGallery.setExit("south", balcony, true);
         regaliaGallery.setExit("east", securityRoom);
         regaliaGallery.setDetails(Text.Details.REGALIA_DET);
 
@@ -131,7 +131,7 @@ public class ZorkULGame {
         vip.setDetails(Text.Details.VIP_DET);
 
 
-        player = new User("player", lobby);
+        player = new User("player", regaliaGallery);
 
         Guards henry = new Guards("Henry", lobby);
         henry.getInventory().add(Gum);
@@ -146,13 +146,19 @@ public class ZorkULGame {
 
         Character.addCharacter(player);
         Character.addCharacter(henry);
+       // Character.addCharacter(staff1);
+       // Character.addCharacter(staff2);
+       // Character.addCharacter(staff3);
+        Character.addCharacter(staff4);
+        Character.addCharacter(staff5);
+
 
         if (player.hasItem("Keycard")) {
             lobby.setExit("south", vip, true);
             mastersGallery.setExit("south", regaliaGallery, true);
             regaliaGallery.setExit("north", mastersGallery , true);
             securityRoom.setExit("east", guardRoom  , true);
-            deliveryDock.setExit("north", basementTunnel, true);
+        //    deliveryDock.setExit("north", basementTunnel, true);
         }
         if (player.hasItem("Keycard") && (player.hasItem("Uniform"))) {
               regaliaGallery.setExit("east", securityRoom , true);
@@ -227,6 +233,11 @@ public class ZorkULGame {
             case "pickpocket":
                 steal(command);
                // System.out.println(player.getCurrentRoom().searchRoom());
+                System.out.println("\nAll Exits: " + player.getCurrentRoom().getExitString());
+
+                break;
+            case "eavesdrop":
+                listen();
                 System.out.println("\nAll Exits: " + player.getCurrentRoom().getExitString());
                 break;
             case "quit":
@@ -327,11 +338,28 @@ public class ZorkULGame {
             System.out.println(player.getCurrentRoom().getLongDescription());
         }
 
+
 }
 
 
     private void details() {
         System.out.println(player.getCurrentRoom().inspect());
+    }
+
+
+    private void listen() {
+
+        if (player.getCurrentRoom().getLines() == null) {
+            System.out.print("Nothing to hear here");
+        }
+        for (String lines : Text.Convos.regaliaConvo()) {
+            System.out.println(lines);
+            try {
+                Thread.sleep(2500);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
     }
 
 

@@ -12,12 +12,11 @@ public class CommandWords {
         validCommands.put("quit", "End the game");
         validCommands.put("help", "Show help");
         validCommands.put("inspect", "Inspect the room");
-        validCommands.put("eat", "Eat something");
-       // validCommands.put("climb", "Using a ladder");
-       // validCommands.put("eavesdrop", "Listen in on someone's conversation");
+        validCommands.put("eavesdrop", "Listen in on someone's conversation");
         validCommands.put("pickpocket", "Steal items from an unsuspecting victim");
-        //validCommands.put("open", "Open an object that interests you");
-       // validCommands.put("0", "2");
+        validCommands.put("wait", "Wait for the right time");
+        validCommands.put("tamper", "Turn the cameras on or off");
+        validCommands.put("lie", "Tell a lie to fool someone");
         validCommands.put("pick", "picks up an item");
         validCommands.put("drop", "drops item on floor");
     }

@@ -1,5 +1,7 @@
 package com.robthelouvre.terminal;
 
+import java.util.ArrayList;
+
 public class Text {
 
     public static class Descriptions {
@@ -51,4 +53,20 @@ public class Text {
         public static final String */
 
     }
-}
+
+    public static class Convos {
+            public static ArrayList<String> regaliaConvo() {
+                ArrayList<String> lines = new ArrayList<>();
+                lines.add(" Patrice: — I’m telling you, this new patrol schedule makes no sense.");
+                lines.add("     Jude: Eh, just stick to the route and keep your head down. You ever have to walk that stretch behind the garden lately?");
+                lines.add(" Patrice: Not a chance. That corner’s been shut off for years — nothing down there but dust and cobwebs.");
+                lines.add("     Jude: Don’t blame you, impossible to see a thing in there as well. I don’t fancy getting lost down there again.");
+                lines.add(" Patrice: Still, funny how they never properly bricked it up. Just left the old gate hanging open.");
+                lines.add("     Jude: Let it rot, I say. No one’s brave enough to go near it anyway.");
+                return lines;
+            }
+        }
+
+
+    }
+
