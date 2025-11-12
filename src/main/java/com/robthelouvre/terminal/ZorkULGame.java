@@ -32,10 +32,10 @@ public class ZorkULGame {
         Room balcony, outside, lobby, regaliaGallery, mastersGallery, securityRoom, guardRoom, serviceTunnel, janitorCloset, deliveryDock, garden, secretPassage,
                 vip, basementTunnel;
 
-        Item KeyCard = new Item("Keycard", "Might come in handy.");
-        Item Uniform = new Item("Guards Uniform", "This can be used to blend in.");
-        Item Gum = new Item("Hollywood Chewing Gum", "Not much use other then fresh breath");
-        Item Smokes = new Item("Marlboro Reds", "Be helping him taking these");
+        Item KeyCard = new Item("Keycard", Text.ItemDESC.KEYCARD);
+        Item Uniform = new Item("Guards Uniform", Text.ItemDESC.UNIFORM);
+        Item Gum = new Item("Hollywood Chewing Gum", Text.ItemDESC.GUM);
+        Item Smokes = new Item("Marlboro Reds", Text.ItemDESC.SMOKES);
 
         ArrayList<Item> lobbyItems = new ArrayList<Item>();
         ArrayList<Item> regaliaGalleryItems = new ArrayList<Item>();
@@ -71,72 +71,71 @@ public class ZorkULGame {
 
         balcony.setExit("north", regaliaGallery, true);
         balcony.setExit("down", garden, true);
-        balcony.setDetails("Scuffed paint marks the window frame; the latch looks old and might give with some force.");
+        balcony.setDetails(Text.Details.BALCONY_DET);
 
         lobby.setExit("west", outside, true);
         lobby.setExit("east", mastersGallery, true);
         lobby.setExit("south", vip);
-        lobby.setDetails("The sheer amount of people would make it easy to blend in. You see a guard not paying attention. His name badge displays 'Henry Dumoulin'");
+        lobby.setDetails(Text.Details.LOBBY_DET);
        // lobbyItems.add(KeyCard);
 
         regaliaGallery.setExit("north",mastersGallery);
         regaliaGallery.setExit("south", balcony);
         regaliaGallery.setExit("east", securityRoom);
-        regaliaGallery.setDetails("The is illuminated via the window and spotlights. Two guards are taking a break on a bench on the other side of the hall," +
-                                  " with all the displays it would be easy to get close without being spotted.");
+        regaliaGallery.setDetails(Text.Details.REGALIA_DET);
 
 
         mastersGallery.setExit("south",regaliaGallery);
         mastersGallery.setExit("west", lobby, true);
-        mastersGallery.setDetails("The paintings would be a good score but way to many people here. The guards seem to be talking about something over the radio to each-other");
+        mastersGallery.setDetails(Text.Details.MASTERS_DET);
 
 
         securityRoom.setExit("west",regaliaGallery);
         securityRoom.setExit("east", guardRoom);
-        securityRoom.setDetails("Screens show the camera feed of nearly the whole museum. Guards rotate in-and-out from their break room, one forgets to logout...");
+        securityRoom.setDetails(Text.Details.SECURITY_DET);
 
 
         guardRoom.setExit("west", securityRoom);
         guardRoom.setExit("north", janitorCloset, true );
-        guardRoom.setDetails("Half empty coffee cups are scattered on the counter, a card game is waiting to be finished. Lockers line the wall—one hangs ajar.");
+        guardRoom.setDetails(Text.Details.GUARD_DET);
         guardRoomItems.add(Uniform);
 
         janitorCloset.setExit("south", guardRoom, true);
         janitorCloset.setExit("north", serviceTunnel, true);
-        janitorCloset.setDetails("The cramped closet smells of bleach. An old, taped-up door behind stacked carts is interesting.");
+        janitorCloset.setDetails(Text.Details.JANITOR_DET);
         janitorCloset.setExit("east", secretPassage);
 
 
         serviceTunnel.setExit("north", deliveryDock, true);
         serviceTunnel.setExit("south", janitorCloset, true);
-        serviceTunnel.setDetails("Pipes hiss and ducts vibrate above. Not much to see here it seems.");
+        serviceTunnel.setDetails(Text.Details.SERVICE_DET);
 
         deliveryDock.setExit("north", basementTunnel);
         deliveryDock.setExit("south", serviceTunnel, true);
-        deliveryDock.setDetails("Although quite open there is an annoying amount of guards around. It would be foolish to try anything without a disguise.");
+        deliveryDock.setDetails(Text.Details.DELIVERY_DET);
 
         basementTunnel.setExit("north", outside);
         basementTunnel.setExit("south", deliveryDock,true);
-        basementTunnel.setDetails("Vans line the side wall. If done right they would be easy to hot wire in order to escape into the city.");
+        basementTunnel.setDetails(Text.Details.BASEMENT_DET);
 
         garden.setExit("up", balcony, true);
         garden.setExit("south", outside);
         garden.setExit("east", secretPassage);
-        garden.setDetails("A beaten path in the corner catches your eye. An old seemingly locked door hides at the end of the path.");
+        garden.setDetails(Text.Details.GARDEN_DET);
 
         secretPassage.setExit("north", janitorCloset);
         secretPassage.setExit("south", garden);
-        secretPassage.setDetails("Old blueprints and staff scribbles mark this 'staff only' route.");
+        secretPassage.setDetails(Text.Details.PASSAGE_DET);
 
         vip.setExit("north", lobby, true);
-        vip.setDetails("Obnoxious tones and low lighting make these people and easy target, but be careful of the guards.");
+        vip.setDetails(Text.Details.VIP_DET);
 
 
         player = new User("player", lobby);
 
         Guards henry = new Guards("Henry", lobby);
-        henry.getInventory().add(KeyCard);
         henry.getInventory().add(Gum);
+        henry.getInventory().add(KeyCard);
         henry.getInventory().add(Smokes);
 
         Guards staff1 = new Guards("Gerard", deliveryDock);
@@ -276,24 +275,23 @@ public class ZorkULGame {
 
                 Item stolenItem = null;
                 for (Item item : i.getInventory()) {
-                    if (!take.equalsIgnoreCase(item.getName())) {
-                        System.out.print(i.getName() + " does not have " + take);
+                    if (take.equalsIgnoreCase(item.getName())) {
+                        stolenItem = item;
                         break;
                     }
-                    stolenItem = item;
+                }
+                if (stolenItem != null) {
                     i.getInventory().remove(stolenItem);
                     player.getInventory().add(stolenItem);
-
-                    System.out.println("You stole the " + stolenItem.getName() + " from " + i.getName() + "!\n" + item.getDescription());
+                    System.out.println("You stole the " + stolenItem.getName() + " from " + i.getName() + "!\n" + stolenItem.getDescription());
+                    return;
+                } else {
+                    System.out.print(i.getName() + " does not have " + take);
                     return;
                 }
             }
-               }
+            }
         System.out.println("There is no one named " + choice + " here to steal from.");
-
-      //  if (player.hasItem("Keycard")){
-
-
         }
 
 
