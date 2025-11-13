@@ -21,6 +21,9 @@ import java.util.Scanner;
 public class ZorkULGame {
     private Parser parser;
     private Character player;
+    private Room balcony, outside, lobby, regaliaGallery, mastersGallery,
+            securityRoom, guardRoom, serviceTunnel, janitorCloset,
+            deliveryDock, garden, secretPassage, vip, basementTunnel;
     Scanner ise = new Scanner(System.in);
 
     public ZorkULGame() {
@@ -28,9 +31,9 @@ public class ZorkULGame {
         parser = new Parser();
     }
 
-    private void createRooms() {
-        Room balcony, outside, lobby, regaliaGallery, mastersGallery, securityRoom, guardRoom, serviceTunnel, janitorCloset, deliveryDock, garden, secretPassage,
-                vip, basementTunnel;
+    public void createRooms() {
+       // Room balcony, outside, lobby, regaliaGallery, mastersGallery, securityRoom, guardRoom, serviceTunnel, janitorCloset, deliveryDock, garden, secretPassage,
+      //          vip, basementTunnel;
 
         Item KeyCard = new Item("Keycard", Text.ItemDESC.KEYCARD);
         Item Uniform = new Item("Guards Uniform", Text.ItemDESC.UNIFORM);
@@ -131,7 +134,7 @@ public class ZorkULGame {
         vip.setDetails(Text.Details.VIP_DET);
 
 
-        player = new User("player", regaliaGallery);
+        player = new User("player", lobby);
 
         Guards henry = new Guards("Henry", lobby);
         henry.getInventory().add(Gum);
@@ -177,6 +180,21 @@ public class ZorkULGame {
         while (!finished) {
             Command command = parser.getCommand();
             finished = processCommand(command);
+
+            if (player.hasItem("Keycard")) {
+                lobby.setExit("south", vip, true);
+                mastersGallery.setExit("south", regaliaGallery, true);
+                regaliaGallery.setExit("north", mastersGallery , true);
+                securityRoom.setExit("east", guardRoom  , true);
+                //    deliveryDock.setExit("north", basementTunnel, true);
+            }
+            if (player.hasItem("Keycard") && (player.hasItem("Uniform"))) {
+                regaliaGallery.setExit("east", securityRoom , true);
+                securityRoom.setExit("west", regaliaGallery  , true);
+                guardRoom.setExit("west", securityRoom, true);
+                deliveryDock.setExit("north", basementTunnel, true);
+            }
+
         }
         System.out.println("Thank you for playing. Goodbye.");
     }
@@ -303,18 +321,8 @@ public class ZorkULGame {
             }
             }
         System.out.println("There is no one named " + choice + " here to steal from.");
+
         }
-
-
-    public boolean hasItem(String itemName) {
-        for (Item item : player.getInventory()) {
-            if (item.getName().equalsIgnoreCase(itemName)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
 
     private void goRoom(Command command) {
         if (!command.hasSecondWord()) {
@@ -352,6 +360,7 @@ public class ZorkULGame {
         if (player.getCurrentRoom().getLines() == null) {
             System.out.print("Nothing to hear here");
         }
+
         for (String lines : Text.Convos.regaliaConvo()) {
             System.out.println(lines);
             try {

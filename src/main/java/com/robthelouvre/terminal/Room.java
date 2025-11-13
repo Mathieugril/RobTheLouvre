@@ -161,7 +161,7 @@ public class Room {
         if (openDirs.isEmpty()) {
             sb.append("none");
         } else {
-            sb.append(String.join(", ", openDirs));
+            sb.append(openDirs);
         }
 
         return "You " + description + "\nExits: " + getExitString()+ "\nOpen exits: "+ sb;
