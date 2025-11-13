@@ -1,8 +1,9 @@
 package com.robthelouvre.terminal;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Item {
+public class Item implements Serializable {
     private String description;
     private String name;
     private String location;

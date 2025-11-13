@@ -1,11 +1,14 @@
 package com.robthelouvre.terminal;
 
 import java.util.ArrayList;
+import java.io.*;
 
-public abstract class Character {
+public abstract class Character implements Serializable {
     private String name;
     private Room currentRoom;
     private ArrayList<Item> inventory;
+
+
 
     public Character(String name, Room startingRoom) {
         this.name = name;

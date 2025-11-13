@@ -1,8 +1,9 @@
 package com.robthelouvre.terminal;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Room {
+public class Room implements Serializable {
     private String description;
     private Map<String, Room> exits; // Map direction to neighboring Room
     private String details;
@@ -56,12 +57,12 @@ public class Room {
 
     }
 
-    public void setLines(ArrayList<String> lines) {
-        this.lines = lines;
-    }
+
     public ArrayList<String> getLines() {
         return lines;
     }
+
+
 
     public String getDescription() {
         return description;

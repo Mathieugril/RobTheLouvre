@@ -15,12 +15,13 @@ emphasizing exploration and simple command-driven gameplay
 
 package com.robthelouvre.terminal;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ZorkULGame {
     private Parser parser;
-    private Character player;
+    private User player;
     private Room balcony, outside, lobby, regaliaGallery, mastersGallery,
             securityRoom, guardRoom, serviceTunnel, janitorCloset,
             deliveryDock, garden, secretPassage, vip, basementTunnel;
@@ -156,19 +157,6 @@ public class ZorkULGame {
         Character.addCharacter(staff5);
 
 
-        if (player.hasItem("Keycard")) {
-            lobby.setExit("south", vip, true);
-            mastersGallery.setExit("south", regaliaGallery, true);
-            regaliaGallery.setExit("north", mastersGallery , true);
-            securityRoom.setExit("east", guardRoom  , true);
-        //    deliveryDock.setExit("north", basementTunnel, true);
-        }
-        if (player.hasItem("Keycard") && (player.hasItem("Uniform"))) {
-              regaliaGallery.setExit("east", securityRoom , true);
-              securityRoom.setExit("west", regaliaGallery  , true);
-              guardRoom.setExit("west", securityRoom, true);
-        }
-
     }
 
 
@@ -197,6 +185,12 @@ public class ZorkULGame {
 
         }
         System.out.println("Thank you for playing. Goodbye.");
+        try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("player.ser"))) {
+            out.writeObject(player);
+            System.out.println("Object has been serialized to player.ser");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void printWelcome() {
@@ -205,6 +199,17 @@ public class ZorkULGame {
         System.out.println("Type 'help' if you need help.");
         System.out.println();
         System.out.println(player.getCurrentRoom().getLongDescription());
+
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("player.ser"))) {
+            User deserializedPerson = (User) in.readObject();
+            System.out.println("Object has been deserialized:");
+            for (Item i : deserializedPerson.getInventory()) {
+                System.out.println(i.getName());
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private boolean processCommand(Command command) {
@@ -360,13 +365,15 @@ public class ZorkULGame {
         if (player.getCurrentRoom().getLines() == null) {
             System.out.print("Nothing to hear here");
         }
-
-        for (String lines : Text.Convos.regaliaConvo()) {
-            System.out.println(lines);
-            try {
-                Thread.sleep(2500);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
+        if (player.getCurrentRoom().equals(regaliaGallery)) {
+            garden.setExit("east", secretPassage, true);
+            for (String lines : Text.Convos.regaliaConvo()) {
+                System.out.println(lines);
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
             }
         }
     }
