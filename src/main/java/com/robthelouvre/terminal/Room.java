@@ -68,6 +68,9 @@ public class Room implements Serializable {
         return description;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public boolean isOpen() { return access; }
     public void setOpen(boolean open) { this.access = open; }
@@ -125,7 +128,7 @@ public class Room implements Serializable {
             return "No items out in the open";
         }
         if (getItems().size() == 1) {
-            return "Is that... a " + getItems().getFirst().getName() + "!";
+            return "Is that, a " + getItems().getFirst().getName() + "!";
         }
         itemsList.append("I see ");
         for(int item = 0; item < getItems().size() - 1; item++) {

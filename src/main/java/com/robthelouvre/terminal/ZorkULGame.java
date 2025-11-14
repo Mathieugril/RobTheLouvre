@@ -68,8 +68,8 @@ public class ZorkULGame {
 
 
 
-        outside = new Room("are out of the Louvre");
-        balcony = new Room(Text.Descriptions.BALCONY);
+        outside = new Room(Text.Descriptions.OUTSIDE);
+        balcony = new Room(Text.Descriptions.BALCONY1);
         lobby = new Room(Text.Descriptions.LOBBY);
         regaliaGallery = new Room(Text.Descriptions.REGALIA, regaliaGalleryItems, Text.Convos.regaliaConvo());
         mastersGallery = new Room(Text.Descriptions.MASTERS);
@@ -86,7 +86,7 @@ public class ZorkULGame {
 
         balcony.setExit("north", regaliaGallery, true);
         balcony.setExit("down", garden, true);
-        balcony.setDetails(Text.Details.BALCONY_DET);
+        balcony.setDetails(Text.Details.BALCONY_DET1);
 
         lobby.setExit("west", outside, true);
         lobby.setExit("east", mastersGallery, true);
@@ -204,9 +204,13 @@ public class ZorkULGame {
                 guardRoom.setExit("west", securityRoom, true);
                 deliveryDock.setExit("north", basementTunnel, true);
             }
-            if(player.hasItem("Flashlight")) {
+            if (player.hasItem("Flashlight")) {
                 secretPassage.setExit("north", janitorCloset, true);
                 secretPassage.setDetails(Text.Details.PASSAGE_DET2);
+            }
+            if ((player.hasItem("Crown")) && (player.getCurrentRoom().equals(outside))){
+                System.out.println("\n \nYou have escaped with the Crown of Empress Eugénie, Congrats!!");
+                finished = true;
             }
 
         }
@@ -266,9 +270,13 @@ public class ZorkULGame {
                     System.out.println("\nAll Exits: " + player.getCurrentRoom().getExitString());
                 }
                 for (Item item : player.getInventory()) {
-                    if ((item.getName().equals("Crown")) && (regCam.getStatus())) {
-                        System.out.print("Cameras caught you, Game over!!\n");
-                        return true;
+                    if (item.getName().equals("Crown")){
+                       if (regCam.getStatus()){
+                            System.out.print("Cameras caught you, Game over!!\n");
+                            return true;
+                        }
+                       balcony.setDetails(Text.Details.BALCONY_DET2);
+                       balcony.setDescription(Text.Descriptions.BALCONY2);
                     }
                 }
                 break;
@@ -300,7 +308,7 @@ public class ZorkULGame {
             case "tamper":
                 regCam.setStatus(false);
              //   regCam.isVisible();
-                System.out.println("Cameras in gallery have been disabled");
+                System.out.println("Cameras in gallery have been disabled!");
                 break;
             case "quit":
                 if (command.hasSecondWord()) {
@@ -317,7 +325,7 @@ public class ZorkULGame {
     }
 
     private void printHelp() {
-        System.out.println("You are lost. You are alone. You wander around the university.");
+        System.out.println("You are in the middle of a heist. You are alone. You wander around the university.");
         System.out.print("Your command words are: ");
         parser.showCommands();
     }
