@@ -37,6 +37,7 @@ public class ZorkULGame {
        // Room balcony, outside, lobby, regaliaGallery, mastersGallery, securityRoom, guardRoom, serviceTunnel, janitorCloset, deliveryDock, garden, secretPassage,
       //          vip, basementTunnel;
 
+
         Item Uniform = new BasicItem("Uniform", Text.ItemDESC.UNIFORM);
 
         Item KeyCard = new BasicItem("Keycard", Text.ItemDESC.KEYCARD);
@@ -45,9 +46,15 @@ public class ZorkULGame {
 
         Item FlashLight = new BasicItem("Flashlight", Text.ItemDESC.FLASHLIGHT);
         Item Crown = new BasicItem("Crown", Text.ItemDESC.CROWN);
-        Crown.setVisible(false);
+     //   Crown.setVisible(false);
 
-        Item Headphones = new BasicItem("Headphones",);
+        Item Headphones = new BasicItem("Headphones", Text.ItemDESC.HEADPHONES);
+        Item Waffles = new BasicItem("Waffles", Text.ItemDESC.WAFFLES);
+
+        Item Snus = new BasicItem("Snus", Text.ItemDESC.SNUS);
+        Item Monster = new BasicItem("Monster", Text.ItemDESC.MONSTER);
+
+        Item Bread = new BasicItem("Bread", Text.ItemDESC.BREAD);
                 // make items for lads to hold, make the details of room show they are playing cards
 
         regCam = new Cameras(regaliaGallery, true, 101);
@@ -148,24 +155,31 @@ public class ZorkULGame {
 
         Guards henry = new Guards("Henry", lobby);
         henry.getInventory().add(Gum);
-        henry.getInventory().add(KeyCard);
+
         henry.getInventory().add(Smokes);
 
-        Guards staff1 = new Guards("Gerard", guardRoom);
+        Guards jerry = new Guards("Gerard", guardRoom);
+        jerry.getInventory().add(Headphones);
+        jerry.getInventory().add(Waffles);
 
+        Guards sean = new Guards("Jean", guardRoom);
+        sean.getInventory().add(Snus);
+        sean.getInventory().add(Monster);
 
-        Guards staff2 = new Guards("Jean", guardRoom);
-        Guards staff3 = new Guards("David", guardRoom);
-        Guards staff4 = new Guards("Patrice", regaliaGallery);
-        Guards staff5 = new Guards("Jude", regaliaGallery);
+        Guards david = new Guards("David", guardRoom);
+        david.getInventory().add(Bread);
+        david.getInventory().add(KeyCard);
+
+        Guards patrick = new Guards("Patrice", regaliaGallery);
+        Guards jude = new Guards("Jude", regaliaGallery);
 
         Character.addCharacter(player);
         Character.addCharacter(henry);
-        Character.addCharacter(staff1);
-        Character.addCharacter(staff2);
-        Character.addCharacter(staff3);
-        Character.addCharacter(staff4);
-        Character.addCharacter(staff5);
+        Character.addCharacter(jerry);
+        Character.addCharacter(sean);
+        Character.addCharacter(david);
+        Character.addCharacter(patrick);
+        Character.addCharacter(jude);
 
 
     }

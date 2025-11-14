@@ -27,7 +27,7 @@ public class Text {
         public static final String REGALIA_DET = "The room is illuminated via the window and spotlights. Two guards are taking a break on a bench on the other side of the hall, with all the displays it would be easy to get close without being spotted.";
         public static final String MASTERS_DET = "The paintings would be a good score but way to many people here. The guards seem to be talking about something over the radio to each-other";
         public static final String SECURITY_DET = "Screens show the camera feed of nearly the whole museum. Guards rotate in-and-out from their break room, one forgets to logout...";
-        public static final String GUARD_DET = "Half empty coffee cups are scattered on the counter, a card game is waiting to be finished. Lockers line the wall—one hangs ajar.";
+        public static final String GUARD_DET = "Half empty coffee cups are scattered on the counter, a card game is being played. Lockers line the wall—one hangs ajar.";
         public static final String JANITOR_DET = "The cramped closet smells of bleach. No one is around at the moment";
         public static final String SERVICE_DET = "Pipes hiss and ducts vibrate above. Not much to see here it seems.";
         public static final String DELIVERY_DET = "Although quite open there is an annoying amount of guards around. It would be foolish to try anything without a disguise.";
@@ -45,14 +45,13 @@ public class Text {
         public static final String GUM =  "Hollywood chewing gum, not much use other then it helps with fresh breath.";
         public static final String SMOKES = "Marlboro reds, probably helping him by taking these.";
         public static final String FLASHLIGHT = "Spare flashlight left near the guards, doesnt seem to be much battery left though";
-        public static final String CROWN = " Crown of Empress Eugénie, the prized possession of the first president and last monarch of France: Napoleon III ";
-
-//        public static final String
-//        public static final String
-//        public static final String
-//        public static final String
-//        public static final String
-//        public static final String
+        public static final String CROWN = "Crown of Empress Eugénie, the prized possession of the first president and last monarch of France: Napoleon III ";
+        public static final String HEADPHONES = "Beaten up pair of headphones. They Still work, barely";
+        public static final String WAFFLES = "His go-to snack";
+        public static final String SNUS = "Some might say he is addicted, he calls it a hobby";
+        public static final String MONSTER = "Energy drink he has daily";
+        public static final String BREAD = "Tupperware of brown bread with a bit of butter";
+       // public static final String
 
     }
 
