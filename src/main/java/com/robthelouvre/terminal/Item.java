@@ -15,5 +15,5 @@ public interface Item extends Serializable{
     void setID(int id);
 
     boolean getStatus();
-    void setVisible(boolean visible);
+    void setStatus(boolean visible);
 }

@@ -298,7 +298,7 @@ public class ZorkULGame {
                 System.out.println("\nAll Exits: " + player.getCurrentRoom().getExitString());
                 break;
             case "tamper":
-                regCam.setVisible(false);
+                regCam.setStatus(false);
              //   regCam.isVisible();
                 System.out.println("Cameras in gallery have been disabled");
                 break;

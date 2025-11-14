@@ -46,6 +46,7 @@ public class Cameras implements Item{
     }
 
     @Override
-    public void setVisible(boolean visible) {
+    public void setStatus(boolean status) {
+        this.isOn = status;
     }
 }
