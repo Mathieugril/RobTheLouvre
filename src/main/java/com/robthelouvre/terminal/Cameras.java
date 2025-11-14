@@ -2,12 +2,12 @@ package com.robthelouvre.terminal;
 
 public class Cameras implements Item{
     private Room Room;
-    private boolean isVisible;
+    private boolean isOn;
     private int id;
 
-    public Cameras(Room Room, boolean isVisible, int id) {
+    public Cameras(Room Room, int id) {
         this.Room = Room;
-        this.isVisible = isVisible();
+        this.isOn = true;
         this.id = id;
     }
     @Override
@@ -41,12 +41,11 @@ public class Cameras implements Item{
     }
 
     @Override
-    public boolean isVisible() {
-        return true;
+    public boolean getStatus() {
+        return isOn;
     }
 
     @Override
     public void setVisible(boolean visible) {
-
     }
 }

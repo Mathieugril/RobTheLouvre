@@ -34,9 +34,6 @@ public class ZorkULGame {
     }
 
     public void createRooms() {
-       // Room balcony, outside, lobby, regaliaGallery, mastersGallery, securityRoom, guardRoom, serviceTunnel, janitorCloset, deliveryDock, garden, secretPassage,
-      //          vip, basementTunnel;
-
 
         Item Uniform = new BasicItem("Uniform", Text.ItemDESC.UNIFORM);
 
@@ -46,7 +43,7 @@ public class ZorkULGame {
 
         Item FlashLight = new BasicItem("Flashlight", Text.ItemDESC.FLASHLIGHT);
         Item Crown = new BasicItem("Crown", Text.ItemDESC.CROWN);
-     //   Crown.setVisible(false);
+
 
         Item Headphones = new BasicItem("Headphones", Text.ItemDESC.HEADPHONES);
         Item Waffles = new BasicItem("Waffles", Text.ItemDESC.WAFFLES);
@@ -57,7 +54,7 @@ public class ZorkULGame {
         Item Bread = new BasicItem("Bread", Text.ItemDESC.BREAD);
                 // make items for lads to hold, make the details of room show they are playing cards
 
-        regCam = new Cameras(regaliaGallery, true, 101);
+        regCam = new Cameras(regaliaGallery, 101);
 
 
 
@@ -151,7 +148,7 @@ public class ZorkULGame {
         vip.setDetails(Text.Details.VIP_DET);
 
 
-        player = new User("player", janitorCloset);
+        player = new User("Player", guardRoom);
 
         Guards henry = new Guards("Henry", lobby);
         henry.getInventory().add(Gum);
@@ -269,7 +266,7 @@ public class ZorkULGame {
                     System.out.println("\nAll Exits: " + player.getCurrentRoom().getExitString());
                 }
                 for (Item item : player.getInventory()) {
-                    if ((item.getName().equals("Crown")) && (regCam.isVisible())) {
+                    if ((item.getName().equals("Crown")) && (regCam.getStatus())) {
                         System.out.print("Cameras caught you, Game over!!\n");
                         return true;
                     }
@@ -299,6 +296,11 @@ public class ZorkULGame {
             case "eavesdrop":
                 listen();
                 System.out.println("\nAll Exits: " + player.getCurrentRoom().getExitString());
+                break;
+            case "tamper":
+                regCam.setVisible(false);
+             //   regCam.isVisible();
+                System.out.println("Cameras in gallery have been disabled");
                 break;
             case "quit":
                 if (command.hasSecondWord()) {

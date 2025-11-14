@@ -51,7 +51,7 @@ public class BasicItem  implements Item, Serializable{
     }
 
     @Override
-    public boolean isVisible() {
+    public boolean getStatus() {
         return isVisible;
     }
 
