@@ -9,8 +9,4 @@ public class Public extends Character{
         ArrayList<Item> inventory;
     }
 
-    @Override
-    public void behavior() {
-       System.out.print("The general public are admiring the art pieces");
-    }
 }

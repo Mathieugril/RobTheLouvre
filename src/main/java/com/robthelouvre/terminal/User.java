@@ -10,9 +10,4 @@ public class User extends Character implements Serializable {
         ArrayList<Item> inventory;
     }
 
-    @Override
-    public void behavior() {
-
-    }
-
 }

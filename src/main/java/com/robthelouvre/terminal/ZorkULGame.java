@@ -22,10 +22,11 @@ import java.util.Scanner;
 public class ZorkULGame {
     private Parser parser;
     private User player;
-    private Room balcony, outside, lobby, regaliaGallery, mastersGallery,
+    private static Room balcony, outside, lobby, regaliaGallery, mastersGallery,
             securityRoom, guardRoom, serviceTunnel, janitorCloset,
             deliveryDock, garden, secretPassage, vip, basementTunnel;
     private Cameras regCam;
+    public static Guards patrick, jerry, sean, david, jude;
     Scanner ise = new Scanner(System.in);
 
     public ZorkULGame() {
@@ -155,20 +156,20 @@ public class ZorkULGame {
 
         henry.getInventory().add(Smokes);
 
-        Guards jerry = new Guards("Gerard", guardRoom);
+        jerry = new Guards("Gerard", guardRoom);
         jerry.getInventory().add(Headphones);
         jerry.getInventory().add(Waffles);
 
-        Guards sean = new Guards("Jean", guardRoom);
+        sean = new Guards("Jean", guardRoom);
         sean.getInventory().add(Snus);
         sean.getInventory().add(Monster);
 
-        Guards david = new Guards("David", guardRoom);
+        david = new Guards("David", guardRoom);
         david.getInventory().add(Bread);
         david.getInventory().add(KeyCard);
 
-        Guards patrick = new Guards("Patrice", regaliaGallery);
-        Guards jude = new Guards("Jude", regaliaGallery);
+        patrick = new Guards("Patrice", regaliaGallery);
+        jude = new Guards("Jude", regaliaGallery);
 
         Character.addCharacter(player);
         Character.addCharacter(henry);
@@ -275,6 +276,10 @@ public class ZorkULGame {
                             System.out.print("Cameras caught you, Game over!!\n");
                             return true;
                         }
+                       if (jude.getCurrentRoom().equals(regaliaGallery)) {
+                           System.out.print("Guards caught you, Game over!!\n");
+                           return true;
+                       }
                        balcony.setDetails(Text.Details.BALCONY_DET2);
                        balcony.setDescription(Text.Descriptions.BALCONY2);
                     }
@@ -306,9 +311,20 @@ public class ZorkULGame {
                 System.out.println("\nAll Exits: " + player.getCurrentRoom().getExitString());
                 break;
             case "tamper":
-                regCam.setStatus(false);
-             //   regCam.isVisible();
-                System.out.println("Cameras in gallery have been disabled!");
+                if(player.getCurrentRoom().equals(securityRoom)) {
+                    regCam.setStatus(false);
+                    System.out.println("Cameras in gallery have been disabled!");
+                } else {
+                    System.out.println("Nothing to mess with here.");
+                }
+
+                break;
+            case "lie":
+                if (player.getCurrentRoom().equals(regaliaGallery)) {
+                    Guards.lie(guardRoom);
+                } else {
+                    System.out.println("This doesn't benefit you here.");
+                }
                 break;
             case "quit":
                 if (command.hasSecondWord()) {

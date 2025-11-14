@@ -16,7 +16,7 @@ public class CommandWords {
         validCommands.put("pickpocket", "Steal items from an unsuspecting victim");
         validCommands.put("wait", "Wait for the right time");
         validCommands.put("tamper", "Turn the cameras on or off");
-        // validCommands.put("lie", "Tell a lie to fool someone");
+         validCommands.put("lie", "Tell a lie to fool someone");
         validCommands.put("take", "picks up an item");
         validCommands.put("drop", "drops item on floor");
     }

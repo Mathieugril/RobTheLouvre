@@ -61,7 +61,6 @@ public abstract class Character implements Serializable {
         System.out.println("Dropped " + item.getName() + "!");
     }
 
-    public abstract void behavior();
 
     private static ArrayList<Character> allCharacters = new ArrayList<>();
 

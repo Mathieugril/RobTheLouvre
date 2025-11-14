@@ -28,7 +28,7 @@ public class Text {
         public static final String LOBBY_DET = "The sheer amount of people would make it easy to blend in. You see a guard not paying attention.";
         public static final String REGALIA_DET = "The room is illuminated via the window and spotlights. Two guards are taking a break on a bench on the other side of the hall, with all the displays it would be easy to get close without being spotted.";
         public static final String MASTERS_DET = "The paintings would be a good score but way to many people here. The guards seem to be talking about something over the radio to each-other";
-        public static final String SECURITY_DET = "Screens show the camera feed of nearly the whole museum. Guards rotate in-and-out from their break room, one forgets to logout...";
+        public static final String SECURITY_DET = "Screens show the camera feed of nearly the whole museum. Tobias is the supervisor today. Guards rotate in-and-out from break room, one forgets to logout...";
         public static final String GUARD_DET = "Half empty coffee cups are scattered on the counter, a card game is being played. Locker doors line the wall, one hangs ajar.";
         public static final String JANITOR_DET = "The cramped closet smells of bleach. No one is around at the moment";
         public static final String SERVICE_DET = "Pipes hiss and ducts vibrate above. Not much to see here it seems.";
@@ -68,8 +68,36 @@ public class Text {
                 lines.add("     Jude: Let it rot, I say. No one’s brave enough to go near it anyway.");
                 return lines;
             }
-        }
 
+            public static ArrayList<String> lieToGuards() {
+                ArrayList<String> lie = new ArrayList<>();
+                lie.add(" Player: Hey lads ye are good to go on break early, its dead.");
+                lie.add("   Patrice: Hardly.");
+                lie.add("       Jude: Yah I swear we had a couple tours in today.");
+                lie.add("   Patrice: That's what I thought as well.");
+                lie.add(" Player: That's what I was told anyway.");
+                lie.add("       Jude: Who told you that?");
+                return lie;
+            }
 
+            public static ArrayList<String> responseRight() {
+                ArrayList<String> right = new ArrayList<>();
+                right.add(" Player: Tobias said it");
+                right.add("       Jude: Right fair enough");
+                right.add("   Patrice: Won't argue with that, see you later so.");
+                right.add("Guards head into break room.");
+                return right;
+            }
+
+            public static ArrayList<String> responseWrong() {
+                ArrayList<String> wrong = new ArrayList<>();
+                wrong.add("       Jude: Who?");
+                wrong.add("   Patrice: They re only new don't worry.");
+                wrong.add("       Jude: oh yah, it's fine we will wait till we hear from a supervisor.");
+                wrong.add(" Player: ehhh.");
+                wrong.add("They remain in gallery.");
+                return wrong;
+            }
+    }
     }
 
