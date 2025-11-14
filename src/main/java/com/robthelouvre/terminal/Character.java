@@ -50,9 +50,9 @@ public abstract class Character implements Serializable {
     }
 
     public String pickUpItem(Item item) {
-            currentRoom.removeItem(item);
-            inventory.add(item);
-            return "Picked up " + item.getName() + "!";
+        currentRoom.removeItem(item);
+        inventory.add(item);
+        return "Picked up " + item.getName() + "!";
 
     }
     public void dropItem(Item item) {

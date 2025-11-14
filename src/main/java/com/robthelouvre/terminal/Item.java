@@ -1,67 +1,19 @@
 package com.robthelouvre.terminal;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
-public class Item implements Serializable {
-    private String description;
-    private String name;
-    private String location;
-    private int id;
-    private boolean isVisible;
 
-    public Item(String name, String description) {
-        this.name = name;
-        this.description = description;
-        this.isVisible = true;
-    }
-    public static Item checkItemAvailable(String itemName, ArrayList<Item> items) {
-        boolean itemAvailable = false;
-        for (Item item : items) {
-            if (item.getName().toLowerCase().equals(itemName)) {
-                return item;
-            }
-        }
-        return null;
-    }
+public interface Item extends Serializable{
 
-    public String getDescription() {
-        return description;
-    }
+    String getDescription();
+    void setDescription(String description);
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    String getName();
+    void setName(String name);
 
-    public String getName() {
-        return name;
-    }
+    int getId();
+    void setID(int id);
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public boolean isVisible() {
-        return isVisible;
-    }
-
-    public void setVisible(boolean visible) {
-        isVisible = visible;
-    }
+    boolean isVisible();
+    void setVisible(boolean visible);
 }

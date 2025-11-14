@@ -136,8 +136,11 @@ public class Room implements Serializable {
         itemsList.append("and a ");
         itemsList.append(getItems().getLast().getName());
         itemsList.append("!");
+
+
         return itemsList.toString();
     }
+
     public void removeItem(Item item) {
         items.remove(item);
     }
