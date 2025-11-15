@@ -26,9 +26,9 @@ public class ZorkULGame {
             securityRoom, guardRoom, serviceTunnel, janitorCloset,
             deliveryDock, garden, secretPassage, vip, basementTunnel, van;
     private Cameras regCam, deliveryScanner;
-    public static Guards patrick, jerry, sean, david, jude, scott, dylan;
+    public static Guards patrick, jerry, sean, david, jude, scott, dylan, randomGuards;
     Scanner ise = new Scanner(System.in);
-    boolean finished = false;
+
 
     public ZorkULGame() {
         createRooms();
@@ -159,7 +159,7 @@ public class ZorkULGame {
         van.setExit("north", basementTunnel, true);
         van.setDetails(Text.Details.VAN_DET);
 
-        player = new User("Player", guardRoom);
+        player = new User("Player", balcony);
 
         Guards henry = new Guards("Henry", lobby);
         henry.getInventory().add(Gum);
@@ -177,6 +177,8 @@ public class ZorkULGame {
         david.getInventory().add(Bread);
         david.getInventory().add(KeyCard);
 
+        randomGuards = new Guards("Guards",securityRoom);
+
         patrick = new Guards("Patrice", regaliaGallery);
         jude = new Guards("Jude", regaliaGallery);
 
@@ -192,6 +194,7 @@ public class ZorkULGame {
         Character.addCharacter(jude);
         Character.addCharacter(scott);
         Character.addCharacter(dylan);
+        Character.addCharacter(randomGuards);
 
 
     }
@@ -201,7 +204,7 @@ public class ZorkULGame {
     public void play() {
         printWelcome();
 
-       // finished = false;
+       boolean finished = false;
         while (!finished) {
             Command command = parser.getCommand();
             finished = processCommand(command);
@@ -277,11 +280,12 @@ public class ZorkULGame {
                 System.out.println(player.getCurrentRoom().searchRoom());
                 break;
             case "take":
-                BasicItem takeItem = (BasicItem) Util.checkItemAvailable(command.getSecondWord(), player.getCurrentRoom().getItems());
+                Item takeItem = Util.checkItemAvailable(command.getSecondWord(), player.getCurrentRoom().getItems());
                 if (takeItem == null) {
                     System.out.println("I can't find that item!");
                 } else {
                     System.out.println(player.pickUpItem(takeItem));
+                    System.out.println(takeItem.getDescription());
                     System.out.println("\nAll Exits: " + player.getCurrentRoom().getExitString());
                 }
                 for (Item item : player.getInventory()) {
@@ -336,7 +340,12 @@ public class ZorkULGame {
                 break;
             case "lie":
                 if (player.getCurrentRoom().equals(regaliaGallery)) {
-                    Guards.lie(guardRoom);
+                   if (player.hasItem("Uniform")) {
+                       Guards.lie(guardRoom);
+                   } else {
+                       System.out.println("You have no disguise,guards caught you.");
+                       return true;
+                   }
                 } else {
                     System.out.println("This doesn't benefit you here.");
                 }
@@ -451,7 +460,7 @@ public class ZorkULGame {
             }
         }
         if (player.getCurrentRoom().equals(deliveryDock)) {
-            deliveryDock.setExit("inside", van, true);
+           // deliveryDock.setExit("inside", van, true);
             for (String lines : Text.Convos.deliveryConvo()) {
                 System.out.println(lines);
                 try {
@@ -459,6 +468,9 @@ public class ZorkULGame {
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
+            }
+            if (player.hasItem("Van-Key")) {
+                deliveryDock.setExit("inside", van, true);
             }
         }
 

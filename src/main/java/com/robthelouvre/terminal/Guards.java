@@ -26,7 +26,7 @@ public class Guards extends Character {
        for (String lie : Text.Convos.lieToGuards()) {
            System.out.println(lie);
            try {
-               Thread.sleep(500);
+               Thread.sleep(2000);
            } catch (InterruptedException e) {
                Thread.currentThread().interrupt();
            }
@@ -39,7 +39,7 @@ public class Guards extends Character {
            for (String right : Text.Convos.responseRight()) {
                System.out.println(right);
                try {
-                   Thread.sleep(500);
+                   Thread.sleep(2000);
                } catch (InterruptedException e) {
                    Thread.currentThread().interrupt();
                }
@@ -52,7 +52,7 @@ public class Guards extends Character {
            for (String wrong : Text.Convos.responseWrong()) {
                System.out.println(wrong);
                try {
-                   Thread.sleep(500);
+                   Thread.sleep(2000);
                } catch (InterruptedException e) {
                    Thread.currentThread().interrupt();
                }

@@ -14,7 +14,6 @@ public class CommandWords {
         validCommands.put("inspect", "Inspect the room");
         validCommands.put("eavesdrop", "Listen in on someone's conversation");
         validCommands.put("pickpocket", "Steal items from an unsuspecting victim");
-        validCommands.put("wait", "Wait for the right time");
         validCommands.put("tamper", "Turn the cameras on or off");
          validCommands.put("lie", "Tell a lie to fool someone");
         validCommands.put("take", "picks up an item");

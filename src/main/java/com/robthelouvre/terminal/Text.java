@@ -8,7 +8,7 @@ public class Text {
         public static final String BALCONY1 = "stand on a narrow balcony above the riverside façade and gardens. The cherry picker sits below, beside a large tree; a glass window ahead leads into the museum's upper wing.";
         public static final String BALCONY2 = "notice the cherry picker is nowhere to be seen.";
         public static final String LOBBY = "are in the grand pyramid lobby. Ticket desks, security scanners and the echo of footsteps fill the space.";
-        public static final String REGALIA = "see a glittering hall of crown jewels and diadems behind glass cases. Spotlights and no public make this the obvious prize zone. Cameras cover *nearly* the whole room";
+        public static final String REGALIA = "see a glittering hall of crown jewels and stones behind glass cases. Spotlights and no public make this the obvious prize zone. Cameras cover nearly the whole room";
         public static final String MASTERS = "are in long gallery of paintings: tourists pause before masterpieces while guards linger at doorways. The steady flow of foot traffic provides cover.";
         public static final String SECURITY = "enter the control room. Monitors line the walls, each screen showing CCTV feeds of corridors, galleries, and exterior walls.";
         public static final String GUARDS = "enter a small break room with lockers, a coffee machine and a mini fridge. Footsteps echo through the thin walls.";
