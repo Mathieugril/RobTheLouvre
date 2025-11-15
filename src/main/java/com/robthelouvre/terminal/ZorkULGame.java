@@ -217,7 +217,7 @@ public class ZorkULGame {
                 regaliaGallery.setExit("east", securityRoom , true);
                 securityRoom.setExit("west", regaliaGallery  , true);
                 guardRoom.setExit("west", securityRoom, true);
-                deliveryDock.setExit("north", basementTunnel, true);
+                deliveryDock.setExit("north", basementTunnel);
             }
             if (player.hasItem("Flashlight")) {
                 secretPassage.setExit("north", janitorCloset, true);
@@ -419,12 +419,8 @@ public class ZorkULGame {
 
 
            if (nextRoom == null) {
-               System.out.println("You cant go in there yet");
-           } else if ((nextRoom.equals(basementTunnel)) && (deliveryScanner.getStatus())) {
-               System.out.print("You forgot about the scanner.\nYou panic and try again.\nIt Starts flashing red and alarms go off\nYou have been caught.");
-               finished = true;
-           }
-           else {
+               System.out.println("You can't go there yet.");
+           } else {
             player.setCurrentRoom(nextRoom);
             System.out.println(player.getCurrentRoom().getLongDescription());
         }

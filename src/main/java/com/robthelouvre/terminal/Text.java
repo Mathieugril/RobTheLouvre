@@ -19,8 +19,8 @@ public class Text {
         public static final String BASEMENT = "are in a dim underground garage: engine rumble, an exit ramp to the street and the faint hum of air-conditioning.";
         public static final String GARDEN = "are surrounded by hedges cut into formal shapes, a silent fountain and statues under lights. A large oak tree sits beside the balcony";
         public static final String VIP = "are impressed by luxurious sofas and low tables, champagne flutes and private doors to the gallery. Guests in tuxedos are quietly monitored by nearby security.";
-        public static final String OUTSIDE = "have left the museum";
-        public static final String VAN = "are inside the Renault Traffic you found those keys for, ideal";
+        public static final String OUTSIDE = "have left the museum.";
+        public static final String VAN = "are inside the Renault Traffic you found those keys for, ideal.";
     }
 
     public static class Details {
@@ -39,7 +39,7 @@ public class Text {
         public static final String PASSAGE_DET1 = "Old blueprints and staff scribbles mark this 'staff only' route. You cant go anywhere with out a form of light";
         public static final String PASSAGE_DET2 = "Old blueprints and staff scribbles mark this 'staff only' route, the flashlight lets you see.";
         public static final String VIP_DET = "Obnoxious tones and low lighting make these people and easy target, but be careful of the guards.";
-        public static final String VAN_DET = "Surprisingly clean. A card for a with an address and 10:00h is written on it, you look at radio: 09:38, better not be late";
+        public static final String VAN_DET = "Surprisingly clean. A card for a with an address and 10:00h is written on it, you look at radio: 09:38, better not be late.";
     }
 
     public static class ItemDESC {
@@ -47,14 +47,14 @@ public class Text {
         public static final String UNIFORM = "This can be used to blend in throughout most of the museum.";
         public static final String GUM =  "Hollywood chewing gum, not much use other then it helps with fresh breath.";
         public static final String SMOKES = "Marlboro reds, probably helping him by taking these.";
-        public static final String FLASHLIGHT = "Spare flashlight left near the guards, doesnt seem to be much battery left though";
-        public static final String CROWN = "Crown of Empress Eugénie, the prized possession of the first president and last monarch of France: Napoleon III ";
-        public static final String HEADPHONES = "Beaten up pair of headphones. They Still work, barely";
-        public static final String WAFFLES = "His go-to snack";
-        public static final String SNUS = "Some might say he is addicted, he calls it a hobby";
-        public static final String MONSTER = "Energy drink he has daily";
-        public static final String BREAD = "Tupperware of brown bread with a bit of butter";
-        public static final String VANKEYS = "Keys for a 'Renault Traffic'";
+        public static final String FLASHLIGHT = "Spare flashlight left near the guards, doesnt seem to be much battery left though.";
+        public static final String CROWN = "Crown of Empress Eugénie, the prized possession of the first president and last monarch of France: Napoleon III.";
+        public static final String HEADPHONES = "Beaten up pair of headphones. They Still work, barely.";
+        public static final String WAFFLES = "His go-to snack.";
+        public static final String SNUS = "Some might say he is addicted, he calls it a hobby.";
+        public static final String MONSTER = "Energy drink he has daily.";
+        public static final String BREAD = "Tupperware of brown bread with a bit of butter.";
+        public static final String VANKEYS = "Keys for a 'Renault Traffic.'";
 
     }
 
@@ -94,8 +94,8 @@ public class Text {
 
             public static ArrayList<String> responseRight() {
                 ArrayList<String> right = new ArrayList<>();
-                right.add(" Player: Tobias said it");
-                right.add("       Jude: Right fair enough");
+                right.add(" Player: Tobias said it.");
+                right.add("       Jude: Right fair enough.");
                 right.add("   Patrice: Won't argue with that, see you later so.");
                 right.add("Guards head into break room.");
                 return right;
