@@ -24,10 +24,11 @@ public class ZorkULGame {
     private User player;
     private static Room balcony, outside, lobby, regaliaGallery, mastersGallery,
             securityRoom, guardRoom, serviceTunnel, janitorCloset,
-            deliveryDock, garden, secretPassage, vip, basementTunnel;
-    private Cameras regCam;
-    public static Guards patrick, jerry, sean, david, jude;
+            deliveryDock, garden, secretPassage, vip, basementTunnel, van;
+    private Cameras regCam, deliveryScanner;
+    public static Guards patrick, jerry, sean, david, jude, scott, dylan;
     Scanner ise = new Scanner(System.in);
+    boolean finished = false;
 
     public ZorkULGame() {
         createRooms();
@@ -53,14 +54,18 @@ public class ZorkULGame {
         Item Monster = new BasicItem("Monster", Text.ItemDESC.MONSTER);
 
         Item Bread = new BasicItem("Bread", Text.ItemDESC.BREAD);
-                // make items for lads to hold, make the details of room show they are playing cards
+                // make items for lads to hold, make the details of liroom show they are playing cards
+        Item VanKeys = new BasicItem("Van-Key", Text.ItemDESC.VANKEYS);
 
-        regCam = new Cameras(regaliaGallery, 101);
+        regCam = new Cameras(regaliaGallery);
+        deliveryScanner = new Cameras();
+
 
 
 
 
         ArrayList<Item> regaliaGalleryItems = new ArrayList<Item>();
+        ArrayList<Item> securityItems = new ArrayList<Item>();
         ArrayList<Item> guardRoomItems = new ArrayList<Item>();
         ArrayList<Item> dockItems = new ArrayList<Item>();
         ArrayList<Item> vipItems = new ArrayList<Item>();
@@ -74,15 +79,16 @@ public class ZorkULGame {
         lobby = new Room(Text.Descriptions.LOBBY);
         regaliaGallery = new Room(Text.Descriptions.REGALIA, regaliaGalleryItems, Text.Convos.regaliaConvo());
         mastersGallery = new Room(Text.Descriptions.MASTERS);
-        securityRoom = new Room(Text.Descriptions.SECURITY);
+        securityRoom = new Room(Text.Descriptions.SECURITY, securityItems);
         guardRoom = new Room(Text.Descriptions.GUARDS, guardRoomItems);
         serviceTunnel = new Room(Text.Descriptions.SERVICE);
         janitorCloset = new Room(Text.Descriptions.JANITOR);
-        deliveryDock = new Room(Text.Descriptions.DELIVERY, dockItems);
+        deliveryDock = new Room(Text.Descriptions.DELIVERY, dockItems, Text.Convos.deliveryConvo());
         garden = new Room(Text.Descriptions.GARDEN);
         secretPassage = new Room(Text.Descriptions.PASSAGE);
         vip = new Room(Text.Descriptions.VIP, vipItems);
         basementTunnel = new Room(Text.Descriptions.BASEMENT, basementItems);
+        van = new Room(Text.Descriptions.VAN);
 
 
         balcony.setExit("north", regaliaGallery, true);
@@ -111,6 +117,7 @@ public class ZorkULGame {
         securityRoom.setExit("west",regaliaGallery);
         securityRoom.setExit("east", guardRoom);
         securityRoom.setDetails(Text.Details.SECURITY_DET);
+        securityItems.add(VanKeys);
 
 
         guardRoom.setExit("west", securityRoom);
@@ -128,11 +135,11 @@ public class ZorkULGame {
         serviceTunnel.setExit("south", janitorCloset, true);
         serviceTunnel.setDetails(Text.Details.SERVICE_DET);
 
-        deliveryDock.setExit("north", basementTunnel);
+
         deliveryDock.setExit("south", serviceTunnel, true);
         deliveryDock.setDetails(Text.Details.DELIVERY_DET);
 
-        basementTunnel.setExit("north", outside);
+        basementTunnel.setExit("north", outside, true);
         basementTunnel.setExit("south", deliveryDock,true);
         basementTunnel.setDetails(Text.Details.BASEMENT_DET);
 
@@ -148,12 +155,14 @@ public class ZorkULGame {
         vip.setExit("north", lobby, true);
         vip.setDetails(Text.Details.VIP_DET);
 
+        van.setExit("out", basementTunnel, true);
+        van.setExit("north", basementTunnel, true);
+        van.setDetails(Text.Details.VAN_DET);
 
         player = new User("Player", guardRoom);
 
         Guards henry = new Guards("Henry", lobby);
         henry.getInventory().add(Gum);
-
         henry.getInventory().add(Smokes);
 
         jerry = new Guards("Gerard", guardRoom);
@@ -171,6 +180,9 @@ public class ZorkULGame {
         patrick = new Guards("Patrice", regaliaGallery);
         jude = new Guards("Jude", regaliaGallery);
 
+        scott = new Guards("Scott",deliveryDock);
+        dylan = new Guards("Dylan",deliveryDock);
+
         Character.addCharacter(player);
         Character.addCharacter(henry);
         Character.addCharacter(jerry);
@@ -178,6 +190,8 @@ public class ZorkULGame {
         Character.addCharacter(david);
         Character.addCharacter(patrick);
         Character.addCharacter(jude);
+        Character.addCharacter(scott);
+        Character.addCharacter(dylan);
 
 
     }
@@ -187,7 +201,7 @@ public class ZorkULGame {
     public void play() {
         printWelcome();
 
-        boolean finished = false;
+       // finished = false;
         while (!finished) {
             Command command = parser.getCommand();
             finished = processCommand(command);
@@ -290,7 +304,6 @@ public class ZorkULGame {
                 for (Item item : player.getInventory()) {
                     System.out.println(item.getName());
                 }
-
                 break;
             case "drop":
                 Item dropItem = Util.checkItemAvailable(command.getSecondWord(), player.getInventory());
@@ -304,7 +317,6 @@ public class ZorkULGame {
                 steal(command);
                // System.out.println(player.getCurrentRoom().searchRoom());
                 System.out.println("\nAll Exits: " + player.getCurrentRoom().getExitString());
-
                 break;
             case "eavesdrop":
                 listen();
@@ -314,6 +326,9 @@ public class ZorkULGame {
                 if(player.getCurrentRoom().equals(securityRoom)) {
                     regCam.setStatus(false);
                     System.out.println("Cameras in gallery have been disabled!");
+                } else if (player.getCurrentRoom().equals(deliveryDock)) {
+                    deliveryScanner.setStatus(false);
+                    System.out.println("Scanner has been disabled!");
                 } else {
                     System.out.println("Nothing to mess with here.");
                 }
@@ -404,8 +419,12 @@ public class ZorkULGame {
 
 
            if (nextRoom == null) {
-                System.out.println("You cant go in there yet");
-            } else {
+               System.out.println("You cant go in there yet");
+           } else if ((nextRoom.equals(basementTunnel)) && (deliveryScanner.getStatus())) {
+               System.out.print("You forgot about the scanner.\nYou panic and try again.\nIt Starts flashing red and alarms go off\nYou have been caught.");
+               finished = true;
+           }
+           else {
             player.setCurrentRoom(nextRoom);
             System.out.println(player.getCurrentRoom().getLongDescription());
         }
@@ -429,12 +448,24 @@ public class ZorkULGame {
             for (String lines : Text.Convos.regaliaConvo()) {
                 System.out.println(lines);
                 try {
-                    Thread.sleep(500);
+                    Thread.sleep(2500);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
             }
         }
+        if (player.getCurrentRoom().equals(deliveryDock)) {
+            deliveryDock.setExit("inside", van, true);
+            for (String lines : Text.Convos.deliveryConvo()) {
+                System.out.println(lines);
+                try {
+                    Thread.sleep(2500);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+        }
+
     }
 
 

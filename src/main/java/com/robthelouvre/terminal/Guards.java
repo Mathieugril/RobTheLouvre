@@ -32,7 +32,7 @@ public class Guards extends Character {
            }
        }
        System.out.print("Who is the supervisor on today?");
-       System.out.print("\n - Axel\n - Dorian\n - Antoine\n - Tobias\n ");
+       System.out.print("\n - Axel\n - Dorian\n - Jean\n - Tobias\n ");
        String name = scan.nextLine();
 
        if(name.equalsIgnoreCase("tobias")) {
