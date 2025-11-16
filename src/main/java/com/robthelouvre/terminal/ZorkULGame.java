@@ -39,13 +39,8 @@ public class ZorkULGame {
 
         Item Uniform = new BasicItem("Uniform", Text.ItemDESC.UNIFORM);
 
-        Item KeyCard = new BasicItem("Keycard", Text.ItemDESC.KEYCARD);
-        Item Gum = new BasicItem("Gum", Text.ItemDESC.GUM);
-        Item Smokes = new BasicItem("Cigarettes", Text.ItemDESC.SMOKES);
-
         Item FlashLight = new BasicItem("Flashlight", Text.ItemDESC.FLASHLIGHT);
         Item Crown = new BasicItem("Crown", Text.ItemDESC.CROWN);
-
 
         Item Headphones = new BasicItem("Headphones", Text.ItemDESC.HEADPHONES);
         Item Waffles = new BasicItem("Waffles", Text.ItemDESC.WAFFLES);
@@ -54,7 +49,8 @@ public class ZorkULGame {
         Item Monster = new BasicItem("Monster", Text.ItemDESC.MONSTER);
 
         Item Bread = new BasicItem("Bread", Text.ItemDESC.BREAD);
-                // make items for lads to hold, make the details of liroom show they are playing cards
+        Item KeyCard = new BasicItem("Keycard", Text.ItemDESC.KEYCARD);
+
         Item VanKeys = new BasicItem("Van-Key", Text.ItemDESC.VANKEYS);
 
         regCam = new Cameras(regaliaGallery);
@@ -95,7 +91,7 @@ public class ZorkULGame {
         balcony.setExit("down", garden, true);
         balcony.setDetails(Text.Details.BALCONY_DET1);
 
-        lobby.setExit("west", outside, true);
+        lobby.setExit("west", outside);
         lobby.setExit("east", mastersGallery, true);
         lobby.setExit("south", vip);
         lobby.setDetails(Text.Details.LOBBY_DET);
@@ -161,9 +157,6 @@ public class ZorkULGame {
 
         player = new User("Player", balcony);
 
-        Guards henry = new Guards("Henry", lobby);
-        henry.getInventory().add(Gum);
-        henry.getInventory().add(Smokes);
 
         jerry = new Guards("Gerard", guardRoom);
         jerry.getInventory().add(Headphones);
@@ -186,7 +179,6 @@ public class ZorkULGame {
         dylan = new Guards("Dylan",deliveryDock);
 
         Character.addCharacter(player);
-        Character.addCharacter(henry);
         Character.addCharacter(jerry);
         Character.addCharacter(sean);
         Character.addCharacter(david);

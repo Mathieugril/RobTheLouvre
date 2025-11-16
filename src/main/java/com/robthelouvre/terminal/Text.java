@@ -26,7 +26,7 @@ public class Text {
     public static class Details {
         public static final String BALCONY_DET1 = "Scuffed paint marks the window frame; the latch looks old and might give with some force.";
         public static final String BALCONY_DET2 = "The cherry picker was forced to move by angry locals, will have to find another way out";
-        public static final String LOBBY_DET = "The sheer amount of people would make it easy to blend in. You see a guard not paying attention.";
+        public static final String LOBBY_DET = "The sheer amount of people would make it easy to blend in. The tour buses pile in and prevent you from leaving this way.";
         public static final String REGALIA_DET = "The room is illuminated via the window and spotlights. Two guards are taking a break on a bench on the other side of the hall, with all the displays it would be easy to get close without being spotted.";
         public static final String MASTERS_DET = "The paintings would be a good score but way to many people here. The guards seem to be talking about something over the radio to each-other";
         public static final String SECURITY_DET = "Screens show the camera feed of nearly the whole museum. Tobias is the supervisor today. Guards rotate in-and-out from break room, one forgets to logout...";
@@ -45,8 +45,6 @@ public class Text {
     public static class ItemDESC {
         public static final String KEYCARD = "Might come in handy for some rooms, others will require more.";
         public static final String UNIFORM = "This can be used to blend in throughout most of the museum.";
-        public static final String GUM =  "Hollywood chewing gum, not much use other then it helps with fresh breath.";
-        public static final String SMOKES = "Marlboro reds, probably helping him by taking these.";
         public static final String FLASHLIGHT = "Spare flashlight left near the guards, doesnt seem to be much battery left though.";
         public static final String CROWN = "Crown of Empress Eugénie, the prized possession of the first president and last monarch of France: Napoleon III.";
         public static final String HEADPHONES = "Beaten up pair of headphones. They Still work, barely.";
@@ -55,7 +53,6 @@ public class Text {
         public static final String MONSTER = "Energy drink he has daily.";
         public static final String BREAD = "Tupperware of brown bread with a bit of butter.";
         public static final String VANKEYS = "Keys for a 'Renault Traffic.'";
-
     }
 
     public static class Convos {
@@ -80,6 +77,7 @@ public class Text {
                 lines.add("     Dylan: Well, whoever it ends up being, I hope they get through the gate without wrestling with that stupid scanner again.");
                 return lines;
             }
+
 
             public static ArrayList<String> lieToGuards() {
                 ArrayList<String> lie = new ArrayList<>();
