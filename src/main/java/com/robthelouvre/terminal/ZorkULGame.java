@@ -26,7 +26,7 @@ public class ZorkULGame {
             securityRoom, guardRoom, serviceTunnel, janitorCloset,
             deliveryDock, garden, secretPassage, vip, basementTunnel, van;
     private Cameras regCam, deliveryScanner;
-    public static Guards patrick, jerry, sean, david, jude, scott, dylan, randomGuards;
+    public static Guards patrick, jerry, sean, david, jude;
     Scanner ise = new Scanner(System.in);
 
 
@@ -57,17 +57,10 @@ public class ZorkULGame {
         deliveryScanner = new Cameras();
 
 
-
-
-
         ArrayList<Item> regaliaGalleryItems = new ArrayList<Item>();
         ArrayList<Item> securityItems = new ArrayList<Item>();
         ArrayList<Item> guardRoomItems = new ArrayList<Item>();
         ArrayList<Item> dockItems = new ArrayList<Item>();
-        ArrayList<Item> vipItems = new ArrayList<Item>();
-        ArrayList<Item> basementItems = new ArrayList<Item>();
-
-
 
 
         outside = new Room(Text.Descriptions.OUTSIDE);
@@ -82,8 +75,8 @@ public class ZorkULGame {
         deliveryDock = new Room(Text.Descriptions.DELIVERY, dockItems, Text.Convos.deliveryConvo());
         garden = new Room(Text.Descriptions.GARDEN);
         secretPassage = new Room(Text.Descriptions.PASSAGE);
-        vip = new Room(Text.Descriptions.VIP, vipItems);
-        basementTunnel = new Room(Text.Descriptions.BASEMENT, basementItems);
+        vip = new Room(Text.Descriptions.VIP);
+        basementTunnel = new Room(Text.Descriptions.BASEMENT);
         van = new Room(Text.Descriptions.VAN);
 
 
@@ -96,7 +89,6 @@ public class ZorkULGame {
         lobby.setExit("south", vip);
         lobby.setDetails(Text.Details.LOBBY_DET);
 
-
         regaliaGallery.setExit("north",mastersGallery);
         regaliaGallery.setExit("south", balcony, true);
         regaliaGallery.setExit("east", securityRoom);
@@ -104,17 +96,14 @@ public class ZorkULGame {
         regaliaGalleryItems.add(FlashLight);
         regaliaGalleryItems.add(Crown);
 
-
         mastersGallery.setExit("south",regaliaGallery);
         mastersGallery.setExit("west", lobby, true);
         mastersGallery.setDetails(Text.Details.MASTERS_DET);
-
 
         securityRoom.setExit("west",regaliaGallery);
         securityRoom.setExit("east", guardRoom);
         securityRoom.setDetails(Text.Details.SECURITY_DET);
         securityItems.add(VanKeys);
-
 
         guardRoom.setExit("west", securityRoom);
         guardRoom.setExit("north", janitorCloset, true );
@@ -126,11 +115,9 @@ public class ZorkULGame {
         janitorCloset.setDetails(Text.Details.JANITOR_DET);
         janitorCloset.setExit("east", secretPassage);
 
-
         serviceTunnel.setExit("north", deliveryDock, true);
         serviceTunnel.setExit("south", janitorCloset, true);
         serviceTunnel.setDetails(Text.Details.SERVICE_DET);
-
 
         deliveryDock.setExit("south", serviceTunnel, true);
         deliveryDock.setDetails(Text.Details.DELIVERY_DET);
@@ -155,8 +142,8 @@ public class ZorkULGame {
         van.setExit("north", basementTunnel, true);
         van.setDetails(Text.Details.VAN_DET);
 
-        player = new User("Player", balcony);
 
+        player = new User("Player", balcony);
 
         jerry = new Guards("Gerard", guardRoom);
         jerry.getInventory().add(Headphones);
@@ -170,13 +157,13 @@ public class ZorkULGame {
         david.getInventory().add(Bread);
         david.getInventory().add(KeyCard);
 
-        randomGuards = new Guards("Guards",securityRoom);
+        Guards randomGuards = new Guards("Guards",securityRoom);
 
         patrick = new Guards("Patrice", regaliaGallery);
         jude = new Guards("Jude", regaliaGallery);
 
-        scott = new Guards("Scott",deliveryDock);
-        dylan = new Guards("Dylan",deliveryDock);
+        Guards scott = new Guards("Scott",deliveryDock);
+        Guards dylan = new Guards("Dylan",deliveryDock);
 
         Character.addCharacter(player);
         Character.addCharacter(jerry);
@@ -187,7 +174,6 @@ public class ZorkULGame {
         Character.addCharacter(scott);
         Character.addCharacter(dylan);
         Character.addCharacter(randomGuards);
-
 
     }
 
@@ -206,7 +192,6 @@ public class ZorkULGame {
                 mastersGallery.setExit("south", regaliaGallery, true);
                 regaliaGallery.setExit("north", mastersGallery , true);
                 securityRoom.setExit("east", guardRoom  , true);
-                //    deliveryDock.setExit("north", basementTunnel, true);
             }
             if (player.hasItem("Keycard") && (player.hasItem("Uniform"))) {
                 regaliaGallery.setExit("east", securityRoom , true);
