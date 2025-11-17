@@ -53,8 +53,8 @@ public class ZorkULGame {
 
         Item VanKeys = new BasicItem("Van-Key", Text.ItemDESC.VANKEYS);
 
-        Cameras regCam = new Cameras(regaliaGallery);
-        Cameras deliveryScanner = new Cameras();
+         regCam = new Cameras(regaliaGallery);
+         deliveryScanner = new Cameras();
 
 
         ArrayList<Item> regaliaGalleryItems = new ArrayList<Item>();
@@ -143,7 +143,7 @@ public class ZorkULGame {
         van.setDetails(Text.Details.VAN_DET);
 
 
-        player = new User("Player", balcony);
+        player = new User("Player", securityRoom);
 
         jerry = new Guards("Gerard", guardRoom);
         jerry.getInventory().add(Headphones);
