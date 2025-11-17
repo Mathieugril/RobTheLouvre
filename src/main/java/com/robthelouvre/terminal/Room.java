@@ -54,15 +54,12 @@ public class Room implements Serializable {
         }
         return details + "\nWho is here: \n" + list;
       //  return details;
-
     }
 
 
     public ArrayList<String> getLines() {
         return lines;
     }
-
-
 
     public String getDescription() {
         return description;
@@ -71,9 +68,6 @@ public class Room implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public boolean isOpen() { return access; }
-    public void setOpen(boolean open) { this.access = open; }
 
 
     public void setExit(String direction,Room neighbor) {
@@ -88,11 +82,7 @@ public class Room implements Serializable {
         return exitStates.getOrDefault(direction, false);
     }
 
-    public void setExitOpen(String direction, boolean open) {
-        if (exits.containsKey(direction)) {
-            exitStates.put(direction, open);
-        }
-    }
+
 
         public Room getExit(String direction) {
             if (isExitOpen(direction)) {
@@ -101,12 +91,6 @@ public class Room implements Serializable {
             return null;
         }
 
-    public void toggleExit(String direction) {
-        setExitOpen(direction, !isExitOpen(direction));
-    }
-    public Set<String> getAllExitDirections() {
-        return exits.keySet();
-    }
 
     public Set<String> getOpenExitDirections() {
         Set<String> openDirs = new HashSet<>();
@@ -116,11 +100,8 @@ public class Room implements Serializable {
                 openDirs.add(dir);
             }
         }
-
         return openDirs;
     }
-
-
 
     public String searchRoom() {
         StringBuilder itemsList = new StringBuilder();
@@ -173,9 +154,5 @@ public class Room implements Serializable {
 
         return "You " + description + "\nExits: " + getExitString()+ "\nOpen exits: "+ sb;
     }
-
-
-
-
 
 }

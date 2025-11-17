@@ -11,10 +11,6 @@ public class Guards extends Character {
         super(name, startingRoom);
         ArrayList<Item> inventory;
     }
-    public Guards(String name, Room startingRoom,  ArrayList<Item> inventory) {
-        super(name, startingRoom);
-     //   ArrayList<Item> inventory;
-    }
 
     @Override
     public void setCurrentRoom(Room room) {

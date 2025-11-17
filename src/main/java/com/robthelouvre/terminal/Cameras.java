@@ -20,30 +20,13 @@ public class Cameras implements Item{
         return "";
     }
 
-    @Override
-    public void setDescription(String description) {
 
-    }
 
     @Override
     public String getName() {
         return "";
     }
 
-    @Override
-    public void setName(String name) {
-
-    }
-
-    @Override
-    public int getId() {
-        return 0;
-    }
-
-    @Override
-    public void setID(int id) {
-
-    }
 
     @Override
     public boolean getStatus() {
