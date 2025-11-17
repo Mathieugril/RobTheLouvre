@@ -25,29 +25,8 @@ public class BasicItem  implements Item, Serializable{
     }
 
     @Override
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-
-    @Override
     public String getName() {
         return name;
-    }
-
-    @Override
-    public void setName(String name) {
-
-    }
-
-    @Override
-    public int getId() {
-        return 0;
-    }
-
-    @Override
-    public void setID(int id) {
-
     }
 
     @Override
