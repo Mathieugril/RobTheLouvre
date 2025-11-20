@@ -2,6 +2,7 @@ package com.robthelouvre.terminal;
 
 import java.util.ArrayList;
 import java.io.*;
+import java.util.List;
 
 public abstract class Character implements Serializable {
     private String name;
@@ -62,13 +63,13 @@ public abstract class Character implements Serializable {
     }
 
 
-    private static ArrayList<Character> allCharacters = new ArrayList<>();
+    private static List<Character> allCharacters = new ArrayList<>();
 
     public static void addCharacter(Character c) {
         allCharacters.add(c);
     }
 
-    public static ArrayList<Character> getAllCharacters() {
+    public static List<Character> getAllCharacters() {
         return allCharacters;
     }
 }

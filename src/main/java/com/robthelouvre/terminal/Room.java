@@ -7,20 +7,20 @@ public class Room implements Serializable {
     private String description;
     private Map<String, Room> exits; // Map direction to neighboring Room
     private String details;
-    private ArrayList<Item> items;
+    private List<Item> items;
     private Map<String, Boolean> exitStates = new HashMap<>();
     private boolean access = false;
-    private ArrayList<String> lines;
+    private List<String> lines;
 
     public Room(String description) {
         this.description = description;
         this.details = description;
         exits = new HashMap<>();
-        this.items = new ArrayList<Item>();
+        this.items = new ArrayList<>();
 
     }
 
-    public Room(String description, ArrayList<Item> items) {
+    public Room(String description, List<Item> items) {
         this.description = description;
         this.details = description;
         exits = new HashMap<>();
@@ -28,7 +28,7 @@ public class Room implements Serializable {
         this.access = true;
     }
 
-    public Room(String description, ArrayList<Item> items, ArrayList<String> lines) {
+    public Room(String description, List<Item> items, List<String> lines) {
         this.description = description;
         this.details = description;
         exits = new HashMap<>();
@@ -57,7 +57,7 @@ public class Room implements Serializable {
     }
 
 
-    public ArrayList<String> getLines() {
+    public List<String> getLines() {
         return lines;
     }
 
@@ -131,7 +131,7 @@ public class Room implements Serializable {
     public void addItem(Item item) {
         items.add(item);
     }
-    public ArrayList<Item> getItems() {
+    public List<Item> getItems() {
         return items;
     }
 

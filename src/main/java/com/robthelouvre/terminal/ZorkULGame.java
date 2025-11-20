@@ -17,6 +17,7 @@ package com.robthelouvre.terminal;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class ZorkULGame {
@@ -57,10 +58,10 @@ public class ZorkULGame {
          deliveryScanner = new Cameras();
 
 
-        ArrayList<Item> regaliaGalleryItems = new ArrayList<Item>();
-        ArrayList<Item> securityItems = new ArrayList<Item>();
-        ArrayList<Item> guardRoomItems = new ArrayList<Item>();
-        ArrayList<Item> dockItems = new ArrayList<Item>();
+        List<Item> regaliaGalleryItems = new ArrayList<Item>();
+        List<Item> securityItems = new ArrayList<Item>();
+        List<Item> guardRoomItems = new ArrayList<Item>();
+        List<Item> dockItems = new ArrayList<Item>();
 
 
         outside = new Room(Text.Descriptions.OUTSIDE);
@@ -143,7 +144,7 @@ public class ZorkULGame {
         van.setDetails(Text.Details.VAN_DET);
 
 
-        player = new User("Player", securityRoom);
+        player = new User("Player", balcony);
 
         jerry = new Guards("Gerard", guardRoom);
         jerry.getInventory().add(Headphones);
