@@ -32,10 +32,14 @@
 <h2>Game Design</h2>
   
       Class Name                     Attributes                                          Methods
-       Player                 name, currentRoom, inventory            getName, getCurrentRoom, getInventory, pickUpItem, dropItem
+       Character                 name, currentRoom, inventory            getName, getCurrentRoom, getInventory, pickUpItem, dropItem
        Items             name, description, location, id, isVisible   getDescription, getName, getLocation, getId, isVisible     
        Room        description, exits, details, items       inspect, getDescription, getExit, searchRoom, removeItem, addItem, getItems, getLongDescription
-       ZorkULGame              parser, player              createRooms, play, printWelcome, processCommand, printHelp, goRoom, details
+       ZorkULGame                     parser, player              createRooms, play, printWelcome, processCommand, printHelp, goRoom, details
+       Text                                                              Descripstions, Details, ItemDESC, Convos
+       Cameras                     room, isOn                            getStatus, setStatus
+       Guards                     - Extends Character -                             lie
+       Util                                                                      checkItemAvailable
 
 
 <h2>Relationships</h2>
