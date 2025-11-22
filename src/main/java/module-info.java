@@ -1,6 +1,7 @@
 module com.robthelouvre.ui {
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.graphics;
     //requires com.robthelouvre.ui;
 
 
