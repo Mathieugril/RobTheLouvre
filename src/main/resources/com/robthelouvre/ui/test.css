@@ -1,0 +1,19 @@
+/* Style all buttons */
+.button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-family: "Franklin Gothic Heavy";
+    -fx-font-size: 16px;
+    -fx-padding: 10 20;
+    -fx-background-radius: 10;
+}
+
+/* Button hover effect */
+.button:hover {
+    -fx-background-color: #45a049;
+}
+
+/* Background color for AnchorPane */
+.root {
+    -fx-background-color: #392e2e;
+}
