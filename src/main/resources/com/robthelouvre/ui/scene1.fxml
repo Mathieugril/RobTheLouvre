@@ -4,17 +4,15 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane  maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.robthelouvre.ui.sceneController">
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.robthelouvre.ui.s1controller">
    <children>
-      <Button  layoutX="196.0" layoutY="200.0" mnemonicParsing="false" onAction="#switchToScene2" text="Switch to scene 2">
+      <Label layoutX="91.0" layoutY="137.0" prefHeight="87.0" prefWidth="136.0" text="username : ">
          <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
-      <Label layoutX="192.0" layoutY="105.0" text="Scene 1">
-         <font>
-            <Font size="50.0" />
+            <Font size="24.0" />
          </font>
       </Label>
+      <Button fx:id="loginButton" layoutX="274.0" layoutY="255.0" mnemonicParsing="false" onAction="#login" text="login" />
+      <TextField fx:id="nameText" layoutX="226.0" layoutY="168.0" />
    </children>
 </AnchorPane>
