@@ -4,12 +4,17 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.robthelouvre.ui.s2controller">
+<AnchorPane fx:id="anchor" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.robthelouvre.ui.s2controller">
    <children>
-      <Label fx:id="nameLabel" layoutX="184.0" layoutY="130.0" prefHeight="70.0" prefWidth="232.0" text="Welcome ">
+      <Label fx:id="nameLabel" layoutX="209.0" layoutY="130.0" prefHeight="70.0" prefWidth="232.0" text="Welcome ">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
+      <Button fx:id="logoutButton" layoutX="274.0" layoutY="226.0" mnemonicParsing="false" onAction="#logout" text="logout">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
