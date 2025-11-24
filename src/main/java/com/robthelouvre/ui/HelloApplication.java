@@ -17,7 +17,7 @@ public class HelloApplication extends Application {
         Parent root = fxmlLoader.load();
 
         Scene scene = new Scene(root, 800, 600);
-        scene.getStylesheets().add(HelloApplication.class.getResource("test.css").toExternalForm());
+        scene.getStylesheets().add(HelloApplication.class.getResource("mapview.css").toExternalForm());
         stage.setScene(scene);
         stage.setMaximized(true);
        //sta

@@ -1,0 +1,228 @@
+/* Lobby & VIP brighter red */
+.lobby-room {
+    -fx-fill: #9c3424;
+    -fx-stroke: #1c0b09;
+    -fx-stroke-width: 4px;
+}
+
+/* Galleries – deep maroon/mahogany */
+.gallery-room {
+    -fx-fill: #6b1f19;
+    -fx-stroke: #1c0b09;
+    -fx-stroke-width: 4px;
+}
+
+/* Grass/green garden */
+.garden-room {
+    -fx-fill: linear-gradient(#3f6a2a, #27441a);
+    -fx-stroke: #1c0b09;
+    -fx-stroke-width: 4px;
+}
+
+/* Utility Rooms (Control, Break) */
+.utility-room {
+    -fx-fill: #5d5c5c;
+    -fx-stroke: #1c1c1c;
+    -fx-stroke-width: 4px;
+}
+
+/* Service Rooms (Janitor, Delivery) */
+.service-room {
+    -fx-fill: #804226;
+    -fx-stroke: #1c0b09;
+    -fx-stroke-width: 4px;
+}
+
+/* Maintenance Hallway */
+.maintenance-room {
+    -fx-fill: linear-gradient(#7c7c7c, #515151);
+    -fx-stroke: #1c1c1c;
+    -fx-stroke-width: 4px;
+}
+
+/* Basement – darkest red */
+.basement-room {
+    -fx-fill: #4d1b13;
+    -fx-stroke: #1c0b09;
+    -fx-stroke-width: 4px;
+}
+/* ===========================
+   GLOBAL / ROOT
+   =========================== */
+
+.root {
+    /* dark stone background, slight variation */
+    -fx-background-color: linear-gradient(
+            from 0% 0% to 100% 100%,   /* top-left → bottom-right */ #3d2525 0%,
+            #3e2929 0%,
+            #3b2d2d 50%,
+            #292424 75%,
+            #191616 100%
+    );
+    -fx-font-family: "Consolas", "Monospaced";
+    -fx-text-fill: #f8f1e5;
+}
+
+/* Default text (Text, Label) */
+.text, .label {
+    -fx-fill: #f8f1e5;
+    -fx-text-fill: #f8f1e5;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+/* Pixel-ish look (turn off smoothing a bit) */
+* {
+    -fx-snap-to-pixel: true;
+}
+
+/* ===========================
+   INVENTORY PANEL (LEFT)
+   =========================== */
+
+.inventory-title {
+    -fx-text-fill: #f8f1e5;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+/* ListView background like light stone */
+.list-view {
+    -fx-background-insets: 0;
+    -fx-background-color: #f0ece3;
+    -fx-border-color: #2a1410;
+    -fx-border-width: 2;
+}
+
+/* inventory rows */
+.list-cell {
+    -fx-font-size: 13px;
+    -fx-text-fill: #2a1410;
+    -fx-background-color: #f6f1e7;
+}
+.list-cell:filled:selected,
+.list-cell:filled:selected:focused {
+    -fx-background-color: #b33a2b;
+    -fx-text-fill: #ffffff;
+}
+
+/* ===========================
+   MAP ROOMS & CORRIDORS
+   (Rectangles with styleClass="room ..." etc.)
+   =========================== */
+
+/* base room style */
+.room {
+    -fx-fill: #7b271f;                 /* warm red */
+    -fx-stroke: #1c0b09;               /* very dark outline */
+    -fx-stroke-width: 3px;
+    -fx-stroke-line-cap: butt;
+}
+
+/* lobby / VIP a bit brighter */
+.lobby-room {
+    -fx-fill: #9b3a2a;
+
+}
+.vip-room {
+    -fx-fill: #b23d33;
+
+}
+
+/* galleries slightly darker */
+.gallery-room {
+    -fx-fill: #6b1f19;
+
+}
+
+/* garden: greenish terraces */
+.garden-room {
+    -fx-fill: linear-gradient(#3f6a2a, #27441a);
+}
+
+/* corridor / walkway (grey stone) */
+.corridor {
+    -fx-fill: linear-gradient(#8a8a8a, #666666);
+    -fx-stroke: #2a1410;
+    -fx-stroke-width: 3px;
+}
+
+/* maintenance shaft narrow corridor */
+.maintenance {
+    -fx-fill: linear-gradient(#7c7c7c, #555555);
+    -fx-stroke: #2a1410;
+    -fx-stroke-width: 3px;
+}
+
+/* dashed security line across VIP / OM */
+.security-line {
+    -fx-fill: transparent;
+    -fx-stroke: #ff4040;
+    -fx-stroke-width: 2;
+    -fx-stroke-dash-array: 6 4;
+}
+
+/* hidden passage (bright white dashed) */
+.hidden-pass {
+    -fx-fill: transparent;
+    -fx-stroke: #f8f1e5;
+    -fx-stroke-width: 3;
+    -fx-stroke-dash-array: 4 4;
+}
+
+/* ===========================
+   ROOM LABEL TEXT
+   (Text nodes with styleClass="room-label")
+   =========================== */
+
+.room-label {
+    -fx-fill: #f8f1e5;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.8), 3, 0.6, 0, 1);
+}
+
+/* small vertical labels like "Maintenance" */
+.small-label {
+    -fx-fill: #f8f1e5;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.8), 3, 0.6, 0, 1);
+}
+
+/* ===========================
+   TEXT BOX (RIGHT)
+   =========================== */
+
+.text-box {
+    -fx-background-color: #050506;
+    -fx-control-inner-background: #050506;
+    -fx-text-fill: #f8f1e5;
+    -fx-font-size: 14px;
+    -fx-border-color: #f8f1e5;
+    -fx-border-width: 2;
+}
+
+/* scrollbars darker */
+.text-area .scroll-pane,
+.text-area .content {
+    -fx-background-color: #050506;
+}
+
+/* ===========================
+   OPTIONAL: PLAYER MARKER
+   (Text or small shape with styleClass="player")
+   =========================== */
+.input-box {
+    -fx-background-color: #050506;
+    -fx-text-fill: #f8f1e5;
+    -fx-font-size: 14px;
+    -fx-border-color: #f8f1e5;
+    -fx-border-width: 2;
+}
+.player {
+    -fx-fill: #ffd45a;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.9), 3, 0.7, 0, 1);
+}
