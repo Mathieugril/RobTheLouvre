@@ -13,7 +13,7 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("newmap.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("map.fxml"));
         Parent root = fxmlLoader.load();
 
         Scene scene = new Scene(root, 800, 600);

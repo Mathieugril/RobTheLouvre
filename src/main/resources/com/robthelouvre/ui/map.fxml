@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<StackPane fx:id="root" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #423f3f;" stylesheets="@test.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane fx:id="root" fx:controller="com.robthelouvre.ui.Controller" prefHeight="800.0" prefWidth="1200.0" styleClass="root" stylesheets="mapview.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
 
     <children>
 
@@ -21,7 +21,7 @@
                     <Insets left="90.0" />   <!-- tweak this number -->
                 </HBox.margin>
                 <children>
-                    <Label layoutX="123.0" layoutY="171.0" prefHeight="46.0" prefWidth="105.0" styleClass="inventory-title" text="Inventory" textFill="#efe4e4" />
+                    <Label layoutX="123.0" layoutY="171.0" prefHeight="46.0" prefWidth="105.0" styleClass="inventory-title" text="Inventory" textFill="#efe4e4" style="-fx-padding: 50 10 10 5;" />
                     <ListView fx:id="inventoryList" prefHeight="146.0" prefWidth="49.0">
                         <items>
                             <FXCollections fx:factory="observableArrayList">
@@ -40,72 +40,90 @@
                 <children>
 
                     <!-- Control Room -->
-                    <Rectangle height="72.0" layoutX="574.0" layoutY="339.0" style="-fx-fill: #000000; -fx-stroke: #ffffff; -fx-stroke-width: 2.0;" width="95.0" />
+                    <Rectangle height="72.0" layoutX="574.0" layoutY="339.0" styleClass="utility-room" width="95.0" />
 
                     <!-- Break Room -->
-                    <Rectangle height="74.0" layoutX="665.0" layoutY="338.0" style="-fx-fill: #000000; -fx-stroke: #ffffff; -fx-stroke-width: 2.0;" width="104.0" />
+                    <Rectangle height="74.0" layoutX="665.0" layoutY="338.0" styleClass="utility-room" width="104.0" />
 
                     <!-- Lobby -->
-                    <Rectangle height="150.0" layoutX="123.0" layoutY="171.0" style="-fx-fill: #000000; -fx-stroke: #ffffff; -fx-stroke-width: 2.0;" width="150.0" />
-                    <Text fill="white" layoutX="182.0" layoutY="237.0" text="Lobby" />
+                    <Rectangle height="150.0" layoutX="123.0" layoutY="171.0" styleClass="lobby-room" width="150.0" />
+                    <Text fill="white" layoutX="182.0" layoutY="237.0" styleClass="room-label" text="Lobby" />
 
                     <!-- V.I.P -->
-                    <Rectangle height="124.0" layoutX="122.0" layoutY="320.0" style="-fx-fill: #000000; -fx-stroke: #ffffff; -fx-stroke-width: 2.0;" width="152.0" />
-                    <Text fill="white" layoutX="182.0" layoutY="380.0" text="V.I.P" />
-
-                    <!-- Old Masters Gallery -->
-                    <Rectangle height="204.0" layoutX="273.0" layoutY="108.0" style="-fx-fill: #000000; -fx-stroke: #ffffff; -fx-stroke-width: 2.0;" width="304.0" />
-                    <Text fill="white" layoutX="392.0" layoutY="213.0" text="Old Masters" />
-                    <Text fill="white" layoutX="405.0" layoutY="242.0" text="Gallery" />
+                    <Rectangle height="124.0" layoutX="122.0" layoutY="320.0" styleClass="lobby-room" width="152.0" />
+                    <Text fill="white" layoutX="182.0" layoutY="380.0" styleClass="room-label" text="V.I.P" />
 
                     <!-- Regalia Gallery -->
-                    <Rectangle height="293.0" layoutX="275.0" layoutY="313.0" style="-fx-fill: #000000; -fx-stroke: #ffffff; -fx-stroke-width: 2.0;" width="302.0" />
-                    <Text fill="white" layoutX="401.0" layoutY="398.0" text="Regalia" wrappingWidth="54.00000000000023" />
-                    <Text fill="white" layoutX="403.0" layoutY="414.0" text="Gallery" />
+                    <Rectangle height="293.0" layoutX="275.0" layoutY="313.0" styleClass="gallery-room" width="302.0" />
+
+                    <!-- Old Masters Gallery -->
+                    <Rectangle height="204.0" layoutX="273.0" layoutY="108.0" styleClass="gallery-room" width="304.0" />
+                    <Text fill="white" layoutX="401.0" layoutY="398.0" styleClass="room-label" text="Regalia" />
+                    <Text fill="white" layoutX="403.0" layoutY="414.0" styleClass="room-label" text="Gallery" />
 
                     <!-- Garden -->
-                    <Rectangle height="138.0" layoutX="236.0" layoutY="600.0" style="-fx-fill: #000000; -fx-stroke: #ffffff; -fx-stroke-width: 2.0;" width="384.0" />
+                    <Rectangle height="138.0" layoutX="236.0" layoutY="600.0" styleClass="garden-room" width="384.0" />
                     <!-- Balcony -->
-                    <Rectangle height="56.0" layoutX="317.0" layoutY="600.0" style="-fx-fill: #000000; -fx-stroke: #ffffff; -fx-stroke-width: 2.0;" width="242.0" />
-                    <Text fill="white" layoutX="417.0" layoutY="641.0" text="Balcony" />
-                    <Text fill="white" layoutX="420.0" layoutY="693.0" text="Garden" />
-                    <Text fill="white" layoutX="598.0" layoutY="378.0" text="Control" />
-                    <Text fill="white" layoutX="701.0" layoutY="378.0" text="Break" />
-                    <Text fill="white" layoutX="704.0" layoutY="397.0" text="Room" />
+                    <Rectangle height="56.0" layoutX="309.0" layoutY="600.0" styleClass="gallery-room" width="242.0" />
+                    <Text fill="white" layoutX="400.0" layoutY="641.0" styleClass="room-label" text="Balcony" />
+                    <Text fill="white" layoutX="403.0" layoutY="690.0" styleClass="room-label" text="Garden" />
+                    <Text fill="white" layoutX="590.0" layoutY="378.0" styleClass="room-label" text="Control" />
+                    <Text fill="white" layoutX="695.0" layoutY="370.0" styleClass="room-label" text="Break" />
+                    <Text fill="white" layoutX="697.0" layoutY="388.0" styleClass="room-label" text="Room" />
 
                     <!-- Maintenance vertical corridor -->
-                    <Rectangle height="126.0" layoutX="691.0" layoutY="171.0" style="-fx-fill: #000000; -fx-stroke: #ffffff; -fx-stroke-width: 2.0;" width="56.0" />
-
+                    <Rectangle height="126.0" layoutX="691.0" layoutY="171.0" styleClass="maintenance-room" width="42.0" />
+                    <Text fill="white" layoutX="670.0" layoutY="229.0" rotate="90.0" styleClass="room-label" text="Maintenance" />
                     <!-- Janitor Closet -->
-                    <Rectangle height="62.0" layoutX="666.0" layoutY="277.0" style="-fx-fill: #000000; -fx-stroke: #ffffff; -fx-stroke-width: 2.0;" width="102.0" />
-                    <Text fill="white" layoutX="682.0" layoutY="229.0" rotate="90.0" text="Maintenance" />
+                    <Rectangle height="62.0" layoutX="666.0" layoutY="277.0" styleClass="service-room" width="102.0" />
+
 
                     <!-- Delivery Dock -->
-                    <Rectangle height="70.0" layoutX="663.0" layoutY="100.0" style="-fx-fill: #000000; -fx-stroke: #ffffff; -fx-stroke-width: 2.0;" width="110.0" />
-                    <Text fill="white" layoutX="686.0" layoutY="132.0" text="Delivery" wrappingWidth="63.884765625000114" />
-                    <Text fill="white" layoutX="705.0" layoutY="144.0" text="Dock" wrappingWidth="26.953125" />
+                    <Rectangle height="70.0" layoutX="663.0" layoutY="100.0" styleClass="service-room" width="110.0" />
+                    <Text fill="white" layoutX="686.0" layoutY="132.0" styleClass="room-label" text="Delivery" >
+                        <font>
+                            <Font size="10.0" />
+                        </font></Text>
+                    <Text fill="white" layoutX="700.0" layoutY="144.0" styleClass="room-label" text="Dock" >
+                        <font>
+                            <Font size="10.0" />
+                        </font></Text>
 
                     <!-- Basement -->
-                    <Rectangle height="62.0" layoutX="632.0" layoutY="37.0" style="-fx-fill: #000000; -fx-stroke: #ffffff; -fx-stroke-width: 2.0;" width="172.0" />
-                    <Text fill="white" layoutX="678.0" layoutY="70.0" text="Basement" wrappingWidth="78.44335937500006" />
+                    <Rectangle height="62.0" layoutX="632.0" layoutY="37.0" styleClass="basement-room" width="172.0" />
+                    <Text  layoutX="678.0" layoutY="70.0" styleClass="room-label" text="Basement" wrappingWidth="78.44335937500006" />
 
                     <!-- Hidden Passage (dashed) -->
-                    <Rectangle height="384.0" layoutX="822.0" layoutY="308.0" style="-fx-fill: transparent;                                       -fx-stroke: #ffffff;                                       -fx-stroke-width: 2.0;                                       -fx-stroke-dash-array: 6 8;" width="18.0" />
-                    <Text fill="white" layoutX="784.0" layoutY="503.0" rotate="-90.0" text="Hidden Passage" />
-                    <Rectangle height="30.0" layoutX="620.0" layoutY="665.0" style="-fx-fill: transparent;                                       -fx-stroke: #ffffff;                                       -fx-stroke-width: 2.0;                                       -fx-stroke-dash-array: 6 8;" width="205.0" />
-                    <Rectangle height="20.0" layoutX="769.0" layoutY="309.0" style="-fx-fill: transparent;                                       -fx-stroke: #ffffff;                                       -fx-stroke-width: 2.0;                                       -fx-stroke-dash-array: 6 8;" width="52.0" />
-                    <Text fill="white" layoutX="697.0" layoutY="303.0" text="Janitor Closet" wrappingWidth="54.0" />
+
+                    <Text  layoutX="690.0" layoutY="307.0" styleClass="room-label" text="Janitor" />
+                    <Text  layoutX="690.0" layoutY="327.0" styleClass="room-label" text="Closet" />
+                    <Text  layoutX="392.0" layoutY="213.0" styleClass="room-label" text="Old Masters" />
+                    <Text  layoutX="405.0" layoutY="242.0" styleClass="room-label" text="Gallery" />
 
                 </children>
             </AnchorPane>
 
             <!-- RIGHT: Text box -->
-            <AnchorPane prefHeight="630.0" prefWidth="269.0">
+            <VBox prefWidth="350.0" spacing="5.0" style="-fx-padding: 30 10 0 5;">
                 <children>
-                    <TextArea fx:id="messageBox" editable="false" layoutY="29.0" prefHeight="585.0" prefWidth="286.0" styleClass="text-box" text="This is the text box on the right." wrapText="true" AnchorPane.bottomAnchor="186.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="29.0" />
-                    <TextArea fx:id="inputBox" editable="true" layoutY="639.0" prefHeight="92.0" prefWidth="255.0" styleClass="text-box" wrapText="true" />
+
+                    <!-- Top: main log -->
+                    <TextArea fx:id="messageBox"
+                              prefRowCount="10"
+                              wrapText="true"
+                              editable="false"
+                              styleClass="text-box"
+                              prefHeight="650"
+                              layoutY="400"/>
+
+                    <!-- Bottom: input box -->
+                    <TextField fx:id="inputField"
+                               promptText="Type command..."
+                               styleClass="input-box"
+                               onAction="#handleCommand"/>
+
                 </children>
-            </AnchorPane>
+            </VBox>
 
         </HBox>
     </children>

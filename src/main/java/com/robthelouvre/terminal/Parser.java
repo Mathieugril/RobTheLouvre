@@ -10,21 +10,28 @@ public class Parser {
         commands = new CommandWords();
         reader = new Scanner(System.in);
     }
-
     public Command getCommand() {
         System.out.print("> ");
         String inputLine = reader.nextLine();
+        return parseCommand(inputLine);     // 👈 reuse the new method
+    }
 
+    public Command parseCommand(String inputLine) {
         String word1 = null;
         String word2 = null;
 
-        Scanner tokenizer = new Scanner(inputLine);
-        if (tokenizer.hasNext()) {
-            word1 = tokenizer.next();
+        if (inputLine != null) {
+            Scanner tokenizer = new Scanner(inputLine);
+
             if (tokenizer.hasNext()) {
-                word2 = tokenizer.next();
+                word1 = tokenizer.next();
+                if (tokenizer.hasNext()) {
+                    word2 = tokenizer.next();   // or nextLine() if you want multi-word second part
+                }
             }
+            tokenizer.close();
         }
+
 
         if (commands.isCommand(word1)) {
             return new Command(word1, word2);
@@ -33,7 +40,8 @@ public class Parser {
         }
     }
 
-    public void showCommands() {
+    public String showCommands() {
         commands.showAll();
+        return null;
     }
 }

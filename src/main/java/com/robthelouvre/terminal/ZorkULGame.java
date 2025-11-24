@@ -15,7 +15,6 @@ emphasizing exploration and simple command-driven gameplay
 
 package com.robthelouvre.terminal;
 
-import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -29,7 +28,11 @@ public class ZorkULGame {
     private Cameras regCam, deliveryScanner;
     public static Guards patrick, jerry, sean, david, jude;
     Scanner ise = new Scanner(System.in);
+    private boolean finished = false;   // for GUI usage as well
 
+    public boolean isFinished() {
+        return finished;
+    }
 
     public ZorkULGame() {
         create();
@@ -177,15 +180,14 @@ public class ZorkULGame {
         Character.addCharacter(randomGuards);
     }
 
-    public void play() {
-        printWelcome();
 
-       boolean finished = false;
-        while (!finished) {
-            Command command = parser.getCommand();
-            finished = processCommand(command);
+    public String processInput(String input) {
+        StringBuilder out = new StringBuilder();
 
-            if (player.hasItem("Keycard")) {
+        Command command = parser.parseCommand(input);
+        finished = processCommand(command, out);
+
+        if (player.hasItem("Keycard")) {
                 lobby.setExit("south", vip, true);
                 mastersGallery.setExit("south", regaliaGallery, true);
                 regaliaGallery.setExit("north", mastersGallery , true);
@@ -202,75 +204,79 @@ public class ZorkULGame {
                 secretPassage.setDetails(Text.Details.PASSAGE_DET2);
             }
             if ((player.hasItem("Crown")) && (player.getCurrentRoom().equals(outside))){
-                System.out.println("\n \nYou have escaped with the Crown of Empress Eugénie, Congrats!!");
+                out.append("\n\nYou have escaped with the Crown of Empress Eugénie, Congrats!!\n");
                 finished = true;
             }
 
-        }
-        System.out.println("Thank you for playing. Goodbye.");
-        try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("player.ser"))) {
-            out.writeObject(player);
-            System.out.println("Object has been serialized to player.ser");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        out.append("Thank you for playing. Goodbye.\n");
+//        try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("player.ser"))) {
+//            out.writeObject(player);
+//            System.out.println("Object has been serialized to player.ser");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        return out.toString();
     }
 
-    private void printWelcome() {
-        System.out.println();
-        System.out.println("Welcome to Rob the Louvre!");
-        System.out.println("Type 'help' if you need help.");
-        System.out.println();
-        System.out.println(player.getCurrentRoom().getLongDescription());
 
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("player.ser"))) {
-            User deserializedPerson = (User) in.readObject();
-            System.out.println("Object has been deserialized:");
-       //     for (Item i : deserializedPerson.getInventory()) {
-         //       System.out.println(i.getName());
-           // }
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        public String getWelcomeText() {
+            StringBuilder out = new StringBuilder();
+            out.append("Welcome to Rob the Louvre!\n");
+            out.append("Type 'help' if you need help.\n\n");
+            out.append(player.getCurrentRoom().getLongDescription()).append("\n");
+            return out.toString();
+
+//        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("player.ser"))) {
+//            User deserializedPerson = (User) in.readObject();
+//            System.out.println("Object has been deserialized:");
+//       //     for (Item i : deserializedPerson.getInventory()) {
+//         //       System.out.println(i.getName());
+//           // }
+//        } catch (IOException | ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
 
     }
 
-    private boolean processCommand(Command command) {
+
+
+    public boolean processCommand(Command command, StringBuilder out) {
         String commandWord = command.getCommandWord();
 
         if (commandWord == null) {
-            System.out.println("I don't understand your command...");
+            out.append("I don't understand your command...");
             return false;
         }
 
         switch (commandWord) {
             case "help":
-                printHelp();
+                appendHelp(out);
                 break;
             case "go":
-                goRoom(command);
+                goRoom(command, out);
                 break;
             case "inspect":
-                System.out.println(player.getCurrentRoom().inspect());
-                System.out.println(player.getCurrentRoom().searchRoom());
+                out.append(player.getCurrentRoom().inspect()).append("\n");
+                out.append(player.getCurrentRoom().searchRoom()).append("\n");
                 break;
             case "take":
                 Item takeItem = Util.checkItemAvailable(command.getSecondWord(), player.getCurrentRoom().getItems());
                 if (takeItem == null) {
-                    System.out.println("I can't find that item!");
+                    out.append("I can't find that item!");
                 } else {
-                    System.out.println(player.pickUpItem(takeItem));
-                    System.out.println(takeItem.getDescription());
-                    System.out.println("\nAll Exits: " + player.getCurrentRoom().getExitString());
+                    out.append(player.pickUpItem(takeItem)).append("\n");
+                    out.append(takeItem.getDescription()).append("\n");
+                    out.append("\nAll Exits: " + player.getCurrentRoom().getExitString()).append("\n");
                 }
                 for (Item item : player.getInventory()) {
                     if (item.getName().equals("Crown")){
                        if (regCam.getStatus()){
-                            System.out.print("Cameras caught you, Game over!!\n");
+                           out.append("Cameras caught you, Game over!!\n");
                             return true;
                         }
                        if (jude.getCurrentRoom().equals(regaliaGallery)) {
-                           System.out.print("Guards caught you, Game over!!\n");
+                           out.append("Guards caught you, Game over!!\n");
                            return true;
                        }
                        balcony.setDetails(Text.Details.BALCONY_DET2);
@@ -287,18 +293,18 @@ public class ZorkULGame {
             case "drop":
                 Item dropItem = Util.checkItemAvailable(command.getSecondWord(), player.getInventory());
                 if (dropItem == null) {
-                    System.out.println("I don't have that item!");
+                    out.append("I don't have that item!");
                 } else {
                     player.dropItem(dropItem);
                 }
                 break;
             case "pickpocket":
-                steal(command);
-                System.out.println("\nAll Exits: " + player.getCurrentRoom().getExitString());
+                steal(command, out);
+                out.append("\nAll Exits: ").append(player.getCurrentRoom().getExitString()).append("\n");
                 break;
             case "eavesdrop":
-                listen();
-                System.out.println("\nAll Exits: " + player.getCurrentRoom().getExitString());
+                listen(out);
+                out.append("\nAll Exits: ").append(player.getCurrentRoom().getExitString()).append("\n");
                 break;
             case "tamper":
                 if(player.getCurrentRoom().equals(securityRoom)) {
@@ -306,7 +312,7 @@ public class ZorkULGame {
                     System.out.println("Cameras in gallery have been disabled!");
                 } else if (player.getCurrentRoom().equals(deliveryDock)) {
                     deliveryScanner.setStatus(false);
-                    System.out.println("Scanner has been disabled!");
+                    out.append("Scanner has been disabled!").append("\n");
                 } else {
                     System.out.println("Nothing to mess with here.");
                 }
@@ -317,36 +323,52 @@ public class ZorkULGame {
                    if (player.hasItem("Uniform")) {
                        Guards.lie(guardRoom);
                    } else {
-                       System.out.println("You have no disguise,guards caught you.");
+                       out.append("You have no disguise,guards caught you.").append("\n");
                        return true;
                    }
                 } else {
-                    System.out.println("This doesn't benefit you here.");
+                    out.append("This doesn't benefit you here.").append("\n");
                 }
                 break;
             case "quit":
                 if (command.hasSecondWord()) {
-                    System.out.println("Quit what?");
+                    out.append("Quit what?").append("\n");
                     return false;
                 } else {
                     return true; // signal to quit
                 }
             default:
-                System.out.println("I don't know what you mean...");
+                out.append("I don't know what you mean...").append("\n");
                 break;
         }
         return false;
     }
 
-    private void printHelp() {
-        System.out.println("You are in the middle of a heist. You are alone. You wander around the university.");
-        System.out.print("Your command words are: ");
-        parser.showCommands();
+    private void appendHelp(StringBuilder out) {
+        out.append("You are in the middle of a heist. You are alone. You wander around the museum.\n");
+        out.append("Your command words are: ");
+        out.append(parser.showCommands()).append("\n"); // you may need a method that returns a String
     }
 
-    private void steal(Command command) {
+    private void goRoom(Command command, StringBuilder out) {
         if (!command.hasSecondWord()) {
-            System.out.println("Steal what?");
+            out.append("Go where?\n");
+            return;
+        }
+
+        String direction = command.getSecondWord();
+        Room nextRoom = player.getCurrentRoom().getExit(direction);
+
+        if (nextRoom == null) {
+            out.append("You can't go there yet.\n");
+        } else {
+            player.setCurrentRoom(nextRoom);
+            out.append(player.getCurrentRoom().getLongDescription()).append("\n");
+        }
+    }
+    private void steal(Command command, StringBuilder out)  {
+        if (!command.hasSecondWord()) {
+            out.append("Steal what?").append("\n");
             return;
         }
 
@@ -356,16 +378,16 @@ public class ZorkULGame {
             if (choice.equalsIgnoreCase(i.getName())) {
 
                 if (i.getInventory().isEmpty()) {
-                    System.out.println(i.getName() + " has nothing to steal.");
+                    out.append(i.getName()).append(" has nothing to steal.").append("\n");
                     return;
                 }
 
-                System.out.println(i.getName() + " has:");
+                out.append(i.getName()).append(" has:").append("\n");
                 for (Item item : i.getInventory()) {
-                    System.out.println(" - " + item.getName());
+                    out.append(" - ").append(item.getName()).append("\n");
                 }
 
-                System.out.print("What would you like to take? ");
+                out.append("What would you like to take? ").append("\n");
                 String take = ise.nextLine();
 
                 Item stolenItem = null;
@@ -378,44 +400,26 @@ public class ZorkULGame {
                 if (stolenItem != null) {
                     i.getInventory().remove(stolenItem);
                     player.getInventory().add(stolenItem);
-                    System.out.println("You stole the " + stolenItem.getName() + " from " + i.getName() + "!\n" + stolenItem.getDescription());
+                    out.append("You stole the ").append(stolenItem.getName()).append(" from ").append(i.getName()).append("!\n").append(stolenItem.getDescription()).append("\n");
                     return;
                 } else {
-                    System.out.print(i.getName() + " does not have " + take);
+                    out.append(i.getName()).append(" does not have ").append(take).append("\n");
                     return;
                 }
             }
-            }
-        System.out.println("There is no one named " + choice + " here to steal from.");
-
         }
+        out.append("There is no one named ").append(choice).append(" here to steal from.").append("\n");
 
-    private void goRoom(Command command) {
-        if (!command.hasSecondWord()) {
-            System.out.println("Go where?");
-            return;
-        }
-
-        String direction = command.getSecondWord();
-        Room nextRoom = player.getCurrentRoom().getExit(direction);
-
-           if (nextRoom == null) {
-               System.out.println("You can't go there yet.");
-           } else {
-            player.setCurrentRoom(nextRoom);
-            System.out.println(player.getCurrentRoom().getLongDescription());
-        }
-}
-
-    private void listen() {
+    }
+    private void listen(StringBuilder out) {
 
         if (player.getCurrentRoom().getLines() == null) {
-            System.out.print("Nothing to hear here");
+            out.append("Nothing to hear here").append("\n");
         }
         if (player.getCurrentRoom().equals(regaliaGallery)) {
             garden.setExit("east", secretPassage, true);
             for (String lines : Text.Convos.regaliaConvo()) {
-                System.out.println(lines);
+                out.append(lines).append("\n");
                 try {
                     Thread.sleep(2500);
                 } catch (InterruptedException e) {
@@ -425,7 +429,7 @@ public class ZorkULGame {
         }
         if (player.getCurrentRoom().equals(deliveryDock)) {
             for (String lines : Text.Convos.deliveryConvo()) {
-                System.out.println(lines);
+                out.append(lines).append("\n");
                 try {
                     Thread.sleep(2500);
                 } catch (InterruptedException e) {
@@ -441,6 +445,6 @@ public class ZorkULGame {
 
     public static void main(String[] args) {
         ZorkULGame game = new ZorkULGame();
-        game.play();
+       // game.play();
     }
 }

@@ -82,7 +82,7 @@
 
 .inventory-title {
     -fx-text-fill: #f8f1e5;
-    -fx-font-size: 16px;
+    -fx-font-size: 500px;
     -fx-font-weight: bold;
 }
 
@@ -117,41 +117,6 @@
     -fx-stroke: #1c0b09;               /* very dark outline */
     -fx-stroke-width: 3px;
     -fx-stroke-line-cap: butt;
-}
-
-/* lobby / VIP a bit brighter */
-.lobby-room {
-    -fx-fill: #9b3a2a;
-
-}
-.vip-room {
-    -fx-fill: #b23d33;
-
-}
-
-/* galleries slightly darker */
-.gallery-room {
-    -fx-fill: #6b1f19;
-
-}
-
-/* garden: greenish terraces */
-.garden-room {
-    -fx-fill: linear-gradient(#3f6a2a, #27441a);
-}
-
-/* corridor / walkway (grey stone) */
-.corridor {
-    -fx-fill: linear-gradient(#8a8a8a, #666666);
-    -fx-stroke: #2a1410;
-    -fx-stroke-width: 3px;
-}
-
-/* maintenance shaft narrow corridor */
-.maintenance {
-    -fx-fill: linear-gradient(#7c7c7c, #555555);
-    -fx-stroke: #2a1410;
-    -fx-stroke-width: 3px;
 }
 
 /* dashed security line across VIP / OM */
