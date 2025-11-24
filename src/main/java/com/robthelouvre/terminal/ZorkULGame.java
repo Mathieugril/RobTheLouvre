@@ -226,9 +226,9 @@ public class ZorkULGame {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("player.ser"))) {
             User deserializedPerson = (User) in.readObject();
             System.out.println("Object has been deserialized:");
-            for (Item i : deserializedPerson.getInventory()) {
-                System.out.println(i.getName());
-            }
+       //     for (Item i : deserializedPerson.getInventory()) {
+         //       System.out.println(i.getName());
+           // }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

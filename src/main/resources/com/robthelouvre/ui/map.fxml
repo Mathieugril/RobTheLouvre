@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="anchor" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #423f3f;" stylesheets="@test.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+
+
+    <children>
+
+            <VBox prefWidth="200.0" spacing="5.0" style="-fx-padding: 10;">
+                <children>
+                    <Label styleClass="inventory-title" text="Inventory" />
+
+                    <!-- simple list; you can bind this in your controller -->
+                    <ListView fx:id="inventoryList" prefHeight="200.0">
+                        <!-- optional placeholder items for now -->
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="Item 1" />
+                                <String fx:value="Item 2" />
+                                <String fx:value="Item 3" />
+                            </FXCollections>
+                        </items>
+                    </ListView>
+                </children>
+            </VBox>
+
+
+        <!-- Lobby -->
+        <Rectangle height="150.0" layoutX="200.0" layoutY="200.0" style="-fx-fill: #000000; -fx-stroke: #ffffff; -fx-stroke-width: 2.0;" width="150.0" />
+        <Text fill="white" layoutX="245.0" layoutY="275.0" text="Lobby" />
+
+        <!-- V.I.P -->
+        <Rectangle height="120.0" layoutX="200.0" layoutY="350.0" style="-fx-fill: #000000; -fx-stroke: #ffffff; -fx-stroke-width: 2.0;" width="150.0" />
+        <Text fill="white" layoutX="245.0" layoutY="420.0" text="V.I.P" />
+
+        <!-- Old Masters Gallery -->
+        <Rectangle height="200.0" layoutX="349.0" layoutY="150.0" style="-fx-fill: #000000; -fx-stroke: #ffffff; -fx-stroke-width: 2.0;" width="300.0" />
+        <Text fill="white" layoutX="468.0" layoutY="230.0" text="Old Masters" />
+        <Text fill="white" layoutX="478.0" layoutY="255.0" text="Gallery" />
+
+        <!-- Regalia Gallery -->
+        <Rectangle height="250.0" layoutX="350.0" layoutY="350.0" style="-fx-fill: #000000; -fx-stroke: #ffffff; -fx-stroke-width: 2.0;" width="300.0" />
+        <Text fill="white" layoutX="455.0" layoutY="476.0" text="Regalia" wrappingWidth="41.06249999999994" />
+        <Text fill="white" layoutX="462.0" layoutY="495.0" text="Gallery" />
+
+        <!-- Garden -->
+        <Rectangle height="161.0" layoutX="309.0" layoutY="599.0" style="-fx-fill: #000000; -fx-stroke: #ffffff; -fx-stroke-width: 2.0;" width="382.0" />
+
+        <!-- Balcony -->
+        <Rectangle height="70.0" layoutX="380.0" layoutY="600.0" style="-fx-fill: #000000; -fx-stroke: #ffffff; -fx-stroke-width: 2.0;" width="240.0" />
+        <Text fill="white" layoutX="480.0" layoutY="720.0" text="Garden" />
+
+        <!-- Control Room -->
+        <Rectangle height="60.0" layoutX="650.0" layoutY="350.0" style="-fx-fill: #000000; -fx-stroke: #ffffff; -fx-stroke-width: 2.0;" width="90.0" />
+        <Text fill="white" layoutX="665.0" layoutY="385.0" text="Control" />
+
+        <!-- Break Room -->
+        <Rectangle height="60.0" layoutX="740.0" layoutY="350.0" style="-fx-fill: #000000; -fx-stroke: #ffffff; -fx-stroke-width: 2.0;" width="100.0" />
+        <Text fill="white" layoutX="755.0" layoutY="385.0" text="Break" />
+        <Text fill="white" layoutX="760.0" layoutY="405.0" text="Room" />
+
+        <!-- Janitor Closet -->
+        <Rectangle height="60.0" layoutX="740.0" layoutY="289.0" style="-fx-fill: #000000; -fx-stroke: #ffffff; -fx-stroke-width: 2.0;" width="100.0" />
+        <Text fill="white" layoutX="745.0" layoutY="327.0" text="Janitor Closet" wrappingWidth="78.443359375" />
+
+        <!-- Maintenance vertical corridor -->
+        <Rectangle height="122.0" layoutX="770.0" layoutY="165.0" style="-fx-fill: #000000; -fx-stroke: #ffffff; -fx-stroke-width: 2.0;" width="29.0" />
+        <Text fill="white" layoutX="751.0" layoutY="231.0" rotate="90.0" text="Maintenance" />
+
+        <!-- Delivery Dock -->
+        <Rectangle height="70.0" layoutX="731.0" layoutY="93.0" style="-fx-fill: #000000; -fx-stroke: #ffffff; -fx-stroke-width: 2.0;" width="110.0" />
+        <Text fill="white" layoutX="754.0" layoutY="118.0" text="Delivery" wrappingWidth="63.884765625000114" />
+        <Text fill="white" layoutX="777.0" layoutY="132.0" text="Dock" wrappingWidth="26.953125" />
+
+        <!-- Basement -->
+        <Rectangle height="62.0" layoutX="707.0" layoutY="29.0" style="-fx-fill: #000000; -fx-stroke: #ffffff; -fx-stroke-width: 2.0;" width="172.0" />
+        <Text fill="white" layoutX="754.0" layoutY="65.0" text="Basement" wrappingWidth="78.44335937500006" />
+
+        <!-- Hidden Passage (dashed) -->
+        <Rectangle height="375.0" layoutX="893.0" layoutY="315.0" style="-fx-fill: transparent;                           -fx-stroke: #ffffff;                           -fx-stroke-width: 2.0;                           -fx-stroke-dash-array: 6 8;" width="16.0" />
+        <Text fill="white" layoutX="859.0" layoutY="495.0" rotate="-90.0" text="Hidden Passage" />
+      <Rectangle height="20.0" layoutX="690.0" layoutY="670.0" style="-fx-fill: transparent;                           -fx-stroke: #ffffff;                           -fx-stroke-width: 2.0;                           -fx-stroke-dash-array: 6 8;" width="201.0" />
+      <Rectangle height="20.0" layoutX="841.0" layoutY="313.0" style="-fx-fill: transparent;                           -fx-stroke: #ffffff;                           -fx-stroke-width: 2.0;                           -fx-stroke-dash-array: 6 8;" width="52.0" />
+        <Text fill="white" layoutX="455.0" layoutY="642.0" text="Balcony" />
+
+        <TextArea fx:id="messageBox" layoutX="916.0" layoutY="29.0" prefHeight="630.0" prefWidth="269.0" styleClass="text-box" text="This is the text box on the right." wrapText="true" />
+
+
+
+    </children>
+
+</AnchorPane>

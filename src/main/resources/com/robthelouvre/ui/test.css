@@ -1,19 +1,38 @@
-/* Style all buttons */
-.button {
-    -fx-background-color: #4CAF50;
-    -fx-text-fill: white;
-    -fx-font-family: "Franklin Gothic Heavy";
-    -fx-font-size: 16px;
-    -fx-padding: 10 20;
-    -fx-background-radius: 10;
-}
+/* map-style.css */
 
-/* Button hover effect */
-.button:hover {
-    -fx-background-color: #45a049;
-}
-
-/* Background color for AnchorPane */
+/* global look */
 .root {
-    -fx-background-color: #392e2e;
+    -fx-background-color: #3a3939;
+    -fx-font-family: "Consolas", "Monospaced";
+    -fx-text-fill: #ffffff;
+}
+
+/* map rooms */
+.room {
+    -fx-fill: #000000;
+    -fx-stroke: #ffffff;
+    -fx-stroke-width: 2;
+}
+
+/* special rooms */
+.lobby-room { -fx-fill: #111111; }
+.vip-room   { -fx-fill: #151515; }
+.gallery-room { -fx-fill: #000000; }
+.hidden-pass {
+    -fx-fill: transparent;
+    -fx-stroke: #ffffff;
+    -fx-stroke-width: 2;
+    -fx-stroke-dash-array: 10 5;
+}
+
+/* inventory + textbox */
+.inventory-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.text-box {
+    -fx-control-inner-background: #000000;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
 }
