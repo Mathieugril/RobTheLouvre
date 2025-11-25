@@ -15,6 +15,8 @@ emphasizing exploration and simple command-driven gameplay
 
 package com.robthelouvre.terminal;
 
+import javafx.fxml.FXML;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -147,7 +149,7 @@ public class ZorkULGame {
         van.setDetails(Text.Details.VAN_DET);
 
 
-        player = new User("Player", balcony);
+        player = new User("Player", janitorCloset);
 
         jerry = new Guards("Gerard", guardRoom);
         jerry.getInventory().add(Headphones);
@@ -180,6 +182,10 @@ public class ZorkULGame {
         Character.addCharacter(randomGuards);
     }
 
+    public Command parseCommand(String line) {
+        return parser.parseCommand(line);   // the new Parser method we wrote earlier
+    }
+
 
     public String processInput(String input) {
         StringBuilder out = new StringBuilder();
@@ -208,14 +214,8 @@ public class ZorkULGame {
                 finished = true;
             }
 
-
-        out.append("Thank you for playing. Goodbye.\n");
-//        try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("player.ser"))) {
-//            out.writeObject(player);
-//            System.out.println("Object has been serialized to player.ser");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+       // out.append("Thank you for playing. Goodbye.\n");
+//
         return out.toString();
     }
 
@@ -303,8 +303,9 @@ public class ZorkULGame {
                 out.append("\nAll Exits: ").append(player.getCurrentRoom().getExitString()).append("\n");
                 break;
             case "eavesdrop":
-                listen(out);
-                out.append("\nAll Exits: ").append(player.getCurrentRoom().getExitString()).append("\n");
+              //  List<String> lines = listen();
+            //    playLines(lines);
+               // out.append("\nAll Exits: ").append(player.getCurrentRoom().getExitString()).append("\n");
                 break;
             case "tamper":
                 if(player.getCurrentRoom().equals(securityRoom)) {
@@ -314,7 +315,7 @@ public class ZorkULGame {
                     deliveryScanner.setStatus(false);
                     out.append("Scanner has been disabled!").append("\n");
                 } else {
-                    System.out.println("Nothing to mess with here.");
+                    out.append("Nothing to mess with here.").append("\n");
                 }
 
                 break;
@@ -366,6 +367,7 @@ public class ZorkULGame {
             out.append(player.getCurrentRoom().getLongDescription()).append("\n");
         }
     }
+
     private void steal(Command command, StringBuilder out)  {
         if (!command.hasSecondWord()) {
             out.append("Steal what?").append("\n");
@@ -411,35 +413,26 @@ public class ZorkULGame {
         out.append("There is no one named ").append(choice).append(" here to steal from.").append("\n");
 
     }
-    private void listen(StringBuilder out) {
+    public List<String> listen() {
+        List<String> out = new ArrayList<>();
 
         if (player.getCurrentRoom().getLines() == null) {
-            out.append("Nothing to hear here").append("\n");
+            out.add("Nothing to hear here \n");
         }
         if (player.getCurrentRoom().equals(regaliaGallery)) {
             garden.setExit("east", secretPassage, true);
             for (String lines : Text.Convos.regaliaConvo()) {
-                out.append(lines).append("\n");
-                try {
-                    Thread.sleep(2500);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
+                out.add(lines+ "\n");
             }
-        }
-        if (player.getCurrentRoom().equals(deliveryDock)) {
+        } else if (player.getCurrentRoom().equals(deliveryDock)) {
             for (String lines : Text.Convos.deliveryConvo()) {
-                out.append(lines).append("\n");
-                try {
-                    Thread.sleep(2500);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
+                out.add(lines + "\n");
             }
             if (player.hasItem("Van-Key")) {
                 deliveryDock.setExit("inside", van, true);
             }
         }
+        return out;
 
     }
 

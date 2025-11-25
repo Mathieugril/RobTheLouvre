@@ -30,15 +30,6 @@ public abstract class Character implements Serializable {
         this.currentRoom = room;
     }
 
-    public void move(String direction) {
-        Room nextRoom = currentRoom.getExit(direction);
-        if (nextRoom != null) {
-            currentRoom = nextRoom;
-            System.out.println("You moved to: " + currentRoom.getDescription());
-        } else {
-            System.out.println("You can't go that way!");
-        }
-    }
 
     public ArrayList<Item> getInventory() {
         return inventory;
@@ -56,10 +47,10 @@ public abstract class Character implements Serializable {
         return "Picked up " + item.getName() + "!";
 
     }
-    public void dropItem(Item item) {
+    public String dropItem(Item item) {
         currentRoom.addItem(item);
         inventory.remove(item);
-        System.out.println("Dropped " + item.getName() + "!");
+        return"Dropped " + item.getName() + "!";
     }
 
 

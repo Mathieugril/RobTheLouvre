@@ -35,7 +35,7 @@
             </VBox>
 
             <!-- CENTER: Map -->
-            <AnchorPane fx:id="mapPane" prefHeight="800.0" prefWidth="600.0">
+            <AnchorPane fx:id="mapPane" prefHeight="800.0" prefWidth="600.0" >
 
                 <children>
 

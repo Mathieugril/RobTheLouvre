@@ -1,11 +1,17 @@
 package com.robthelouvre.ui;
 
+import com.robthelouvre.terminal.Command;
 import com.robthelouvre.terminal.ZorkULGame;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.shape.Rectangle;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
+
+import java.util.List;
 
 public class Controller {
 
@@ -25,24 +31,51 @@ public class Controller {
         }
 
         @FXML
-        private void handleCommand() {
-            String line = inputField.getText().trim();
-            if (line.isEmpty()) return;
+         private void handleCommand() {
+        String line = inputField.getText().trim();
+        if (line.isEmpty()) return;
 
-            // echo command
-            messageBox.appendText("> " + line + "\n");
+        messageBox.appendText("> " + line + "\n");
 
-            // ask the game to process exactly one line
-            String response = game.processInput(line);
-            messageBox.appendText(response);
 
-            inputField.clear();
+        Command command = game.parseCommand(line);
 
-            if (game.isFinished()) {
-                inputField.setDisable(true);
-                inputField.setPromptText("Game over");
-            }
+
+        String response = game.processInput(line);
+        messageBox.appendText(response);
+
+        if ("eavesdrop".equalsIgnoreCase(command.getCommandWord())) {
+            List<String> convoLines = game.listen();
+            playLines(convoLines);
         }
+
+        inputField.clear();
+
+        if (game.isFinished()) {
+            inputField.setDisable(true);
+            inputField.setPromptText("Game over");
+        }
+    }
+
+    private void playLines(List<String> lines) {
+        if (lines == null || lines.isEmpty()) {
+            return;
+        }
+
+        Duration perLine = Duration.seconds(2.5); // same as your Thread.sleep(2500)
+        Timeline timeline = new Timeline();
+
+        for (int i = 0; i < lines.size(); i++) {
+            String line = lines.get(i);
+            KeyFrame frame = new KeyFrame(
+                    perLine.multiply(i + 1),
+                    e -> messageBox.appendText(line + "\n")
+            );
+            timeline.getKeyFrames().add(frame);
+        }
+
+        timeline.play();
+    }
     }
 
 

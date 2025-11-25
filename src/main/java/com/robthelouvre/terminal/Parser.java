@@ -3,17 +3,12 @@ package com.robthelouvre.terminal;
 import java.util.Scanner;
 
 public class Parser {
-    private CommandWords commands;
-    private Scanner reader;
+    private final CommandWords commands;
+    private final Scanner reader;
 
     public Parser() {
         commands = new CommandWords();
         reader = new Scanner(System.in);
-    }
-    public Command getCommand() {
-        System.out.print("> ");
-        String inputLine = reader.nextLine();
-        return parseCommand(inputLine);     // 👈 reuse the new method
     }
 
     public Command parseCommand(String inputLine) {
@@ -41,7 +36,7 @@ public class Parser {
     }
 
     public String showCommands() {
-        commands.showAll();
-        return null;
+        return CommandWords.showAll();
+
     }
 }

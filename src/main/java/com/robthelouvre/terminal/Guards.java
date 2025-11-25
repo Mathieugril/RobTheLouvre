@@ -17,44 +17,49 @@ public class Guards extends Character {
         super.setCurrentRoom(room);
     }
 
-    public static void lie(Room target) {
-       Scanner scan = new Scanner(System.in);
-       for (String lie : Text.Convos.lieToGuards()) {
-           System.out.println(lie);
-           try {
-               Thread.sleep(2000);
-           } catch (InterruptedException e) {
-               Thread.currentThread().interrupt();
-           }
-       }
-       System.out.print("Who is the supervisor on today?");
-       System.out.print("\n - Axel\n - Dorian\n - Jean\n - Tobias\n ");
-       String name = scan.nextLine();
-
-       if(name.equalsIgnoreCase("tobias")) {
-           for (String right : Text.Convos.responseRight()) {
-               System.out.println(right);
-               try {
-                   Thread.sleep(2000);
-               } catch (InterruptedException e) {
-                   Thread.currentThread().interrupt();
-               }
-           }
-
-           ZorkULGame.jude.setCurrentRoom(target);
-           ZorkULGame.patrick.setCurrentRoom(target);
-       } else {
-           System.out.print(" Player: " + name + " told me.\n");
-           for (String wrong : Text.Convos.responseWrong()) {
-               System.out.println(wrong);
-               try {
-                   Thread.sleep(2000);
-               } catch (InterruptedException e) {
-                   Thread.currentThread().interrupt();
-               }
-           }
-       }
+    public static String lie(Room target) {
+        StringBuilder dialog = new StringBuilder();
+        Scanner scan = new Scanner(System.in);
+        for (String lie : Text.Convos.lieToGuards()) {
+            dialog.append(lie).append("\n");
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
 
 
-   }
+        dialog.append("Who is the supervisor on today?");
+        dialog.append("\n - Axel\n - Dorian\n - Jean\n - Tobias\n ");
+        String name = scan.nextLine();
+
+        if (name.equalsIgnoreCase("tobias")) {
+            for (String right : Text.Convos.responseRight()) {
+                dialog.append(right).append("\n");
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+
+            ZorkULGame.jude.setCurrentRoom(target);
+            ZorkULGame.patrick.setCurrentRoom(target);
+        } else {
+            dialog.append(" Player: ").append(name).append(" told me.\n");
+            for (String wrong : Text.Convos.responseWrong()) {
+                dialog.append(wrong).append("\n");
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+        }return "";
+    }
 }
+
+
+
+
