@@ -2,49 +2,49 @@
 .lobby-room {
     -fx-fill: #9c3424;
     -fx-stroke: #1c0b09;
-    -fx-stroke-width: 4px;
+    -fx-stroke-width: 8px;
 }
 
 /* Galleries – deep maroon/mahogany */
 .gallery-room {
     -fx-fill: #6b1f19;
     -fx-stroke: #1c0b09;
-    -fx-stroke-width: 4px;
+    -fx-stroke-width: 8px;
 }
 
 /* Grass/green garden */
 .garden-room {
-    -fx-fill: linear-gradient(#3f6a2a, #27441a);
+    -fx-fill: linear-gradient(#3f6a2a, #233c17);
     -fx-stroke: #1c0b09;
-    -fx-stroke-width: 4px;
+    -fx-stroke-width: 8px;
 }
 
 /* Utility Rooms (Control, Break) */
 .utility-room {
     -fx-fill: #5d5c5c;
     -fx-stroke: #1c1c1c;
-    -fx-stroke-width: 4px;
+    -fx-stroke-width: 8px;
 }
 
 /* Service Rooms (Janitor, Delivery) */
 .service-room {
     -fx-fill: #804226;
     -fx-stroke: #1c0b09;
-    -fx-stroke-width: 4px;
+    -fx-stroke-width: 8px;
 }
 
 /* Maintenance Hallway */
 .maintenance-room {
     -fx-fill: linear-gradient(#7c7c7c, #515151);
     -fx-stroke: #1c1c1c;
-    -fx-stroke-width: 4px;
+    -fx-stroke-width: 8px;
 }
 
 /* Basement – darkest red */
 .basement-room {
     -fx-fill: #4d1b13;
     -fx-stroke: #1c0b09;
-    -fx-stroke-width: 4px;
+    -fx-stroke-width: 8px;
 }
 /* ===========================
    GLOBAL / ROOT
@@ -115,7 +115,7 @@
 .room {
     -fx-fill: #7b271f;                 /* warm red */
     -fx-stroke: #1c0b09;               /* very dark outline */
-    -fx-stroke-width: 3px;
+    -fx-stroke-width: 10px;
     -fx-stroke-line-cap: butt;
 }
 

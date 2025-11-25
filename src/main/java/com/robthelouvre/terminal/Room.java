@@ -155,4 +155,7 @@ public class Room implements Serializable {
         return "You " + description + "\nExits: " + getExitString()+ "\nOpen exits: "+ sb;
     }
 
+    public String getName() {
+
+    }
 }

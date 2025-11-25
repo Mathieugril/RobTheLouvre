@@ -15,15 +15,13 @@ emphasizing exploration and simple command-driven gameplay
 
 package com.robthelouvre.terminal;
 
-import javafx.fxml.FXML;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class ZorkULGame {
     private Parser parser;
-    private User player;
+    public static User player;
     private static Room balcony, outside, lobby, regaliaGallery, mastersGallery,
             securityRoom, guardRoom, serviceTunnel, janitorCloset,
             deliveryDock, garden, secretPassage, vip, basementTunnel, van;
@@ -149,7 +147,7 @@ public class ZorkULGame {
         van.setDetails(Text.Details.VAN_DET);
 
 
-        player = new User("Player", janitorCloset);
+        player = new User("Player", lobby);
 
         jerry = new Guards("Gerard", guardRoom);
         jerry.getInventory().add(Headphones);
@@ -239,7 +237,9 @@ public class ZorkULGame {
 
     }
 
-
+    public String getCurrentRoom() {
+        return player.getCurrentRoom().getName();
+    }
 
     public boolean processCommand(Command command, StringBuilder out) {
         String commandWord = command.getCommandWord();

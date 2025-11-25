@@ -4,6 +4,7 @@
 <?import javafx.collections.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
@@ -80,11 +81,11 @@
 
                     <!-- Delivery Dock -->
                     <Rectangle height="70.0" layoutX="663.0" layoutY="100.0" styleClass="service-room" width="110.0" />
-                    <Text fill="white" layoutX="686.0" layoutY="132.0" styleClass="room-label" text="Delivery" >
+                    <Text fill="white" layoutX="686.0" layoutY="132.0" styleClass="room-label" text="Delivery">
                   <font>
                      <Font size="10.0" />
                   </font></Text>
-                    <Text fill="white" layoutX="700.0" layoutY="144.0" styleClass="room-label" text="Dock" >
+                    <Text fill="white" layoutX="700.0" layoutY="144.0" styleClass="room-label" text="Dock">
                   <font>
                      <Font size="10.0" />
                   </font></Text>
@@ -102,6 +103,14 @@
                     <Text fill="white" layoutX="697.0" layoutY="327.0" styleClass="room-label" text="Closet" />
                     <Text fill="white" layoutX="392.0" layoutY="213.0" styleClass="room-label" text="Old Masters" />
                     <Text fill="white" layoutX="405.0" layoutY="242.0" styleClass="room-label" text="Gallery" />
+                    <ImageView fx:id="playerIcon"
+                               layoutX="450" layoutY="300"
+                               fitWidth="32" fitHeight="32"
+                               pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@robber.png" />
+                        </image>
+                    </ImageView>
 
                 </children>
             </AnchorPane>
@@ -111,18 +120,10 @@
                 <children>
 
                     <!-- Top: main log -->
-                    <TextArea fx:id="messageBox"
-                              prefRowCount="10"
-                              wrapText="true"
-                              editable="false"
-                              styleClass="text-box"
-                              prefHeight="600"
-                              layoutY="500"/>
+                    <TextArea fx:id="messageBox" editable="false" layoutY="500" prefHeight="600" prefRowCount="10" styleClass="text-box" wrapText="true" />
 
                     <!-- Bottom: input box -->
-                    <TextField fx:id="inputField"
-                               promptText="Type command..."
-                               styleClass="input-box" />
+                    <TextField fx:id="inputField" promptText="Type command..." styleClass="input-box" />
 
                 </children>
             </VBox>
