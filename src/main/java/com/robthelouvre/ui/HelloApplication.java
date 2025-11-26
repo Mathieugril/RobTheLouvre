@@ -1,4 +1,5 @@
 package com.robthelouvre.ui;
+import com.robthelouvre.terminal.ZorkULGame;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -13,8 +14,15 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
+
+        ZorkULGame game = new ZorkULGame();
+
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("map.fxml"));
         Parent root = fxmlLoader.load();
+
+        Controller controller = fxmlLoader.getController();
+
+        controller.setGame(game);
 
         Scene scene = new Scene(root, 800, 600);
         scene.getStylesheets().add(HelloApplication.class.getResource("mapview.css").toExternalForm());

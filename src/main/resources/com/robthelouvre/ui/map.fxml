@@ -17,19 +17,29 @@
         <!-- Whole GUI (inventory + map + text box) -->
         <HBox alignment="CENTER" prefHeight="800.0" prefWidth="1102.0" spacing="5">
 
-            <!-- LEFT: Inventory -->
-            <VBox prefHeight="800.0" prefWidth="232.0" spacing="20.0" style="-fx-padding: 30;">
-                <HBox.margin>
-                    <Insets left="90.0" />   <!-- tweak this number -->
-                </HBox.margin>
+            <VBox prefWidth="350.0" spacing="5.0" style="-fx-padding: 30 10 0 5;">
                 <children>
-                    <Label fx:id="inventoryLabel" text="Inventory" styleClass="inventory-title" />
-                    <ListView fx:id="inventoryList" prefHeight="146.0" prefWidth="49.0" styleClass="inventory-list"/>
+
+                    <!-- Top: main log -->
+                    <TextArea fx:id="messageBox"
+                              prefRowCount="10"
+                              wrapText="true"
+                              editable="false"
+                              styleClass="text-box"
+                              prefHeight="650"
+                              layoutY="400"/>
+
+                    <!-- Bottom: input box -->
+                    <TextField fx:id="inputField"
+                               promptText="Type command..."
+                               styleClass="input-box"
+                               onAction="#handleCommand"/>
+
                 </children>
             </VBox>
-
             <!-- CENTER: Map -->
-            <AnchorPane fx:id="mapPane" prefHeight="800.0" prefWidth="600.0" >
+            <AnchorPane fx:id="mapPane" prefHeight="800.0" prefWidth="600.0" style="-fx-padding: 30 10 0 50;" >
+
 
                 <children>
 
@@ -107,26 +117,7 @@
             </AnchorPane>
 
             <!-- RIGHT: Text box -->
-            <VBox prefWidth="350.0" spacing="5.0" style="-fx-padding: 30 10 0 5;">
-                <children>
 
-                    <!-- Top: main log -->
-                    <TextArea fx:id="messageBox"
-                              prefRowCount="10"
-                              wrapText="true"
-                              editable="false"
-                              styleClass="text-box"
-                              prefHeight="650"
-                              layoutY="400"/>
-
-                    <!-- Bottom: input box -->
-                    <TextField fx:id="inputField"
-                               promptText="Type command..."
-                               styleClass="input-box"
-                               onAction="#handleCommand"/>
-
-                </children>
-            </VBox>
 
         </HBox>
     </children>

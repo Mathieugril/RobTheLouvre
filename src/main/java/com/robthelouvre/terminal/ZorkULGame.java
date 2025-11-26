@@ -387,7 +387,6 @@ public class ZorkULGame {
                 if (stolenItem != null) {
                     i.getInventory().remove(stolenItem);
                     player.getInventory().add(stolenItem);
-                    player.getInventoryGUI().add(stolenItem.getName());
                     out.append("You stole the ").append(stolenItem.getName()).append(" from ").append(i.getName()).append("!\n").append(stolenItem.getDescription()).append("\n");
                     return;
                 } else {

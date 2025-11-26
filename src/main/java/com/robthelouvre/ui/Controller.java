@@ -1,7 +1,7 @@
 package com.robthelouvre.ui;
 
 import com.robthelouvre.terminal.Command;
-import com.robthelouvre.terminal.Room;
+
 import com.robthelouvre.terminal.RoomType;
 import com.robthelouvre.terminal.ZorkULGame;
 import javafx.collections.FXCollections;
@@ -25,8 +25,6 @@ public class Controller {
         @FXML
         private TextArea messageBox;
 
-        @FXML
-        private ListView<String> inventoryList;
 
         @FXML
         private TextField inputField;
@@ -37,12 +35,14 @@ public class Controller {
         private ZorkULGame game;
 
 
-        @FXML
-        private void initialize() {
-            game = new ZorkULGame();
-            messageBox.appendText(game.getWelcomeText());
-            inventoryList.setItems(game.player.getInventoryGUI());
-        }
+
+    public void setGame(ZorkULGame game) {
+        this.game = game;
+        messageBox.appendText(game.getWelcomeText());
+
+    }
+
+
 
         @FXML
          private void handleCommand() {

@@ -109,6 +109,7 @@
     -fx-font-size: 13;
 }
 
+
 /* Hide rows that aren’t used */
 .inventory-list .list-cell:empty {
     -fx-background-color: transparent;
