@@ -25,6 +25,7 @@ public class Text {
     }
 
     public static class Details {
+        public static final String OUT_DET = "You are in the street";
         public static final String BALCONY_DET1 = "Scuffed paint marks the window frame; the latch looks old and might give with some force.";
         public static final String BALCONY_DET2 = "The cherry picker was forced to move by angry locals, will have to find another way out";
         public static final String LOBBY_DET = "The sheer amount of people would make it easy to blend in. The tour buses pile in and prevent you from leaving this way.";

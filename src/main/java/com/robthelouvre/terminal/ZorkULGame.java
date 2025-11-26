@@ -60,94 +60,79 @@ public class ZorkULGame {
          regCam = new Cameras(regaliaGallery);
          deliveryScanner = new Cameras();
 
-
         List<Item> regaliaGalleryItems = new ArrayList<Item>();
         List<Item> securityItems = new ArrayList<Item>();
         List<Item> guardRoomItems = new ArrayList<Item>();
         List<Item> dockItems = new ArrayList<Item>();
 
 
-        outside = new Room(Text.Descriptions.OUTSIDE);
-        balcony = new Room(Text.Descriptions.BALCONY1);
-        lobby = new Room(Text.Descriptions.LOBBY);
-        regaliaGallery = new Room(Text.Descriptions.REGALIA, regaliaGalleryItems, Text.Convos.regaliaConvo());
-        mastersGallery = new Room(Text.Descriptions.MASTERS);
-        securityRoom = new Room(Text.Descriptions.SECURITY, securityItems);
-        guardRoom = new Room(Text.Descriptions.GUARDS, guardRoomItems);
-        serviceTunnel = new Room(Text.Descriptions.SERVICE);
-        janitorCloset = new Room(Text.Descriptions.JANITOR);
-        deliveryDock = new Room(Text.Descriptions.DELIVERY, dockItems, Text.Convos.deliveryConvo());
-        garden = new Room(Text.Descriptions.GARDEN);
-        secretPassage = new Room(Text.Descriptions.PASSAGE);
-        vip = new Room(Text.Descriptions.VIP);
-        basementTunnel = new Room(Text.Descriptions.BASEMENT);
-        van = new Room(Text.Descriptions.VAN);
+        outside = new Room(RoomType.OUTSIDE);
+        balcony = new Room(RoomType.BALCONY);
+        lobby = new Room(RoomType.LOBBY);
+        regaliaGallery = new Room(RoomType.REGALIA, regaliaGalleryItems, Text.Convos.regaliaConvo());
+        mastersGallery = new Room(RoomType.MASTERS);
+        securityRoom = new Room(RoomType.CONTROL, securityItems);
+        guardRoom = new Room(RoomType.BREAK, guardRoomItems);
+        serviceTunnel = new Room(RoomType.SERVICE_TUNNEL);
+        janitorCloset = new Room(RoomType.JANITOR_CLOSET);
+        deliveryDock = new Room(RoomType.DELIVERY_DOCK, dockItems, Text.Convos.deliveryConvo());
+        garden = new Room(RoomType.GARDEN);
+        secretPassage = new Room(RoomType.SECRET_PASSAGE);
+        vip = new Room(RoomType.VIP);
+        basementTunnel = new Room(RoomType.BASEMENT);
+        van = new Room(RoomType.VAN);
 
 
         balcony.setExit("north", regaliaGallery, true);
         balcony.setExit("down", garden, true);
-        balcony.setDetails(Text.Details.BALCONY_DET1);
 
         lobby.setExit("west", outside);
         lobby.setExit("east", mastersGallery, true);
         lobby.setExit("south", vip);
-        lobby.setDetails(Text.Details.LOBBY_DET);
 
         regaliaGallery.setExit("north", mastersGallery);
         regaliaGallery.setExit("south", balcony, true);
         regaliaGallery.setExit("east", securityRoom);
-        regaliaGallery.setDetails(Text.Details.REGALIA_DET);
         regaliaGalleryItems.add(FlashLight);
         regaliaGalleryItems.add(Crown);
 
         mastersGallery.setExit("south", regaliaGallery);
         mastersGallery.setExit("west", lobby, true);
-        mastersGallery.setDetails(Text.Details.MASTERS_DET);
 
         securityRoom.setExit("west", regaliaGallery);
         securityRoom.setExit("east", guardRoom);
-        securityRoom.setDetails(Text.Details.SECURITY_DET);
         securityItems.add(VanKeys);
 
         guardRoom.setExit("west", securityRoom);
         guardRoom.setExit("north", janitorCloset, true);
-        guardRoom.setDetails(Text.Details.GUARD_DET);
         guardRoomItems.add(Uniform);
 
         janitorCloset.setExit("south", guardRoom, true);
         janitorCloset.setExit("north", serviceTunnel, true);
-        janitorCloset.setDetails(Text.Details.JANITOR_DET);
         janitorCloset.setExit("east", secretPassage);
 
         serviceTunnel.setExit("north", deliveryDock, true);
         serviceTunnel.setExit("south", janitorCloset, true);
-        serviceTunnel.setDetails(Text.Details.SERVICE_DET);
 
         deliveryDock.setExit("south", serviceTunnel, true);
-        deliveryDock.setDetails(Text.Details.DELIVERY_DET);
 
         basementTunnel.setExit("north", outside, true);
         basementTunnel.setExit("south", deliveryDock, true);
-        basementTunnel.setDetails(Text.Details.BASEMENT_DET);
 
         garden.setExit("up", balcony, true);
         garden.setExit("south", outside);
         garden.setExit("east", secretPassage);
-        garden.setDetails(Text.Details.GARDEN_DET);
 
         secretPassage.setExit("north", janitorCloset);
         secretPassage.setExit("back", garden, true);
-        secretPassage.setDetails(Text.Details.PASSAGE_DET1);
 
-        vip.setExit("north", lobby, true);
-        vip.setDetails(Text.Details.VIP_DET);
+        vip.setExit("north", lobby, true);;
 
         van.setExit("out", basementTunnel, true);
         van.setExit("north", basementTunnel, true);
-        van.setDetails(Text.Details.VAN_DET);
 
 
-        player = new User("Player", lobby);
+        player = new User("Player", balcony);
 
         jerry = new Guards("Gerard", guardRoom);
         jerry.getInventory().add(Headphones);
@@ -181,7 +166,7 @@ public class ZorkULGame {
     }
 
     public Command parseCommand(String line) {
-        return parser.parseCommand(line);   // the new Parser method we wrote earlier
+        return parser.parseCommand(line); // the new Parser method we wrote earlier
     }
 
 
@@ -205,7 +190,7 @@ public class ZorkULGame {
             }
             if (player.hasItem("Flashlight")) {
                 secretPassage.setExit("north", janitorCloset, true);
-                secretPassage.setDetails(Text.Details.PASSAGE_DET2);
+                RoomType.SECRET_PASSAGE.setDetails(Text.Details.PASSAGE_DET2);
             }
             if ((player.hasItem("Crown")) && (player.getCurrentRoom().equals(outside))){
                 out.append("\n\nYou have escaped with the Crown of Empress Eugénie, Congrats!!\n");
@@ -237,8 +222,8 @@ public class ZorkULGame {
 
     }
 
-    public String getCurrentRoom() {
-        return player.getCurrentRoom().getName();
+    public RoomType getCurrentRoomType() {
+        return player.getCurrentRoom().getType();
     }
 
     public boolean processCommand(Command command, StringBuilder out) {
@@ -279,8 +264,8 @@ public class ZorkULGame {
                            out.append("Guards caught you, Game over!!\n");
                            return true;
                        }
-                       balcony.setDetails(Text.Details.BALCONY_DET2);
-                       balcony.setDescription(Text.Descriptions.BALCONY2);
+                       RoomType.BALCONY.setDetails(Text.Details.BALCONY_DET2);
+                       RoomType.BALCONY.setDescription(Text.Descriptions.BALCONY2);
                     }
                 }
                 break;

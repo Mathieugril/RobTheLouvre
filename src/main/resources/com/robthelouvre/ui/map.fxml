@@ -103,8 +103,8 @@
                     <Text  layoutX="405.0" layoutY="242.0" styleClass="room-label" text="Gallery" />
 
                     <ImageView fx:id="playerIcon"
-                               layoutX="450" layoutY="300"
-                               fitWidth="32" fitHeight="32"
+                               layoutX="420" layoutY="600"
+                               fitWidth="48" fitHeight="48"
                                pickOnBounds="true" preserveRatio="true">
                         <image>
                             <Image url="@robber.png" />

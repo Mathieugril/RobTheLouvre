@@ -2,6 +2,7 @@ package com.robthelouvre.ui;
 
 import com.robthelouvre.terminal.Command;
 import com.robthelouvre.terminal.Room;
+import com.robthelouvre.terminal.RoomType;
 import com.robthelouvre.terminal.ZorkULGame;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -38,49 +39,43 @@ public class Controller {
 
         @FXML
          private void handleCommand() {
-        String line = inputField.getText().trim();
-        if (line.isEmpty()) return;
+            String line = inputField.getText().trim();
+            if (line.isEmpty()) return;
 
-        messageBox.appendText("> " + line + "\n");
+            messageBox.appendText("> " + line + "\n");
 
-        Command command = game.parseCommand(line);
+            Command command = game.parseCommand(line);
 
-        String response = game.processInput(line);
-        messageBox.appendText(response);
+            String response = game.processInput(line);
+            messageBox.appendText(response);
 
-        movePlayerIcon();
+                movePlayerIcon();
 
-        if ("eavesdrop".equalsIgnoreCase(command.getCommandWord())) {
-            List<String> convoLines = game.listen();
-            playLines(convoLines);
-        }
+            if ("eavesdrop".equalsIgnoreCase(command.getCommandWord())) {
+                List<String> convoLines = game.listen();
+                playLines(convoLines);
+            }
 
             inputField.clear();
 
-        if (game.isFinished()) {
-            inputField.setDisable(true);
-            inputField.setPromptText("Game over");
-        }
-    }
-    public void movePlayerIcon() {
-        String room = game.getCurrentRoom();
-        switch(room) {
-            case "lobby":
-                playerIcon.setLayoutX(200);
-                playerIcon.setLayoutY(200);
-                break;
-            case "mastersGallery":
-                playerIcon.setLayoutX(400);
-                playerIcon.setLayoutY(300);
-                break;
-        }
-    }
-    private void playLines(List<String> lines) {
-        if (lines == null || lines.isEmpty()) {
-            return;
+            if (game.isFinished()) {
+                inputField.setDisable(true);
+                inputField.setPromptText("Game over");
+            }
         }
 
-        Duration perLine = Duration.seconds(2.5); // same as your Thread.sleep(2500)
+         public void movePlayerIcon() {
+            RoomType type = game.getCurrentRoomType();
+             playerIcon.setLayoutX(type.getIconX());
+             playerIcon.setLayoutY(type.getIconY());
+         }
+
+         private void playLines(List<String> lines) {
+            if (lines == null || lines.isEmpty()) {
+              return;
+        }
+
+        Duration perLine = Duration.seconds(2.0);
         Timeline timeline = new Timeline();
 
         for (int i = 0; i < lines.size(); i++) {
@@ -91,7 +86,6 @@ public class Controller {
             );
             timeline.getKeyFrames().add(frame);
         }
-
         timeline.play();
     }
     }

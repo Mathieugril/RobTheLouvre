@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.*;
 
 public class Room implements Serializable {
+    private RoomType type;
     private String description;
     private Map<String, Room> exits; // Map direction to neighboring Room
     private String details;
@@ -12,25 +13,25 @@ public class Room implements Serializable {
     private boolean access = false;
     private List<String> lines;
 
-    public Room(String description) {
-        this.description = description;
-        this.details = description;
+    public Room(RoomType type) {
+        this.type = type;
+        this.description = type.getDescription();
         exits = new HashMap<>();
         this.items = new ArrayList<>();
 
     }
 
-    public Room(String description, List<Item> items) {
-        this.description = description;
-        this.details = description;
+    public Room(RoomType type, List<Item> items) {
+        this.type = type;
+        this.description = type.getDescription();
         exits = new HashMap<>();
         this.items = items;
         this.access = true;
     }
 
-    public Room(String description, List<Item> items, List<String> lines) {
-        this.description = description;
-        this.details = description;
+    public Room(RoomType type, List<Item> items, List<String> lines) {
+        this.type = type;
+        this.description = type.getDescription();
         exits = new HashMap<>();
         this.items = items;
         this.access = true;
@@ -61,13 +62,9 @@ public class Room implements Serializable {
         return lines;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
+  //  public void setDescription(String description) {
+  //      this.description = description;
+    //}
 
 
     public void setExit(String direction,Room neighbor) {
@@ -82,9 +79,7 @@ public class Room implements Serializable {
         return exitStates.getOrDefault(direction, false);
     }
 
-
-
-        public Room getExit(String direction) {
+    public Room getExit(String direction) {
             if (isExitOpen(direction)) {
                 return exits.get(direction);
             }
@@ -153,9 +148,10 @@ public class Room implements Serializable {
         }
 
         return "You " + description + "\nExits: " + getExitString()+ "\nOpen exits: "+ sb;
-    }
-
-    public String getName() {
 
     }
+    public RoomType getType() {
+        return type;
+    }
+
 }
