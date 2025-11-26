@@ -3,6 +3,7 @@ module com.robthelouvre.ui {
     requires javafx.fxml;
     requires javafx.graphics;
     requires java.xml;
+    requires javafx.base;
     //requires com.robthelouvre.ui;
 
 
