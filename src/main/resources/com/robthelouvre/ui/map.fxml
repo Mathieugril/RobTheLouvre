@@ -18,21 +18,13 @@
         <HBox alignment="CENTER" prefHeight="800.0" prefWidth="1102.0" spacing="5">
 
             <!-- LEFT: Inventory -->
-            <VBox prefHeight="800.0" prefWidth="232.0" spacing="20.0" style="-fx-padding: 10;">
+            <VBox prefHeight="800.0" prefWidth="232.0" spacing="20.0" style="-fx-padding: 30;">
                 <HBox.margin>
                     <Insets left="90.0" />   <!-- tweak this number -->
                 </HBox.margin>
                 <children>
-                    <Label layoutX="123.0" layoutY="171.0" prefHeight="46.0" prefWidth="105.0" styleClass="inventory-title" text="Inventory" textFill="#efe4e4" style="-fx-padding: 50 10 10 5;" />
-                    <ListView fx:id="inventoryList" prefHeight="146.0" prefWidth="49.0">
-                        <items>
-                            <FXCollections fx:factory="observableArrayList">
-                                <String fx:value="Item 1" />
-                                <String fx:value="Item 2" />
-                                <String fx:value="Item 3" />
-                            </FXCollections>
-                        </items>
-                    </ListView>
+                    <Label fx:id="inventoryLabel" text="Inventory" styleClass="inventory-title" />
+                    <ListView fx:id="inventoryList" prefHeight="146.0" prefWidth="49.0" styleClass="inventory-list"/>
                 </children>
             </VBox>
 
@@ -75,7 +67,7 @@
 
                     <!-- Maintenance vertical corridor -->
                     <Rectangle height="126.0" layoutX="691.0" layoutY="171.0" styleClass="maintenance-room" width="42.0" />
-                    <Text fill="white" layoutX="670.0" layoutY="229.0" rotate="90.0" styleClass="room-label" text="Maintenance" />
+                    <Text fill="white" layoutX="665.0" layoutY="229.0" rotate="90.0" styleClass="room-label" text="Maintenance" />
                     <!-- Janitor Closet -->
                     <Rectangle height="62.0" layoutX="666.0" layoutY="277.0" styleClass="service-room" width="102.0" />
 
@@ -107,7 +99,7 @@
                                fitWidth="48" fitHeight="48"
                                pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@robber.png" />
+                            <Image url="@robber1.png" />
                         </image>
                     </ImageView>
 
