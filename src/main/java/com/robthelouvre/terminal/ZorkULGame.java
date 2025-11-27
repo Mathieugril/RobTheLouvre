@@ -33,6 +33,7 @@ public class ZorkULGame {
     private boolean finished = false;
     private boolean passage = false;
 
+
     public boolean isFinished() {
         return finished;
     }
@@ -153,6 +154,7 @@ public class ZorkULGame {
 
         patrick = new Guards("Patrice", regaliaGallery);
         jude = new Guards("Jude", regaliaGallery);
+        jude.getInventory().add(KeyCard);
 
         Guards scott = new Guards("Scott", deliveryDock);
         Guards dylan = new Guards("Dylan", deliveryDock);
@@ -302,7 +304,7 @@ public class ZorkULGame {
             case "tamper":
                 if(player.getCurrentRoom().equals(securityRoom)) {
                     regCam.setStatus(false);
-                    System.out.println("Cameras in gallery have been disabled!");
+                    out.append("Cameras in gallery have been disabled!");
                 } else if (player.getCurrentRoom().equals(deliveryDock)) {
                     deliveryScanner.setStatus(false);
                     out.append("Scanner has been disabled!").append("\n");
@@ -370,50 +372,64 @@ public class ZorkULGame {
 
 
     private void steal(Command command, StringBuilder out)  {
+
         if (!command.hasSecondWord()) {
-            out.append("Steal what?").append("\n");
+            out.append("Steal from who?\n");
             return;
         }
 
-        String choice = command.getSecondWord();
+        String personName = command.getSecondWord();
+        Character target = null;
 
         for (Character i : Character.getAllCharacters()) {
-            if (choice.equalsIgnoreCase(i.getName())) {
-                if (i.getInventory().isEmpty()) {
-                    out.append(i.getName()).append(" has nothing to steal.").append("\n");
-                    return;
-                }
-
-                out.append(i.getName()).append(" has:").append("\n");
-                for (Item item : i.getInventory()) {
-                    out.append(" - ").append(item.getName()).append("\n");
-                }
-
-                out.append("What would you like to take? ").append("\n");
-
-                String take = command.getCommandWord();
-             //   String tak = processInput();
-
-                Item stolenItem = null;
-                for (Item item : i.getInventory()) {
-                    if (take.equalsIgnoreCase(item.getName())) {
-                        stolenItem = item;
-                        break;
-                    }
-                }
-                if (stolenItem != null) {
-                    i.getInventory().remove(stolenItem);
-                    player.getInventory().add(stolenItem);
-                    out.append("You stole the ").append(stolenItem.getName()).append(" from ").append(i.getName()).append("!\n").append(stolenItem.getDescription()).append("\n");
-                    return;
-                } else {
-                    out.append(i.getName()).append(" does not have ").append(take).append("\n");
-                    return;
-                }
+            if (personName.equalsIgnoreCase(i.getName())) {
+                target = i;
+                break;
             }
         }
-        out.append("There is no one named ").append(choice).append(" here to steal from.").append("\n");
+
+        if (target == null || player.getCurrentRoom() != target.getCurrentRoom()) {
+            out.append("There is no one called ").append(personName).append(" here.\n");
+            return;
+        }
+
+        if (target.getInventory().isEmpty()) {
+            out.append(target.getName()).append(" has nothing to steal.\n");
+            return;
+        }
+
+        // list if no item
+        if (!command.hasThirdWord()) {
+            out.append(target.getName()).append(" has:\n");
+            for (Item item : target.getInventory()) {
+                out.append(" - ").append(item.getName()).append("\n");
+            }
+            out.append("To steal something, type: pickpocket ").append(target.getName()).append(" \"item name\" \n");
+            return;
+        }
+
+        // steal item
+        String itemName = command.getThirdWord();
+        Item stolenItem = null;
+
+        for (Item item : target.getInventory()) {
+            if (itemName.equalsIgnoreCase(item.getName())) {
+                stolenItem = item;
+                break;
+            }
+        }
+
+        if (stolenItem != null) {
+            target.getInventory().remove(stolenItem);
+            player.getInventory().add(stolenItem);
+
+
+            out.append("You stole the ").append(stolenItem.getName()).append(" from ").append(target.getName()).append("!\n").append(stolenItem.getDescription()).append("\n");
+        } else {
+            out.append(target.getName()).append(" does not have ").append(itemName).append(".\n");
+        }
     }
+
 
 
     public List<String> listen() {

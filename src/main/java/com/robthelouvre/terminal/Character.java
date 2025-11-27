@@ -47,6 +47,8 @@ public abstract class Character implements Serializable {
         return false;
     }
 
+
+
     public String pickUpItem(Item item) {
         currentRoom.removeItem(item);
         inventory.add(item);
@@ -54,6 +56,7 @@ public abstract class Character implements Serializable {
         return "Picked up " + item.getName() + "!";
 
     }
+
     public String dropItem(Item item) {
         currentRoom.addItem(item);
         inventory.remove(item);
