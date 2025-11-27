@@ -17,18 +17,20 @@ public class Guards extends Character {
         super.setCurrentRoom(room);
     }
 
-    public static String lie(Room target) {
+    public static String lie(Command command, Room target) {
         StringBuilder dialog = new StringBuilder();
-        Scanner scan = new Scanner(System.in);
+
+
+        if (!command.hasSecondWord()) {
         for (String lie : Text.Convos.lieToGuards()) {
             dialog.append(lie).append("\n");
-
         }
 
 
-        dialog.append("Who is the supervisor on today?");
-        dialog.append("\n - Axel\n - Dorian\n - Jean\n - Tobias\n ");
-        String name = scan.nextLine();
+            dialog.append("Who is the supervisor on today?");
+            dialog.append("\n - Axel\n - Dorian\n - Jean\n - Tobias\n \n To lie, type: lie *name*");
+        } else {
+            String name = command.getSecondWord();
 
         if (name.equalsIgnoreCase("tobias")) {
             for (String right : Text.Convos.responseRight()) {
@@ -43,8 +45,12 @@ public class Guards extends Character {
             for (String wrong : Text.Convos.responseWrong()) {
                 dialog.append(wrong).append("\n");
             }
-        }return "";
-    }
+        }
+
+        }
+        return dialog.toString();
+        }
+
 }
 
 

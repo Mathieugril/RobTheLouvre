@@ -6,6 +6,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
+<?import javafx.geometry.Insets?>
 <StackPane fx:id="mapStack" prefHeight="800.0" prefWidth="1200.0" styleClass="root" stylesheets="mapview.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.robthelouvre.ui.Controller">
 
     <children>
@@ -14,7 +15,7 @@
         <!-- Whole GUI (inventory + map + text box) -->
         <HBox fx:id="normal" alignment="CENTER" prefHeight="800.0" prefWidth="1102.0" spacing="5">
 
-            <VBox prefWidth="350.0" spacing="5.0" style="-fx-padding: 30 10 0 5;">
+            <VBox prefWidth="400.0" spacing="5.0" style="-fx-padding: 30 10 0 5;">
                 <children>
 
                     <!-- Top: main log -->
@@ -92,7 +93,9 @@
                     <Text layoutX="392.0" layoutY="213.0" styleClass="room-label" text="Old Masters" />
                     <Text layoutX="405.0" layoutY="242.0" styleClass="room-label" text="Gallery" />
 
-                 <ImageView fx:id="playerIcon" fitHeight="64" fitWidth="64" layoutX="406.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true">
+
+
+                    <ImageView fx:id="playerIcon" fitHeight="64" fitWidth="64" layoutX="406.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                          <Image url="@robber1.png" />
                      </image>
@@ -180,7 +183,6 @@
                 </children>
             </AnchorPane>
         </HBox>
-
     </children>
 
 </StackPane>

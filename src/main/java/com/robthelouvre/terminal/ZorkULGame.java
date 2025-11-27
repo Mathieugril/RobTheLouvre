@@ -136,7 +136,7 @@ public class ZorkULGame {
         van.setExit("north", basementTunnel, true);
 
 
-        player = new User("Player", regaliaGallery);
+        player = new User("Player", guardRoom);
 
         jerry = new Guards("Gerard", guardRoom);
         jerry.getInventory().add(Headphones);
@@ -275,9 +275,9 @@ public class ZorkULGame {
                 }
                 break;
             case "inventory": // plan on displaying inventory whole time anyway
-                System.out.println("Inventory:");
+                out.append("Inventory:");
                 for (Item item : player.getInventory()) {
-                    System.out.println(item.getName());
+                    out.append(item.getName()).append(", ");
                 }
                 break;
             case "drop":
@@ -316,7 +316,7 @@ public class ZorkULGame {
             case "lie":
                 if (player.getCurrentRoom().equals(regaliaGallery)) {
                    if (player.hasItem("Uniform")) {
-                       Guards.lie(guardRoom);
+                       out.append(Guards.lie(command, guardRoom));
                    } else {
                        out.append("You have no disguise,guards caught you.").append("\n");
                        return true;
@@ -404,7 +404,7 @@ public class ZorkULGame {
             for (Item item : target.getInventory()) {
                 out.append(" - ").append(item.getName()).append("\n");
             }
-            out.append("To steal something, type: pickpocket ").append(target.getName()).append(" \"item name\" \n");
+            out.append("To steal something, type: pickpocket ").append(target.getName()).append(" *item name* \n");
             return;
         }
 

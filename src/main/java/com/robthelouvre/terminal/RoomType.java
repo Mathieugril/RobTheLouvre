@@ -8,7 +8,7 @@ public enum RoomType {
     MASTERS (Text.Descriptions.MASTERS, Text.Details.MASTERS_DET, 420, 220),
     REGALIA (Text.Descriptions.REGALIA, Text.Details.REGALIA_DET, 420, 420),
     CONTROL (Text.Descriptions.SECURITY, Text.Details.SECURITY_DET, 650, 360),
-    BREAK(Text.Descriptions.GUARDS, Text.Details.GUARD_DET, 705, 360),
+    BREAK(Text.Descriptions.GUARDS, Text.Details.GUARD_DET, 705, 340),
     JANITOR_CLOSET (Text.Descriptions.JANITOR, Text.Details.JANITOR_DET, 705, 285),
     DELIVERY_DOCK (Text.Descriptions.DELIVERY, Text.Details.DELIVERY_DET, 705, 115),
     BASEMENT (Text.Descriptions.BASEMENT, Text.Details.BASEMENT_DET, 705, 60),

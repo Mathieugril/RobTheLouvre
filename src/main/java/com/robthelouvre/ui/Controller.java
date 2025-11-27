@@ -2,6 +2,7 @@ package com.robthelouvre.ui;
 
 import com.robthelouvre.terminal.Command;
 
+import com.robthelouvre.terminal.Guards;
 import com.robthelouvre.terminal.RoomType;
 import com.robthelouvre.terminal.ZorkULGame;
 import javafx.fxml.FXML;
@@ -14,6 +15,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Controller {
@@ -53,7 +55,7 @@ public class Controller {
     private void initialize() {
 
         thiefImage = new Image(getClass().getResource("robber1.png").toExternalForm());
-        uniformImage = new Image(getClass().getResource("cop1.png").toExternalForm());
+        uniformImage = new Image(getClass().getResource("cop2.png").toExternalForm());
 
          playerIcon.setImage(thiefImage);
          playerIcon1.setImage(thiefImage);
@@ -76,6 +78,10 @@ public class Controller {
         if (game.player.hasItem("Uniform")) {
             playerIcon.setImage(uniformImage);
             playerIcon1.setImage(uniformImage);
+            playerIcon.setFitHeight(95);
+            playerIcon.setFitWidth(95);
+            playerIcon1.setFitHeight(95);
+            playerIcon1.setFitWidth(95);
         } else {
             playerIcon.setImage(thiefImage);
             playerIcon1.setImage(thiefImage);
@@ -95,16 +101,23 @@ public class Controller {
             Command command = game.parseCommand(line);
 
             String response = game.processInput(line);
-            messageBox.appendText(response);
+
+
+            //special cases
+            if ("lie".equalsIgnoreCase(command.getCommandWord())) {
+                List<String> lieLines = Arrays.asList(response.split("\\R"));
+                playLines(lieLines);                  // line-by-line animation
+            } else if ("eavesdrop".equalsIgnoreCase(command.getCommandWord())) {
+                List<String> convoLines = game.listen();
+                playLines(convoLines);
+            } else {
+
+                messageBox.appendText(response);
+            }
 
             updatePlayerIcon();
             movePlayerIcon();
             updateMap();
-
-            if ("eavesdrop".equalsIgnoreCase(command.getCommandWord())) {
-                List<String> convoLines = game.listen();
-                playLines(convoLines);
-            }
             inputField.clear();
 
             if (game.isFinished()) {
@@ -133,7 +146,6 @@ public class Controller {
 
         Duration perLine = Duration.seconds(2.0);
         Timeline timeline = new Timeline();
-
         for (int i = 0; i < lines.size(); i++) {
             String line = lines.get(i);
             KeyFrame frame = new KeyFrame(
@@ -144,6 +156,8 @@ public class Controller {
         }
         timeline.play();
     }
+
+
     }
 
 

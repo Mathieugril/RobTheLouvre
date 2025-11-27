@@ -53,7 +53,7 @@ public class Room implements Serializable {
                 list.append(" - ").append(i.getName()).append("\n");
             }
         }
-        return details + "\nWho is here: \n" + list;
+        return type.getDetails() + "\nWho is here: \n" + list;
       //  return details;
     }
 
