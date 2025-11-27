@@ -22,12 +22,14 @@ public class Controller {
         @FXML
         private TextArea messageBox;
 
-
         @FXML
         private TextField inputField;
 
         @FXML
         private ImageView playerIcon;
+
+        @FXML
+        private ImageView playerIcon1;
 
         private ZorkULGame game;
 
@@ -45,6 +47,7 @@ public class Controller {
         updateMap();
     }
 
+
 @FXML
     private void initialize() {
 
@@ -52,9 +55,9 @@ public class Controller {
         uniformImage = new Image(getClass().getResource("cop1.png").toExternalForm());
 
          playerIcon.setImage(thiefImage);
-
-
+         playerIcon1.setImage(thiefImage);
 }
+
 
     private void updateMap() {
         boolean knowsPassage = game != null && game.isSecretPassageKnown();
@@ -71,12 +74,12 @@ public class Controller {
 
         if (game.player.hasItem("Uniform")) {
             playerIcon.setImage(uniformImage);
+            playerIcon1.setImage(uniformImage);
         } else {
             playerIcon.setImage(thiefImage);
+            playerIcon1.setImage(thiefImage);
         }
     }
-
-
 
 
 
@@ -101,7 +104,6 @@ public class Controller {
                 List<String> convoLines = game.listen();
                 playLines(convoLines);
             }
-
             inputField.clear();
 
             if (game.isFinished()) {
@@ -115,6 +117,10 @@ public class Controller {
             RoomType type = game.getCurrentRoomType();
              playerIcon.setLayoutX(type.getIconX());
              playerIcon.setLayoutY(type.getIconY());
+
+             playerIcon1.setLayoutX(type.getIconX());
+             playerIcon1.setLayoutY(type.getIconY());
+
              System.out.println("movePlayerIcon() called");
          }
 

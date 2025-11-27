@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.collections.*?>
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<StackPane fx:id="mapStack" fx:controller="com.robthelouvre.ui.Controller" prefHeight="800.0" prefWidth="1200.0" styleClass="root" stylesheets="mapview.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane fx:id="mapStack" prefHeight="800.0" prefWidth="1200.0" styleClass="root" stylesheets="mapview.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.robthelouvre.ui.Controller">
 
     <children>
+
 
         <!-- Whole GUI (inventory + map + text box) -->
         <HBox fx:id="normal" alignment="CENTER" prefHeight="800.0" prefWidth="1102.0" spacing="5">
@@ -21,24 +18,15 @@
                 <children>
 
                     <!-- Top: main log -->
-                    <TextArea fx:id="messageBox"
-                              prefRowCount="10"
-                              wrapText="true"
-                              editable="false"
-                              styleClass="text-box"
-                              prefHeight="650"
-                              layoutY="400"/>
+                    <TextArea fx:id="messageBox" editable="false" layoutY="400" prefHeight="650" prefRowCount="10" styleClass="text-box" wrapText="true" />
 
                     <!-- Bottom: input box -->
-                    <TextField fx:id="inputField"
-                               promptText="Type command..."
-                               styleClass="input-box"
-                               onAction="#handleCommand"/>
+                    <TextField fx:id="inputField" onAction="#handleCommand" promptText="Type command..." styleClass="input-box" />
 
                 </children>
             </VBox>
             <!-- CENTER: Map -->
-            <AnchorPane fx:id="mapPaneNormal" prefHeight="800.0" prefWidth="600.0" style="-fx-padding: 30 10 0 50;" >
+            <AnchorPane fx:id="mapPaneNormal" prefHeight="800.0" prefWidth="600.0" style="-fx-padding: 30 10 0 50;">
 
 
                 <children>
@@ -84,29 +72,35 @@
 
                     <!-- Delivery Dock -->
                     <Rectangle height="70.0" layoutX="663.0" layoutY="100.0" styleClass="service-room" width="110.0" />
-                    <Text fill="white" layoutX="686.0" layoutY="132.0" styleClass="room-label" text="Delivery" >
+                    <Text fill="white" layoutX="686.0" layoutY="132.0" styleClass="room-label" text="Delivery">
                         <font>
                             <Font size="10.0" />
                         </font></Text>
-                    <Text fill="white" layoutX="700.0" layoutY="144.0" styleClass="room-label" text="Dock" >
+                    <Text fill="white" layoutX="700.0" layoutY="144.0" styleClass="room-label" text="Dock">
                         <font>
                             <Font size="10.0" />
                         </font></Text>
 
                     <!-- Basement -->
                     <Rectangle height="62.0" layoutX="632.0" layoutY="37.0" styleClass="basement-room" width="172.0" />
-                    <Text  layoutX="678.0" layoutY="70.0" styleClass="room-label" text="Basement" wrappingWidth="78.44335937500006" />
+                    <Text layoutX="678.0" layoutY="70.0" styleClass="room-label" text="Basement" wrappingWidth="78.44335937500006" />
 
                     <!-- Hidden Passage (dashed) -->
 
-                    <Text  layoutX="690.0" layoutY="307.0" styleClass="room-label" text="Janitor" />
-                    <Text  layoutX="690.0" layoutY="327.0" styleClass="room-label" text="Closet" />
-                    <Text  layoutX="392.0" layoutY="213.0" styleClass="room-label" text="Old Masters" />
-                    <Text  layoutX="405.0" layoutY="242.0" styleClass="room-label" text="Gallery" />
+                    <Text layoutX="690.0" layoutY="307.0" styleClass="room-label" text="Janitor" />
+                    <Text layoutX="690.0" layoutY="327.0" styleClass="room-label" text="Closet" />
+                    <Text layoutX="392.0" layoutY="213.0" styleClass="room-label" text="Old Masters" />
+                    <Text layoutX="405.0" layoutY="242.0" styleClass="room-label" text="Gallery" />
+
+                 <ImageView fx:id="playerIcon" fitHeight="48" fitWidth="48" layoutX="406.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                         <Image url="@robber1.png" />
+                     </image>
+                 </ImageView>
 
                 </children>
             </AnchorPane>
-            <AnchorPane fx:id="mapPaneSecret" prefHeight="800.0" prefWidth="600.0" style="-fx-padding: 30 10 0 50;" visible="false" managed="false" >
+            <AnchorPane fx:id="mapPaneSecret" managed="false" prefHeight="800.0" prefWidth="600.0" style="-fx-padding: 30 10 0 50;" visible="false">
 
 
                 <children>
@@ -152,18 +146,18 @@
 
                     <!-- Delivery Dock -->
                     <Rectangle height="70.0" layoutX="663.0" layoutY="100.0" styleClass="service-room" width="110.0" />
-                    <Text fill="white" layoutX="686.0" layoutY="132.0" styleClass="room-label" text="Delivery" >
+                    <Text fill="white" layoutX="686.0" layoutY="132.0" styleClass="room-label" text="Delivery">
                         <font>
                             <Font size="10.0" />
                         </font></Text>
-                    <Text fill="white" layoutX="700.0" layoutY="144.0" styleClass="room-label" text="Dock" >
+                    <Text fill="white" layoutX="700.0" layoutY="144.0" styleClass="room-label" text="Dock">
                         <font>
                             <Font size="10.0" />
                         </font></Text>
 
                     <!-- Basement -->
                     <Rectangle height="62.0" layoutX="632.0" layoutY="37.0" styleClass="basement-room" width="172.0" />
-                    <Text  layoutX="678.0" layoutY="70.0" styleClass="room-label" text="Basement" wrappingWidth="78.44335937500006" />
+                    <Text layoutX="678.0" layoutY="70.0" styleClass="room-label" text="Basement" wrappingWidth="78.44335937500006" />
 
                     <!-- Hidden Passage (dashed) -->
                     <Rectangle height="384.0" layoutX="822.0" layoutY="308.0" styleClass="hidden-pass" width="12.0" />
@@ -172,25 +166,21 @@
 
                     <Text fill="white" layoutX="784.0" layoutY="503.0" rotate="-90.0" styleClass="small-label" text="Hidden Passage" />
 
-                    <Text  layoutX="690.0" layoutY="307.0" styleClass="room-label" text="Janitor" />
-                    <Text  layoutX="690.0" layoutY="327.0" styleClass="room-label" text="Closet" />
-                    <Text  layoutX="392.0" layoutY="213.0" styleClass="room-label" text="Old Masters" />
-                    <Text  layoutX="405.0" layoutY="242.0" styleClass="room-label" text="Gallery" />
+                    <Text layoutX="690.0" layoutY="307.0" styleClass="room-label" text="Janitor" />
+                    <Text layoutX="690.0" layoutY="327.0" styleClass="room-label" text="Closet" />
+                    <Text layoutX="392.0" layoutY="213.0" styleClass="room-label" text="Old Masters" />
+                    <Text layoutX="405.0" layoutY="242.0" styleClass="room-label" text="Gallery" />
 
-
+                    <ImageView fx:id="playerIcon1" fitHeight="48" fitWidth="48" layoutX="406.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@robber1.png" />
+                        </image>
+                    </ImageView>
 
                 </children>
             </AnchorPane>
         </HBox>
 
-
     </children>
-    <ImageView fx:id="playerIcon"
-               layoutX="420" layoutY="600"
-               fitWidth="48" fitHeight="48"
-               pickOnBounds="true" preserveRatio="true">
-        <image>
-            <Image url="@robber1.png" />
-        </image>
-    </ImageView>
+
 </StackPane>

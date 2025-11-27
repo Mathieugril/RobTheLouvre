@@ -29,7 +29,7 @@ public class ZorkULGame {
     public static Guards patrick, jerry, sean, david, jude;
     Scanner ise = new Scanner(System.in);
     private boolean finished = false;
-    private boolean passage = false;// for GUI usage as well
+    private boolean passage = false;
 
     public boolean isFinished() {
         return finished;

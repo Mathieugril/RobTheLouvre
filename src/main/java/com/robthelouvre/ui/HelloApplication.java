@@ -14,7 +14,6 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-
         ZorkULGame game = new ZorkULGame();
 
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("map.fxml"));

@@ -8,15 +8,15 @@ public enum RoomType {
     MASTERS (Text.Descriptions.MASTERS, Text.Details.MASTERS_DET, 420, 220),
     REGALIA (Text.Descriptions.REGALIA, Text.Details.REGALIA_DET, 420, 420),
     CONTROL (Text.Descriptions.SECURITY, Text.Details.SECURITY_DET, 650, 360),
-    BREAK(Text.Descriptions.GUARDS, Text.Details.GUARD_DET, 750, 360),
-    JANITOR_CLOSET (Text.Descriptions.JANITOR, Text.Details.JANITOR_DET, 750, 295),
-    DELIVERY_DOCK (Text.Descriptions.DELIVERY, Text.Details.DELIVERY_DET, 760, 140),
-    BASEMENT (Text.Descriptions.BASEMENT, Text.Details.BASEMENT_DET, 760, 60),
-    MAINTENANCE (Text.Descriptions.SERVICE, Text.Details.SERVICE_DET, 770, 210),
+    BREAK(Text.Descriptions.GUARDS, Text.Details.GUARD_DET, 705, 360),
+    JANITOR_CLOSET (Text.Descriptions.JANITOR, Text.Details.JANITOR_DET, 705, 285),
+    DELIVERY_DOCK (Text.Descriptions.DELIVERY, Text.Details.DELIVERY_DET, 705, 115),
+    BASEMENT (Text.Descriptions.BASEMENT, Text.Details.BASEMENT_DET, 705, 60),
+    MAINTENANCE (Text.Descriptions.SERVICE, Text.Details.SERVICE_DET, 705, 210),
     GARDEN (Text.Descriptions.GARDEN, Text.Details.GARDEN_DET, 420, 670),
     BALCONY (Text.Descriptions.BALCONY1, Text.Details.BALCONY_DET1, 420, 600),
-    SECRET_PASSAGE (Text.Descriptions.PASSAGE, Text.Details.PASSAGE_DET2, 780, 500),
-    SERVICE_TUNNEL (Text.Descriptions.SERVICE, Text.Details.SERVICE_DET, 600, 550),
+    SECRET_PASSAGE (Text.Descriptions.PASSAGE, Text.Details.PASSAGE_DET2, 814, 500),
+    SERVICE_TUNNEL (Text.Descriptions.SERVICE, Text.Details.SERVICE_DET, 705, 190),
     VAN (Text.Descriptions.VAN, Text.Details.VAN_DET ,900, 650);
 
     private String description;
