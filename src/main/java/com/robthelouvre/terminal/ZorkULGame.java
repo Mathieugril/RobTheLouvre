@@ -15,6 +15,8 @@ emphasizing exploration and simple command-driven gameplay
 
 package com.robthelouvre.terminal;
 
+import com.robthelouvre.ui.Controller;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -235,7 +237,7 @@ public class ZorkULGame {
             return false;
         }
 
-        switch (commandWord) {
+        switch (commandWord.toLowerCase()) {
             case "help":
                 appendHelp(out);
                 break;
@@ -347,7 +349,7 @@ public class ZorkULGame {
             return;
         }
 
-        String direction = command.getSecondWord();
+        String direction = command.getSecondWord().toLowerCase();
         Room nextRoom = player.getCurrentRoom().getExit(direction);
 
         if (nextRoom == null) {
@@ -366,6 +368,7 @@ public class ZorkULGame {
         return passage;
     }
 
+
     private void steal(Command command, StringBuilder out)  {
         if (!command.hasSecondWord()) {
             out.append("Steal what?").append("\n");
@@ -376,7 +379,6 @@ public class ZorkULGame {
 
         for (Character i : Character.getAllCharacters()) {
             if (choice.equalsIgnoreCase(i.getName())) {
-
                 if (i.getInventory().isEmpty()) {
                     out.append(i.getName()).append(" has nothing to steal.").append("\n");
                     return;
@@ -388,7 +390,9 @@ public class ZorkULGame {
                 }
 
                 out.append("What would you like to take? ").append("\n");
-                String take = ise.nextLine();
+
+                String take = command.getCommandWord();
+             //   String tak = processInput();
 
                 Item stolenItem = null;
                 for (Item item : i.getInventory()) {
@@ -409,8 +413,9 @@ public class ZorkULGame {
             }
         }
         out.append("There is no one named ").append(choice).append(" here to steal from.").append("\n");
-
     }
+
+
     public List<String> listen() {
         List<String> out = new ArrayList<>();
 

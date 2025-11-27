@@ -17,6 +17,7 @@ import javafx.util.Duration;
 import java.util.List;
 
 public class Controller {
+  //  public String line;
 
 
         @FXML
@@ -86,7 +87,7 @@ public class Controller {
         @FXML
          private void handleCommand() {
 
-            String line = inputField.getText().trim();
+            String line = inputField.getText().trim().toLowerCase();
             if (line.isEmpty()) return;
 
             messageBox.appendText("> " + line + "\n");

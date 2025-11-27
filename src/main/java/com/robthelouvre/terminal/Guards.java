@@ -22,11 +22,7 @@ public class Guards extends Character {
         Scanner scan = new Scanner(System.in);
         for (String lie : Text.Convos.lieToGuards()) {
             dialog.append(lie).append("\n");
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
+
         }
 
 
@@ -37,11 +33,7 @@ public class Guards extends Character {
         if (name.equalsIgnoreCase("tobias")) {
             for (String right : Text.Convos.responseRight()) {
                 dialog.append(right).append("\n");
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
+
             }
 
             ZorkULGame.jude.setCurrentRoom(target);
@@ -50,11 +42,6 @@ public class Guards extends Character {
             dialog.append(" Player: ").append(name).append(" told me.\n");
             for (String wrong : Text.Convos.responseWrong()) {
                 dialog.append(wrong).append("\n");
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
             }
         }return "";
     }
