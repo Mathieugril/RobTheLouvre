@@ -10,12 +10,12 @@
 
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<StackPane fx:id="root" fx:controller="com.robthelouvre.ui.Controller" prefHeight="800.0" prefWidth="1200.0" styleClass="root" stylesheets="mapview.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane fx:id="mapStack" fx:controller="com.robthelouvre.ui.Controller" prefHeight="800.0" prefWidth="1200.0" styleClass="root" stylesheets="mapview.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
 
     <children>
 
         <!-- Whole GUI (inventory + map + text box) -->
-        <HBox alignment="CENTER" prefHeight="800.0" prefWidth="1102.0" spacing="5">
+        <HBox fx:id="normal" alignment="CENTER" prefHeight="800.0" prefWidth="1102.0" spacing="5">
 
             <VBox prefWidth="350.0" spacing="5.0" style="-fx-padding: 30 10 0 5;">
                 <children>
@@ -38,7 +38,7 @@
                 </children>
             </VBox>
             <!-- CENTER: Map -->
-            <AnchorPane fx:id="mapPane" prefHeight="800.0" prefWidth="600.0" style="-fx-padding: 30 10 0 50;" >
+            <AnchorPane fx:id="mapPaneNormal" prefHeight="800.0" prefWidth="600.0" style="-fx-padding: 30 10 0 50;" >
 
 
                 <children>
@@ -104,22 +104,93 @@
                     <Text  layoutX="392.0" layoutY="213.0" styleClass="room-label" text="Old Masters" />
                     <Text  layoutX="405.0" layoutY="242.0" styleClass="room-label" text="Gallery" />
 
-                    <ImageView fx:id="playerIcon"
-                               layoutX="420" layoutY="600"
-                               fitWidth="48" fitHeight="48"
-                               pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@robber1.png" />
-                        </image>
-                    </ImageView>
+                </children>
+            </AnchorPane>
+            <AnchorPane fx:id="mapPaneSecret" prefHeight="800.0" prefWidth="600.0" style="-fx-padding: 30 10 0 50;" visible="false" managed="false" >
+
+
+                <children>
+
+                    <!-- Control Room -->
+                    <Rectangle height="72.0" layoutX="574.0" layoutY="339.0" styleClass="utility-room" width="95.0" />
+
+                    <!-- Break Room -->
+                    <Rectangle height="74.0" layoutX="665.0" layoutY="338.0" styleClass="utility-room" width="104.0" />
+
+                    <!-- Lobby -->
+                    <Rectangle height="150.0" layoutX="123.0" layoutY="171.0" styleClass="lobby-room" width="150.0" />
+                    <Text fill="white" layoutX="182.0" layoutY="237.0" styleClass="room-label" text="Lobby" />
+
+                    <!-- V.I.P -->
+                    <Rectangle height="124.0" layoutX="122.0" layoutY="320.0" styleClass="lobby-room" width="152.0" />
+                    <Text fill="white" layoutX="182.0" layoutY="380.0" styleClass="room-label" text="V.I.P" />
+
+                    <!-- Regalia Gallery -->
+                    <Rectangle height="293.0" layoutX="275.0" layoutY="313.0" styleClass="gallery-room" width="302.0" />
+
+                    <!-- Old Masters Gallery -->
+                    <Rectangle height="204.0" layoutX="273.0" layoutY="108.0" styleClass="gallery-room" width="304.0" />
+                    <Text fill="white" layoutX="401.0" layoutY="398.0" styleClass="room-label" text="Regalia" />
+                    <Text fill="white" layoutX="403.0" layoutY="414.0" styleClass="room-label" text="Gallery" />
+
+                    <!-- Garden -->
+                    <Rectangle height="138.0" layoutX="236.0" layoutY="600.0" styleClass="garden-room" width="384.0" />
+                    <!-- Balcony -->
+                    <Rectangle height="56.0" layoutX="309.0" layoutY="600.0" styleClass="gallery-room" width="242.0" />
+                    <Text fill="white" layoutX="400.0" layoutY="641.0" styleClass="room-label" text="Balcony" />
+                    <Text fill="white" layoutX="403.0" layoutY="690.0" styleClass="room-label" text="Garden" />
+                    <Text fill="white" layoutX="590.0" layoutY="378.0" styleClass="room-label" text="Control" />
+                    <Text fill="white" layoutX="695.0" layoutY="370.0" styleClass="room-label" text="Break" />
+                    <Text fill="white" layoutX="697.0" layoutY="388.0" styleClass="room-label" text="Room" />
+
+                    <!-- Maintenance vertical corridor -->
+                    <Rectangle height="126.0" layoutX="691.0" layoutY="171.0" styleClass="maintenance-room" width="42.0" />
+                    <Text fill="white" layoutX="665.0" layoutY="229.0" rotate="90.0" styleClass="room-label" text="Maintenance" />
+                    <!-- Janitor Closet -->
+                    <Rectangle height="62.0" layoutX="666.0" layoutY="277.0" styleClass="service-room" width="102.0" />
+
+
+                    <!-- Delivery Dock -->
+                    <Rectangle height="70.0" layoutX="663.0" layoutY="100.0" styleClass="service-room" width="110.0" />
+                    <Text fill="white" layoutX="686.0" layoutY="132.0" styleClass="room-label" text="Delivery" >
+                        <font>
+                            <Font size="10.0" />
+                        </font></Text>
+                    <Text fill="white" layoutX="700.0" layoutY="144.0" styleClass="room-label" text="Dock" >
+                        <font>
+                            <Font size="10.0" />
+                        </font></Text>
+
+                    <!-- Basement -->
+                    <Rectangle height="62.0" layoutX="632.0" layoutY="37.0" styleClass="basement-room" width="172.0" />
+                    <Text  layoutX="678.0" layoutY="70.0" styleClass="room-label" text="Basement" wrappingWidth="78.44335937500006" />
+
+                    <!-- Hidden Passage (dashed) -->
+                    <Rectangle height="384.0" layoutX="822.0" layoutY="308.0" styleClass="hidden-pass" width="12.0" />
+                    <Rectangle height="12.0" layoutX="622.0" layoutY="692" styleClass="hidden-pass" width="213.0" />
+                    <Rectangle height="12.0" layoutX="772.0" layoutY="308" styleClass="hidden-pass" width="50.0" />
+
+                    <Text fill="white" layoutX="784.0" layoutY="503.0" rotate="-90.0" styleClass="small-label" text="Hidden Passage" />
+
+                    <Text  layoutX="690.0" layoutY="307.0" styleClass="room-label" text="Janitor" />
+                    <Text  layoutX="690.0" layoutY="327.0" styleClass="room-label" text="Closet" />
+                    <Text  layoutX="392.0" layoutY="213.0" styleClass="room-label" text="Old Masters" />
+                    <Text  layoutX="405.0" layoutY="242.0" styleClass="room-label" text="Gallery" />
+
+
 
                 </children>
             </AnchorPane>
-
-            <!-- RIGHT: Text box -->
-
-
         </HBox>
-    </children>
 
+
+    </children>
+    <ImageView fx:id="playerIcon"
+               layoutX="420" layoutY="600"
+               fitWidth="48" fitHeight="48"
+               pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@robber1.png" />
+        </image>
+    </ImageView>
 </StackPane>

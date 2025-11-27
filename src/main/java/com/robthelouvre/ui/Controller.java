@@ -4,20 +4,17 @@ import com.robthelouvre.terminal.Command;
 
 import com.robthelouvre.terminal.RoomType;
 import com.robthelouvre.terminal.ZorkULGame;
-import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.layout.AnchorPane;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 
 import java.util.List;
-import java.util.Locale;
 
 public class Controller {
 
@@ -34,18 +31,58 @@ public class Controller {
 
         private ZorkULGame game;
 
-
+        @FXML
+        private AnchorPane mapPaneSecret;
+        @FXML
+        private AnchorPane mapPaneNormal;
+        private Image thiefImage;
+        private Image uniformImage;
 
     public void setGame(ZorkULGame game) {
         this.game = game;
         messageBox.appendText(game.getWelcomeText());
-
+        updatePlayerIcon();
+        updateMap();
     }
+
+@FXML
+    private void initialize() {
+
+        thiefImage = new Image(getClass().getResource("robber1.png").toExternalForm());
+        uniformImage = new Image(getClass().getResource("cop1.png").toExternalForm());
+
+         playerIcon.setImage(thiefImage);
+
+
+}
+
+    private void updateMap() {
+        boolean knowsPassage = game != null && game.isSecretPassageKnown();
+
+        mapPaneSecret.setVisible(knowsPassage);
+        mapPaneSecret.setManaged(knowsPassage);
+
+        mapPaneNormal.setVisible(!knowsPassage);
+        mapPaneNormal.setManaged(!knowsPassage);
+    }
+
+
+    private void updatePlayerIcon() {
+
+        if (game.player.hasItem("Uniform")) {
+            playerIcon.setImage(uniformImage);
+        } else {
+            playerIcon.setImage(thiefImage);
+        }
+    }
+
+
 
 
 
         @FXML
          private void handleCommand() {
+
             String line = inputField.getText().trim();
             if (line.isEmpty()) return;
 
@@ -56,7 +93,9 @@ public class Controller {
             String response = game.processInput(line);
             messageBox.appendText(response);
 
-                movePlayerIcon();
+            updatePlayerIcon();
+            movePlayerIcon();
+            updateMap();
 
             if ("eavesdrop".equalsIgnoreCase(command.getCommandWord())) {
                 List<String> convoLines = game.listen();
@@ -71,10 +110,12 @@ public class Controller {
             }
         }
 
+
          public void movePlayerIcon() {
             RoomType type = game.getCurrentRoomType();
              playerIcon.setLayoutX(type.getIconX());
              playerIcon.setLayoutY(type.getIconY());
+             System.out.println("movePlayerIcon() called");
          }
 
 

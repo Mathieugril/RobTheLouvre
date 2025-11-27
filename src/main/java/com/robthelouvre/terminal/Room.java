@@ -18,8 +18,8 @@ public class Room implements Serializable {
         this.description = type.getDescription();
         exits = new HashMap<>();
         this.items = new ArrayList<>();
-
     }
+
 
     public Room(RoomType type, List<Item> items) {
         this.type = type;
@@ -153,5 +153,6 @@ public class Room implements Serializable {
     public RoomType getType() {
         return type;
     }
+
 
 }

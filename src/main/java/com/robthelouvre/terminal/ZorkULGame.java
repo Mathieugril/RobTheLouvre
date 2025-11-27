@@ -28,7 +28,8 @@ public class ZorkULGame {
     private Cameras regCam, deliveryScanner;
     public static Guards patrick, jerry, sean, david, jude;
     Scanner ise = new Scanner(System.in);
-    private boolean finished = false;   // for GUI usage as well
+    private boolean finished = false;
+    private boolean passage = false;// for GUI usage as well
 
     public boolean isFinished() {
         return finished;
@@ -132,7 +133,7 @@ public class ZorkULGame {
         van.setExit("north", basementTunnel, true);
 
 
-        player = new User("Player", balcony);
+        player = new User("Player", regaliaGallery);
 
         jerry = new Guards("Gerard", guardRoom);
         jerry.getInventory().add(Headphones);
@@ -288,6 +289,10 @@ public class ZorkULGame {
                 out.append("\nAll Exits: ").append(player.getCurrentRoom().getExitString()).append("\n");
                 break;
             case "eavesdrop":
+                if(player.getCurrentRoom().equals(regaliaGallery)) {
+                    setSecretPassage(true);
+                    this.passage = true;
+                }
               //  List<String> lines = listen();
             //    playLines(lines);
                // out.append("\nAll Exits: ").append(player.getCurrentRoom().getExitString()).append("\n");
@@ -351,6 +356,14 @@ public class ZorkULGame {
             player.setCurrentRoom(nextRoom);
             out.append(player.getCurrentRoom().getLongDescription()).append("\n");
         }
+    }
+
+    public void setSecretPassage(boolean passage) {
+        this.passage = passage;
+    }
+
+    public boolean isSecretPassageKnown() {
+        return passage;
     }
 
     private void steal(Command command, StringBuilder out)  {

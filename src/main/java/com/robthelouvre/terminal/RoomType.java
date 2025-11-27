@@ -15,7 +15,7 @@ public enum RoomType {
     MAINTENANCE (Text.Descriptions.SERVICE, Text.Details.SERVICE_DET, 770, 210),
     GARDEN (Text.Descriptions.GARDEN, Text.Details.GARDEN_DET, 420, 670),
     BALCONY (Text.Descriptions.BALCONY1, Text.Details.BALCONY_DET1, 420, 600),
-    SECRET_PASSAGE (Text.Descriptions.PASSAGE, Text.Details.PASSAGE_DET2, 880, 500),
+    SECRET_PASSAGE (Text.Descriptions.PASSAGE, Text.Details.PASSAGE_DET2, 780, 500),
     SERVICE_TUNNEL (Text.Descriptions.SERVICE, Text.Details.SERVICE_DET, 600, 550),
     VAN (Text.Descriptions.VAN, Text.Details.VAN_DET ,900, 650);
 
