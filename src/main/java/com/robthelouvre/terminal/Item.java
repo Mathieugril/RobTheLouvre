@@ -10,5 +10,6 @@ public interface Item extends Serializable{
     String getName();
 
     boolean getStatus();
+
     void setStatus(boolean visible);
 }

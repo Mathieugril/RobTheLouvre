@@ -20,6 +20,8 @@ public class CommandWords {
         validCommands.put("drop", "drops item on floor");
         validCommands.put("inventory", "Displays items");
         validCommands.put("save", "saves the state of the game");
+        validCommands.put("load", "loads the state of the game");
+        validCommands.put("restart", "starts game fresh");
 
     }
 

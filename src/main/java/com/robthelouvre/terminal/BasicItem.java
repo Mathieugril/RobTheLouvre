@@ -1,22 +1,15 @@
 package com.robthelouvre.terminal;
-import java.io.*;
 
-public class BasicItem  implements Item, Serializable{
+public class BasicItem  implements Item{
     private String description;
     private String name;
     private int id;
-    private boolean isVisible;
+    private boolean isOn;
 
     public BasicItem(String name, String description) {
         this.name = name;
         this.description = description;
-        this.isVisible = true;
-    }
-    public BasicItem(String name, String description, int id) {
-        this.name = name;
-        this.description = description;
-        this.isVisible = true;
-        this.id = id;
+        this.isOn = true;
     }
 
     @Override
@@ -31,12 +24,12 @@ public class BasicItem  implements Item, Serializable{
 
     @Override
     public boolean getStatus() {
-        return isVisible;
+        return isOn;
     }
 
     @Override
     public void setStatus(boolean visible) {
-        this.isVisible = visible;
+        this.isOn = visible;
     }
 }
 

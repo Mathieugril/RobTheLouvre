@@ -121,7 +121,7 @@ public class Controller {
             inputField.clear();
 
             if (game.isFinished()) {
-                inputField.setDisable(true);
+
                 inputField.setPromptText("Game over");
             }
         }

@@ -19,9 +19,15 @@ import com.robthelouvre.ui.Controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.IOException;
 
-public class ZorkULGame {
+
+
+public class ZorkULGame{
     private Parser parser;
     public static User player;
     private static Room balcony, outside, lobby, regaliaGallery, mastersGallery,
@@ -29,7 +35,6 @@ public class ZorkULGame {
             deliveryDock, garden, secretPassage, vip, basementTunnel, van;
     private Cameras regCam, deliveryScanner;
     public static Guards patrick, jerry, sean, david, jude;
-    Scanner ise = new Scanner(System.in);
     private boolean finished = false;
     private boolean passage = false;
 
@@ -136,7 +141,7 @@ public class ZorkULGame {
         van.setExit("north", basementTunnel, true);
 
 
-        player = new User("Player", guardRoom);
+        player = new User("Player", balcony);
 
         jerry = new Guards("Gerard", guardRoom);
         jerry.getInventory().add(Headphones);
@@ -325,6 +330,19 @@ public class ZorkULGame {
                     out.append("This doesn't benefit you here.").append("\n");
                 }
                 break;
+            case "save":
+                saveGame("savegame.dat");
+                out.append("Game saved.\n");
+                break;
+            case "load":
+                loadGame("savegame.dat");
+                out.append("Game loaded.\n");
+                break;
+            case "restart":
+                restartGame();
+                out.append("Game restart.\n \n");
+                out.append(getWelcomeText());
+                break;
             case "quit":
                 if (command.hasSecondWord()) {
                     out.append("Quit what?").append("\n");
@@ -452,6 +470,101 @@ public class ZorkULGame {
             }
         }
         return out;
+    }
+
+    public void saveGame(String fileName) {
+        SaveData data = new SaveData();
+
+        // 1) current room
+        data.currentRoomType = player.getCurrentRoom().getType();
+
+        // 2) items in player inventory (by name)
+        for (Item item : player.getInventory()) {
+            data.playerItems.add(item.getName());
+        }
+
+        // 3) interesting game flags
+        data.passageKnown = passage;
+        data.regCamOn = regCam.getStatus();
+        data.deliveryScannerOn = deliveryScanner.getStatus();
+
+        try (ObjectOutputStream out =
+                     new ObjectOutputStream(new FileOutputStream(fileName))) {
+
+            out.writeObject(data);
+
+        } catch (IOException e) {
+            // simplest error handling; you can forward this to the GUI later
+            e.printStackTrace();
+        }
+    }
+
+    private Room findRoomByType(RoomType type) {
+        // complete this switch with your room fields
+        return switch (type) {
+            case OUTSIDE        -> outside;
+            case BALCONY        -> balcony;
+            case LOBBY          -> lobby;
+            case REGALIA        -> regaliaGallery;
+            case MASTERS        -> mastersGallery;
+            case CONTROL        -> securityRoom;
+            case BREAK          -> guardRoom;
+            case SERVICE_TUNNEL -> serviceTunnel;
+            case JANITOR_CLOSET -> janitorCloset;
+            case DELIVERY_DOCK  -> deliveryDock;
+            case GARDEN         -> garden;
+            case SECRET_PASSAGE -> secretPassage;
+            case VIP            -> vip;
+            case BASEMENT       -> basementTunnel;
+            case VAN            -> van;
+            // default fallback
+            default             -> regaliaGallery;
+        };
+    }
+
+    public void loadGame(String fileName) {
+        try (ObjectInputStream in =
+                     new ObjectInputStream(new FileInputStream(fileName))) {
+
+            SaveData data = (SaveData) in.readObject();
+
+            // Rebuild a fresh world so all Rooms / Guards / Items exist
+            create();
+
+            // 1) restore room
+            Room restoredRoom = findRoomByType(data.currentRoomType);
+            player.setCurrentRoom(restoredRoom);
+
+            // 2) restore inventory
+            player.getInventory().clear();
+            for (String itemName : data.playerItems) {
+                // simplest approach: recreate a basic item with that name
+                // (you could search rooms/guards if you want to avoid duplicates)
+                Item restored = new BasicItem(itemName, "Restored item: " + itemName);
+                player.getInventory().add(restored);
+            }
+
+            // 3) restore flags
+            this.passage = data.passageKnown;
+            if (passage) {
+                // re-open the secret passage like in listen()/eavesdrop
+                garden.setExit("east", secretPassage, true);
+            }
+
+            regCam.setStatus(data.regCamOn);
+            deliveryScanner.setStatus(data.deliveryScannerOn);
+
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void restartGame() {
+        create();
+        finished = false;
+        passage  = false;
+        regCam.setStatus(true);
+        deliveryScanner.setStatus(true);
 
     }
 
