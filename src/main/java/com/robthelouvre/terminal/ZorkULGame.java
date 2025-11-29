@@ -33,6 +33,7 @@ public class ZorkULGame{
             deliveryDock, garden, secretPassage, vip, basementTunnel, van;
     private Cameras regaliaCamera, deliveryScanner;
     public static Guards patrick, jerry, sean, david, jude;
+    public Item Uniform, Flashlight, Crown, VanKeys;
     private boolean finished = false;
     private boolean isPassageKnown = false;
 
@@ -46,12 +47,24 @@ public class ZorkULGame{
         parser = new Parser();
     }
 
+    public String getWelcomeText() {
+        StringBuilder out = new StringBuilder();
+        out.append("Welcome to Rob the Louvre!\n");
+        out.append("Type 'help' if you need help.\n\n");
+        out.append(player.getCurrentRoom().getLongDescription()).append("\n");
+        return out.toString();
+
+
+    }
+
     public void create() {
 
-        Item Uniform = new BasicItem("Uniform", Text.ItemDESC.UNIFORM);
+        Uniform = new BasicItem("Uniform", Text.ItemDESC.UNIFORM);
 
-        Item FlashLight = new BasicItem("Flashlight", Text.ItemDESC.FLASHLIGHT);
-        Item Crown = new BasicItem("Crown", Text.ItemDESC.CROWN);
+        Flashlight = new BasicItem("Flashlight", Text.ItemDESC.FLASHLIGHT);
+        Crown = new BasicItem("Crown", Text.ItemDESC.CROWN);
+
+        VanKeys = new BasicItem("Van-Key", Text.ItemDESC.VANKEYS);
 
         Item Headphones = new BasicItem("Headphones", Text.ItemDESC.HEADPHONES);
         Item Waffles = new BasicItem("Waffles", Text.ItemDESC.WAFFLES);
@@ -62,7 +75,6 @@ public class ZorkULGame{
         Item Bread = new BasicItem("Bread", Text.ItemDESC.BREAD);
         Item KeyCard = new BasicItem("Keycard", Text.ItemDESC.KEYCARD);
 
-        Item VanKeys = new BasicItem("Van-Key", Text.ItemDESC.VANKEYS);
 
          regaliaCamera = new Cameras(regaliaGallery);
          deliveryScanner = new Cameras();
@@ -100,7 +112,7 @@ public class ZorkULGame{
         regaliaGallery.setExit("north", mastersGallery);
         regaliaGallery.setExit("south", balcony, true);
         regaliaGallery.setExit("east", securityRoom);
-        regaliaGalleryItems.add(FlashLight);
+        regaliaGalleryItems.add(Flashlight);
         regaliaGalleryItems.add(Crown);
 
         mastersGallery.setExit("south", regaliaGallery);
@@ -177,7 +189,6 @@ public class ZorkULGame{
         return parser.parseCommand(line); // the new Parser method we wrote earlier
     }
 
-
     public String processInput(String input) {
         StringBuilder out = new StringBuilder();
 
@@ -210,21 +221,6 @@ public class ZorkULGame{
         return out.toString();
     }
 
-
-        public String getWelcomeText() {
-            StringBuilder out = new StringBuilder();
-            out.append("Welcome to Rob the Louvre!\n");
-            out.append("Type 'help' if you need help.\n\n");
-            out.append(player.getCurrentRoom().getLongDescription()).append("\n");
-            return out.toString();
-
-
-    }
-
-    public RoomType getCurrentRoomType() {
-        return player.getCurrentRoom().getType();
-    }
-
     public boolean processCommand(Command command, StringBuilder out) {
         String commandWord = command.getCommandWord();
 
@@ -236,6 +232,10 @@ public class ZorkULGame{
         switch (commandWord.toLowerCase()) {
             case "help":
                 appendHelp(out);
+                break;
+            case "cheat":
+                cheatGame();
+                out.append("\nGame cheated!\n");
                 break;
             case "go":
                 goRoom(command, out);
@@ -365,6 +365,10 @@ public class ZorkULGame{
         }
     }
 
+    public RoomType getCurrentRoomType() {
+        return player.getCurrentRoom().getType();
+    }
+
     public void setSecretPassage(boolean passage) {
         this.isPassageKnown = passage;
     }
@@ -373,9 +377,7 @@ public class ZorkULGame{
         return isPassageKnown;
     }
 
-
     private void steal(Command command, StringBuilder out)  {
-
         if (!command.hasSecondWord()) {
             out.append("Steal from who?\n");
             return;
@@ -384,48 +386,52 @@ public class ZorkULGame{
         String personName = command.getSecondWord();
         Character target = null;
 
-        for (Character i : Character.getAllCharacters()) {
-            if (personName.equalsIgnoreCase(i.getName())) {
-                target = i;
+        // find the target character
+        for (Character c : Character.getAllCharacters()) {
+            if (personName.equalsIgnoreCase(c.getName())) {
+                target = c;
                 break;
             }
         }
 
-        if (target == null || player.getCurrentRoom() != target.getCurrentRoom()) {
+        // target must be here
+        if (target == null || !player.getCurrentRoom().equals(target.getCurrentRoom())) {
             out.append("There is no one called ").append(personName).append(" here.\n");
             return;
         }
 
+        // target must have something
         if (target.getInventory().isEmpty()) {
             out.append(target.getName()).append(" has nothing to steal.\n");
             return;
         }
 
-        // list if no item
+        // if no item given, just list options
         if (!command.hasThirdWord()) {
-            out.append(target.getName()).append(" has:\n");
+            out.append("\n").append(target.getName()).append(" has:\n");
             for (Item item : target.getInventory()) {
                 out.append(" - ").append(item.getName()).append("\n");
             }
-            out.append("To steal something, type: pickpocket ").append(target.getName()).append(" *item name* \n");
+            out.append("\nTo steal something, type: pickpocket ").append(target.getName()).append(" *item name* \n");
             return;
         }
 
-        // steal item
+        // steal the named item
         String itemName = command.getThirdWord();
-        Item stolenItem = target.findItemByName(itemName);
+        Item stolenItem = target.findItemByName(itemName);   // <-- use Character helper
 
         if (stolenItem != null) {
-            target.getInventory().remove(stolenItem);
-            player.getInventory().add(stolenItem);
+
+        // guard drops item and player picks
+            target.dropItem(stolenItem);
+            player.pickUpItem(stolenItem);
 
             out.append("You stole the ").append(stolenItem.getName()).append(" from ").append(target.getName()).append("!\n").append(stolenItem.getDescription()).append("\n");
+
         } else {
             out.append(target.getName()).append(" does not have ").append(itemName).append(".\n");
         }
     }
-
-
 
     public List<String> listen() {
         List<String> out = new ArrayList<>();
@@ -530,8 +536,21 @@ public class ZorkULGame{
         isPassageKnown = false;
         regaliaCamera.setStatus(true);
         deliveryScanner.setStatus(true);
+    }
+
+    public void cheatGame() {
+        isPassageKnown = true;
+        regaliaCamera.setStatus(false);
+        deliveryScanner.setStatus(true);
+        player.setCurrentRoom(serviceTunnel);
+        player.getInventory().add(Flashlight);
+        player.getInventory().add(Crown);
+        player.getInventory().add(Uniform);
+        player.getInventory().add(VanKeys);
+        deliveryDock.setExit("inside", van, true);
 
     }
+
 
     public static void main(String[] args) {
         ZorkULGame game = new ZorkULGame();

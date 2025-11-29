@@ -91,7 +91,7 @@ public class Controller {
             String line = inputField.getText().trim().toLowerCase();
             if (line.isEmpty()) return;
 
-            messageBox.appendText("> " + line + "\n");
+            messageBox.appendText("\n> " + line + "\n\n");
 
             Command command = game.parseCommand(line);
 

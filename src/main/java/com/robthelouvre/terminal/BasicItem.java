@@ -3,7 +3,6 @@ package com.robthelouvre.terminal;
 public class BasicItem  implements Item{
     private String description;
     private String name;
-    private int id;
     private boolean isOn;
 
     public BasicItem(String name, String description) {
