@@ -76,7 +76,7 @@ public class ZorkULGame{
         Item KeyCard = new BasicItem("Keycard", Text.ItemDESC.KEYCARD);
 
 
-         regaliaCamera = new Cameras(regaliaGallery);
+         regaliaCamera = new Cameras();
          deliveryScanner = new Cameras();
 
         List<Item> regaliaGalleryItems = new ArrayList<Item>();

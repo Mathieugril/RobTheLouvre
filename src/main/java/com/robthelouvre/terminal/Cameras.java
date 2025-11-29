@@ -1,28 +1,22 @@
 package com.robthelouvre.terminal;
 
 public class Cameras implements Item{
-    private Room Room;
     private boolean isOn;
 
 
     public Cameras() {
-        this.Room = Room;
         this.isOn = true;
 
     }
-    public Cameras(Room Room) {
-        this.Room = Room;
-        this.isOn = true;
 
-    }
     @Override
     public String getDescription() {
-        return "";
+        return "Security system to protect museums integrity";
     }
 
     @Override
     public String getName() {
-        return "";
+        return "PSF: paris safety features";
     }
 
 
