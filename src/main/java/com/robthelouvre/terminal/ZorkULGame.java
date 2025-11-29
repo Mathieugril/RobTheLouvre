@@ -136,7 +136,7 @@ public class ZorkULGame{
         deliveryDock.setExit("south", serviceTunnel, true);
 
         basementTunnel.setExit("north", outside, true);
-        basementTunnel.setExit("south", deliveryDock, true);
+        basementTunnel.setExit("south", van, true);
 
         garden.setExit("up", balcony, true);
         garden.setExit("south", outside);

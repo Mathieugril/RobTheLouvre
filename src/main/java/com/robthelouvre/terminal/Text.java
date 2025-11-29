@@ -36,7 +36,7 @@ public class Text {
         public static final String JANITOR_DET = "The cramped closet smells of bleach. No one is around at the moment";
         public static final String SERVICE_DET = "Pipes hiss and ducts vibrate above. Not much to see here it seems.";
         public static final String DELIVERY_DET = "Although quite open there is an annoying amount of guards around. It would be foolish to try anything without a disguise.";
-        public static final String BASEMENT_DET = "Vans line the side wall. If done right they would be easy to hot wire in order to escape into the city.";
+        public static final String BASEMENT_DET = "Well lit tunnel with two lanes. Day light is coming from up a head, nothing in the way of freedom now.";
         public static final String GARDEN_DET = "A beaten path in the corner catches your eye. An old seemingly locked door hides at the end of the path.";
         public static final String PASSAGE_DET1 = "Old blueprints and staff scribbles mark this 'staff only' route. You cant go anywhere with out a form of light";
         public static final String PASSAGE_DET2 = "Old blueprints and staff scribbles mark this 'staff only' route, the flashlight lets you see.";
