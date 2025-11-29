@@ -475,26 +475,19 @@ public class ZorkULGame{
     public void saveGame(String fileName) {
         SaveData data = new SaveData();
 
-        // 1) current room
         data.currentRoomType = player.getCurrentRoom().getType();
 
-        // 2) items in player inventory (by name)
         for (Item item : player.getInventory()) {
             data.playerItems.add(item.getName());
         }
 
-        // 3) interesting game flags
         data.passageKnown = passage;
         data.regCamOn = regCam.getStatus();
         data.deliveryScannerOn = deliveryScanner.getStatus();
 
-        try (ObjectOutputStream out =
-                     new ObjectOutputStream(new FileOutputStream(fileName))) {
-
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fileName))) {
             out.writeObject(data);
-
         } catch (IOException e) {
-            // simplest error handling; you can forward this to the GUI later
             e.printStackTrace();
         }
     }
@@ -517,7 +510,7 @@ public class ZorkULGame{
             case VIP            -> vip;
             case BASEMENT       -> basementTunnel;
             case VAN            -> van;
-            // default fallback
+
             default             -> regaliaGallery;
         };
     }
@@ -528,26 +521,21 @@ public class ZorkULGame{
 
             SaveData data = (SaveData) in.readObject();
 
-            // Rebuild a fresh world so all Rooms / Guards / Items exist
             create();
 
-            // 1) restore room
             Room restoredRoom = findRoomByType(data.currentRoomType);
             player.setCurrentRoom(restoredRoom);
 
-            // 2) restore inventory
             player.getInventory().clear();
             for (String itemName : data.playerItems) {
-                // simplest approach: recreate a basic item with that name
-                // (you could search rooms/guards if you want to avoid duplicates)
+
                 Item restored = new BasicItem(itemName, "Restored item: " + itemName);
                 player.getInventory().add(restored);
             }
 
-            // 3) restore flags
+
             this.passage = data.passageKnown;
             if (passage) {
-                // re-open the secret passage like in listen()/eavesdrop
                 garden.setExit("east", secretPassage, true);
             }
 

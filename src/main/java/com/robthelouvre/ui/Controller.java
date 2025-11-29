@@ -54,8 +54,8 @@ public class Controller {
 @FXML
     private void initialize() {
 
-        thiefImage = new Image(getClass().getResource("robber1.png").toExternalForm());
-        uniformImage = new Image(getClass().getResource("cop2.png").toExternalForm());
+        thiefImage = new Image(getClass().getResource("robberfinal.png").toExternalForm());
+        uniformImage = new Image(getClass().getResource("copfinal.png").toExternalForm());
 
          playerIcon.setImage(thiefImage);
          playerIcon1.setImage(thiefImage);
@@ -78,10 +78,6 @@ public class Controller {
         if (game.player.hasItem("Uniform")) {
             playerIcon.setImage(uniformImage);
             playerIcon1.setImage(uniformImage);
-            playerIcon.setFitHeight(95);
-            playerIcon.setFitWidth(95);
-            playerIcon1.setFitHeight(95);
-            playerIcon1.setFitWidth(95);
         } else {
             playerIcon.setImage(thiefImage);
             playerIcon1.setImage(thiefImage);
@@ -135,7 +131,6 @@ public class Controller {
              playerIcon1.setLayoutX(type.getIconX());
              playerIcon1.setLayoutY(type.getIconY());
 
-             System.out.println("movePlayerIcon() called");
          }
 
 

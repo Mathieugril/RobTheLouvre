@@ -6,7 +6,6 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<?import javafx.geometry.Insets?>
 <StackPane fx:id="mapStack" prefHeight="800.0" prefWidth="1200.0" styleClass="root" stylesheets="mapview.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.robthelouvre.ui.Controller">
 
     <children>
@@ -95,9 +94,9 @@
 
 
 
-                    <ImageView fx:id="playerIcon" fitHeight="64" fitWidth="64" layoutX="406.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fx:id="playerIcon" fitHeight="80" fitWidth="80" layoutX="399.0" layoutY="596.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                         <Image url="@robber1.png" />
+                         <Image url="@robberfinal.png" />
                      </image>
                  </ImageView>
 
@@ -174,9 +173,9 @@
                     <Text layoutX="392.0" layoutY="213.0" styleClass="room-label" text="Old Masters" />
                     <Text layoutX="405.0" layoutY="242.0" styleClass="room-label" text="Gallery" />
 
-                    <ImageView fx:id="playerIcon1" fitHeight="64" fitWidth="64" layoutX="406.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fx:id="playerIcon1" fitHeight="80" fitWidth="80" layoutX="406.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@robber1.png" />
+                            <Image url="@robberfinal.png" />
                         </image>
                     </ImageView>
 
