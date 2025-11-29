@@ -2,7 +2,6 @@ package com.robthelouvre.ui;
 
 import com.robthelouvre.terminal.Command;
 
-import com.robthelouvre.terminal.Guards;
 import com.robthelouvre.terminal.RoomType;
 import com.robthelouvre.terminal.ZorkULGame;
 import javafx.fxml.FXML;

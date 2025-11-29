@@ -15,8 +15,6 @@ emphasizing exploration and simple command-driven gameplay
 
 package com.robthelouvre.terminal;
 
-import com.robthelouvre.ui.Controller;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.io.FileInputStream;
@@ -33,10 +31,10 @@ public class ZorkULGame{
     private static Room balcony, outside, lobby, regaliaGallery, mastersGallery,
             securityRoom, guardRoom, serviceTunnel, janitorCloset,
             deliveryDock, garden, secretPassage, vip, basementTunnel, van;
-    private Cameras regCam, deliveryScanner;
+    private Cameras regaliaCamera, deliveryScanner;
     public static Guards patrick, jerry, sean, david, jude;
     private boolean finished = false;
-    private boolean passage = false;
+    private boolean isPassageKnown = false;
 
 
     public boolean isFinished() {
@@ -66,7 +64,7 @@ public class ZorkULGame{
 
         Item VanKeys = new BasicItem("Van-Key", Text.ItemDESC.VANKEYS);
 
-         regCam = new Cameras(regaliaGallery);
+         regaliaCamera = new Cameras(regaliaGallery);
          deliveryScanner = new Cameras();
 
         List<Item> regaliaGalleryItems = new ArrayList<Item>();
@@ -220,15 +218,6 @@ public class ZorkULGame{
             out.append(player.getCurrentRoom().getLongDescription()).append("\n");
             return out.toString();
 
-//        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("player.ser"))) {
-//            User deserializedPerson = (User) in.readObject();
-//            System.out.println("Object has been deserialized:");
-//       //     for (Item i : deserializedPerson.getInventory()) {
-//         //       System.out.println(i.getName());
-//           // }
-//        } catch (IOException | ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
 
     }
 
@@ -256,17 +245,17 @@ public class ZorkULGame{
                 out.append(player.getCurrentRoom().searchRoom()).append("\n");
                 break;
             case "take":
-                Item takeItem = Util.checkItemAvailable(command.getSecondWord(), player.getCurrentRoom().getItems());
+                Item takeItem = ItemsUtil.checkItemAvailable(command.getSecondWord(), player.getCurrentRoom().getItems());
                 if (takeItem == null) {
                     out.append("I can't find that item!");
                 } else {
                     out.append(player.pickUpItem(takeItem)).append("\n");
                     out.append(takeItem.getDescription()).append("\n");
-                    out.append("\nAll Exits: " + player.getCurrentRoom().getExitString()).append("\n");
+                    out.append("\nAll Exits: ").append(player.getCurrentRoom().getExitString()).append("\n");
                 }
                 for (Item item : player.getInventory()) {
                     if (item.getName().equals("Crown")){
-                       if (regCam.getStatus()){
+                       if (regaliaCamera.getStatus()){
                            out.append("Cameras caught you, Game over!!\n");
                             return true;
                         }
@@ -286,7 +275,7 @@ public class ZorkULGame{
                 }
                 break;
             case "drop":
-                Item dropItem = Util.checkItemAvailable(command.getSecondWord(), player.getInventory());
+                Item dropItem = ItemsUtil.checkItemAvailable(command.getSecondWord(), player.getInventory());
                 if (dropItem == null) {
                     out.append("I don't have that item!");
                 } else {
@@ -300,15 +289,12 @@ public class ZorkULGame{
             case "eavesdrop":
                 if(player.getCurrentRoom().equals(regaliaGallery)) {
                     setSecretPassage(true);
-                    this.passage = true;
+                    this.isPassageKnown = true;
                 }
-              //  List<String> lines = listen();
-            //    playLines(lines);
-               // out.append("\nAll Exits: ").append(player.getCurrentRoom().getExitString()).append("\n");
                 break;
             case "tamper":
                 if(player.getCurrentRoom().equals(securityRoom)) {
-                    regCam.setStatus(false);
+                    regaliaCamera.setStatus(false);
                     out.append("Cameras in gallery have been disabled!");
                 } else if (player.getCurrentRoom().equals(deliveryDock)) {
                     deliveryScanner.setStatus(false);
@@ -316,7 +302,6 @@ public class ZorkULGame{
                 } else {
                     out.append("Nothing to mess with here.").append("\n");
                 }
-
                 break;
             case "lie":
                 if (player.getCurrentRoom().equals(regaliaGallery)) {
@@ -381,11 +366,11 @@ public class ZorkULGame{
     }
 
     public void setSecretPassage(boolean passage) {
-        this.passage = passage;
+        this.isPassageKnown = passage;
     }
 
     public boolean isSecretPassageKnown() {
-        return passage;
+        return isPassageKnown;
     }
 
 
@@ -428,19 +413,11 @@ public class ZorkULGame{
 
         // steal item
         String itemName = command.getThirdWord();
-        Item stolenItem = null;
-
-        for (Item item : target.getInventory()) {
-            if (itemName.equalsIgnoreCase(item.getName())) {
-                stolenItem = item;
-                break;
-            }
-        }
+        Item stolenItem = target.findItemByName(itemName);
 
         if (stolenItem != null) {
             target.getInventory().remove(stolenItem);
             player.getInventory().add(stolenItem);
-
 
             out.append("You stole the ").append(stolenItem.getName()).append(" from ").append(target.getName()).append("!\n").append(stolenItem.getDescription()).append("\n");
         } else {
@@ -481,8 +458,8 @@ public class ZorkULGame{
             data.playerItems.add(item.getName());
         }
 
-        data.passageKnown = passage;
-        data.regCamOn = regCam.getStatus();
+        data.passageKnown = isPassageKnown;
+        data.regCamOn = regaliaCamera.getStatus();
         data.deliveryScannerOn = deliveryScanner.getStatus();
 
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fileName))) {
@@ -534,12 +511,12 @@ public class ZorkULGame{
             }
 
 
-            this.passage = data.passageKnown;
-            if (passage) {
+            this.isPassageKnown = data.passageKnown;
+            if (isPassageKnown) {
                 garden.setExit("east", secretPassage, true);
             }
 
-            regCam.setStatus(data.regCamOn);
+            regaliaCamera.setStatus(data.regCamOn);
             deliveryScanner.setStatus(data.deliveryScannerOn);
 
         } catch (IOException | ClassNotFoundException e) {
@@ -550,8 +527,8 @@ public class ZorkULGame{
     public void restartGame() {
         create();
         finished = false;
-        passage  = false;
-        regCam.setStatus(true);
+        isPassageKnown = false;
+        regaliaCamera.setStatus(true);
         deliveryScanner.setStatus(true);
 
     }

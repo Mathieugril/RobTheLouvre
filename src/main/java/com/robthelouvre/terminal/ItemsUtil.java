@@ -2,7 +2,7 @@ package com.robthelouvre.terminal;
 
 import java.util.List;
 
-public class Util {
+public class ItemsUtil {
 
     public static Item checkItemAvailable(String itemName, List<Item> items) {
         for (Item item : items) {

@@ -9,7 +9,7 @@ public class Guards extends Character {
 
     public Guards(String name, Room startingRoom) {
         super(name, startingRoom);
-        ArrayList<Item> inventory;
+
     }
 
     @Override
@@ -25,7 +25,6 @@ public class Guards extends Character {
         for (String lie : Text.Convos.lieToGuards()) {
             dialog.append(lie).append("\n");
         }
-
 
             dialog.append("Who is the supervisor on today?");
             dialog.append("\n - Axel\n - Dorian\n - Jean\n - Tobias\n \n To lie, type: lie *name*");
@@ -46,7 +45,6 @@ public class Guards extends Character {
                 dialog.append(wrong).append("\n");
             }
         }
-
         }
         return dialog.toString();
         }
