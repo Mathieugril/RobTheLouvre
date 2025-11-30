@@ -237,14 +237,14 @@ public class ZorkULGame{
                 cheatGame();
                 out.append("\nGame cheated!\n");
                 break;
-            case "go":
+            case "go", "move":
                 goRoom(command, out);
                 break;
-            case "inspect":
+            case "inspect", "search", "check":
                 out.append(player.getCurrentRoom().inspect()).append("\n");
                 out.append(player.getCurrentRoom().searchRoom()).append("\n");
                 break;
-            case "take":
+            case "take", "pick-up", "grab":
                 Item takeItem = ItemsUtil.checkItemAvailable(command.getSecondWord(), player.getCurrentRoom().getItems());
                 if (takeItem == null) {
                     out.append("I can't find that item!");
@@ -268,7 +268,7 @@ public class ZorkULGame{
                     }
                 }
                 break;
-            case "inventory": // plan on displaying inventory whole time anyway
+            case "inventory":
                 out.append("Inventory:");
                 for (Item item : player.getInventory()) {
                     out.append(item.getName()).append(", ");
@@ -282,11 +282,11 @@ public class ZorkULGame{
                     player.dropItem(dropItem);
                 }
                 break;
-            case "pickpocket":
+            case "pickpocket", "steal":
                 steal(command, out);
                 out.append("\nAll Exits: ").append(player.getCurrentRoom().getExitString()).append("\n");
                 break;
-            case "eavesdrop":
+            case "eavesdrop", "listen":
                 if(player.getCurrentRoom().equals(regaliaGallery)) {
                     setSecretPassage(true);
                     this.isPassageKnown = true;
@@ -456,7 +456,7 @@ public class ZorkULGame{
     }
 
     public void saveGame(String fileName) {
-        SaveData data = new SaveData();
+        SaveLoadData data = new SaveLoadData();
 
         data.currentRoomType = player.getCurrentRoom().getType();
 
@@ -502,7 +502,7 @@ public class ZorkULGame{
         try (ObjectInputStream in =
                      new ObjectInputStream(new FileInputStream(fileName))) {
 
-            SaveData data = (SaveData) in.readObject();
+            SaveLoadData data = (SaveLoadData) in.readObject();
 
             create();
 

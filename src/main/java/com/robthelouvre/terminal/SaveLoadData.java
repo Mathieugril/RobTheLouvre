@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-class SaveData implements Serializable {
+class SaveLoadData implements Serializable {
     private static final long serialVersionUID = 1L;
 
     RoomType currentRoomType;
