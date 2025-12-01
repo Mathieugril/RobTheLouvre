@@ -94,7 +94,7 @@
 
 
 
-                    <ImageView fx:id="playerIcon" fitHeight="80" fitWidth="80" layoutX="399.0" layoutY="596.0" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fx:id="playerIcon" fitHeight="80" fitWidth="80" layoutX="420.0" layoutY="585.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                          <Image url="@robberfinal.png" />
                      </image>
@@ -173,7 +173,7 @@
                     <Text layoutX="392.0" layoutY="213.0" styleClass="room-label" text="Old Masters" />
                     <Text layoutX="405.0" layoutY="242.0" styleClass="room-label" text="Gallery" />
 
-                    <ImageView fx:id="playerIcon1" fitHeight="80" fitWidth="80" layoutX="406.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fx:id="playerIcon1" fitHeight="80" fitWidth="80" layoutX="420.0" layoutY="585.0" pickOnBounds="true" preserveRatio="true">
                         <image>
                             <Image url="@robberfinal.png" />
                         </image>

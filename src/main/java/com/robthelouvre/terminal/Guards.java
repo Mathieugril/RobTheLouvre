@@ -27,7 +27,7 @@ public class Guards extends Character {
         }
 
             dialog.append("Who is the supervisor on today?");
-            dialog.append("\n - Axel\n - Dorian\n - Jean\n - Tobias\n \n To lie, type: lie *name*");
+            dialog.append("\n - Axel\n - Dorian\n - Jean\n - Tobias\n \n To lie, type: lie [name]");
         } else {
             String name = command.getSecondWord();
 

@@ -27,8 +27,12 @@ public class HelloApplication extends Application {
         scene.getStylesheets().add(HelloApplication.class.getResource("mapview.css").toExternalForm());
         stage.setScene(scene);
         stage.setMaximized(true);
-       // stage.setResizable(false);
-       //sta
+
         stage.show();
+    }
+
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }

@@ -54,6 +54,7 @@ public class Text {
         public static final String SNUS = "Some might say he is addicted, he calls it a hobby.";
         public static final String MONSTER = "Energy drink he has daily.";
         public static final String BREAD = "Tupperware of brown bread with a bit of butter.";
+        public static final String MONEY = "Thick enough wallet.";
         public static final String VANKEYS = "Keys for a 'Renault Traffic.'";
     }
 

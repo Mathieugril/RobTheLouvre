@@ -66,6 +66,9 @@ public class ZorkULGame{
 
         VanKeys = new BasicItem("Van-Key", Text.ItemDESC.VANKEYS);
 
+        Item Chalk = new BasicItem("Chalk",Text.ItemDESC.SNUS);
+        Item money = new BasicItem("Fat-Wallet", Text.ItemDESC.MONEY);
+
         Item Headphones = new BasicItem("Headphones", Text.ItemDESC.HEADPHONES);
         Item Waffles = new BasicItem("Waffles", Text.ItemDESC.WAFFLES);
 
@@ -169,7 +172,8 @@ public class ZorkULGame{
 
         patrick = new Guards("Patrice", regaliaGallery);
         jude = new Guards("Jude", regaliaGallery);
-        jude.getInventory().add(KeyCard);
+        jude.getInventory().add(Chalk);
+        patrick.getInventory().add(money);
 
         Guards scott = new Guards("Scott", deliveryDock);
         Guards dylan = new Guards("Dylan", deliveryDock);
@@ -412,7 +416,7 @@ public class ZorkULGame{
             for (Item item : target.getInventory()) {
                 out.append(" - ").append(item.getName()).append("\n");
             }
-            out.append("\nTo steal something, type: pickpocket ").append(target.getName()).append(" *item name* \n");
+            out.append("\nTo steal something, type: pickpocket ").append(target.getName()).append(" [item name] \n");
             return;
         }
 

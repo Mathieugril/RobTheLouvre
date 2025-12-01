@@ -11,11 +11,11 @@ public class CommandWords {
         validCommands.put("move", "go");
 
         validCommands.put("inspect", "Inspect the room");
-        validCommands.put("search",  "Inspect the room");        // synonym
+        validCommands.put("search",  "Inspect the room");
         validCommands.put("check",   "Inspect the room");
 
         validCommands.put("take",    "Picks up an item");
-        validCommands.put("grab",    "Picks up an item");        // synonym
+        validCommands.put("grab",    "Picks up an item");
         validCommands.put("pick-up", "Picks up an item");
 
         validCommands.put("eavesdrop", "Listen in on someone's conversation");
@@ -43,8 +43,8 @@ public class CommandWords {
     }
 
     private static final Set<String> primaryCommands = Set.of(
-            "go", "quit", "help", "inspect", "eavesdrop",
-            "pickpocket", "tamper", "lie", "take", "drop",
+            "go [direction] ", "quit", "help", "inspect", "eavesdrop",
+            "pickpocket [person]", "tamper", "lie", "take [item]", "drop [item]",
             "inventory", "save", "load", "restart", "cheat"
     );
 
