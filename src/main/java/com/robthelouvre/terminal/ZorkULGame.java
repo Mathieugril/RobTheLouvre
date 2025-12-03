@@ -27,16 +27,22 @@ import java.io.IOException;
 
 public class ZorkULGame{
     private Parser parser;
-    public static User player;
-    private static Room balcony, outside, lobby, regaliaGallery, mastersGallery,
+    private User player;
+    private Room balcony, outside, lobby, regaliaGallery, mastersGallery,
             securityRoom, guardRoom, serviceTunnel, janitorCloset,
             deliveryDock, garden, secretPassage, vip, basementTunnel, van;
     private Cameras regaliaCamera, deliveryScanner;
-    public static Guards patrick, jerry, sean, david, jude;
-    public Item Uniform, Flashlight, Crown, VanKeys;
+    private Guards patrick, jerry, sean, david, jude;
+    private Item Uniform, Flashlight, Crown, VanKeys;
     private boolean finished = false;
     private boolean isPassageKnown = false;
 
+    public User getPlayer() {
+        return player;
+    }
+
+    public Guards getPatrick() { return patrick; }
+    public Guards getJude()    { return jude; }
 
     public boolean isFinished() {
         return finished;
@@ -82,10 +88,10 @@ public class ZorkULGame{
          regaliaCamera = new Cameras();
          deliveryScanner = new Cameras();
 
-        List<Item> regaliaGalleryItems = new ArrayList<Item>();
-        List<Item> securityItems = new ArrayList<Item>();
-        List<Item> guardRoomItems = new ArrayList<Item>();
-        List<Item> dockItems = new ArrayList<Item>();
+        List<Item> regaliaGalleryItems = new ArrayList<>();
+        List<Item> securityItems = new ArrayList<>();
+        List<Item> guardRoomItems = new ArrayList<>();
+        List<Item> dockItems = new ArrayList<>();
 
 
         outside = new Room(RoomType.OUTSIDE);
@@ -220,8 +226,7 @@ public class ZorkULGame{
                 finished = true;
             }
 
-       // out.append("Thank you for playing. Goodbye.\n");
-//
+
         return out.toString();
     }
 
@@ -239,7 +244,7 @@ public class ZorkULGame{
                 break;
             case "cheat":
                 cheatGame();
-                out.append("\nGame cheated!\n");
+                out.append("\nGame cheated! Head north to freedom.\n");
                 break;
             case "go", "move":
                 goRoom(command, out);
@@ -310,7 +315,7 @@ public class ZorkULGame{
             case "lie":
                 if (player.getCurrentRoom().equals(regaliaGallery)) {
                    if (player.hasItem("Uniform")) {
-                       out.append(Guards.lie(command, guardRoom));
+                       out.append(Guards.lie(this, command, guardRoom));
                    } else {
                        out.append("You have no disguise,guards caught you.").append("\n");
                        return true;
@@ -348,8 +353,7 @@ public class ZorkULGame{
 
     private void appendHelp(StringBuilder out) {
         out.append("You are in the middle of a heist. You are alone. You wander around the museum.\n");
-        out.append("Your command words are: ");
-        out.append(parser.showCommands()).append("\n"); // you may need a method that returns a String
+        out.append(parser.showCommands()).append("\n");
     }
 
     private void goRoom(Command command, StringBuilder out) {
@@ -391,7 +395,9 @@ public class ZorkULGame{
         Character target = null;
 
         // find the target character
-        for (Character c : Character.getAllCharacters()) {
+
+        for (Character c : player.getCurrentRoom().getCharacters()) {
+            if (c == player) continue;
             if (personName.equalsIgnoreCase(c.getName())) {
                 target = c;
                 break;
@@ -480,7 +486,7 @@ public class ZorkULGame{
     }
 
     private Room findRoomByType(RoomType type) {
-        // complete this switch with your room fields
+
         return switch (type) {
             case OUTSIDE        -> outside;
             case BALCONY        -> balcony;
@@ -521,6 +527,7 @@ public class ZorkULGame{
             }
 
 
+
             this.isPassageKnown = data.passageKnown;
             if (isPassageKnown) {
                 garden.setExit("east", secretPassage, true);
@@ -535,6 +542,7 @@ public class ZorkULGame{
     }
 
     public void restartGame() {
+        Character.resetAll();
         create();
         finished = false;
         isPassageKnown = false;
@@ -552,6 +560,7 @@ public class ZorkULGame{
         player.getInventory().add(Uniform);
         player.getInventory().add(VanKeys);
         deliveryDock.setExit("inside", van, true);
+
 
     }
 

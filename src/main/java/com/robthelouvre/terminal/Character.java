@@ -31,6 +31,7 @@ public abstract class Character implements Serializable {
     public List<Item> getInventory() {
         return inventory;
     }
+
     public boolean hasItem(String itemName) {
         for (Item it : inventory) {
             if (it.getName().equalsIgnoreCase(itemName)) return true;
@@ -68,5 +69,9 @@ public abstract class Character implements Serializable {
 
     public static List<Character> getAllCharacters() {
         return allCharacters;
+    }
+
+    public static void resetAll() {
+        allCharacters.clear();
     }
 }

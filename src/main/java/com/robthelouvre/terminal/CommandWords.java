@@ -43,9 +43,9 @@ public class CommandWords {
     }
 
     private static final Set<String> primaryCommands = Set.of(
-            "go [direction] ", "quit", "help", "inspect", "eavesdrop",
-            "pickpocket [person]", "tamper", "lie", "take [item]", "drop [item]",
-            "inventory", "save", "load", "restart", "cheat"
+            "go [direction] ", "\nquit", "help", "\ninspect [room]", "\neavesdrop - listen to guards talking",
+            "\npickpocket [person]", "\ntamper - for security systems", "\nlie - to deceive guards", "\ntake [item]", "\ndrop [item]",
+            "\ninventory", "save", "load", "restart", "cheat"
     );
 
     public static String showAll() {

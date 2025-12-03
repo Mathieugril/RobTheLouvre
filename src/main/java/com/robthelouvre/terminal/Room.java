@@ -6,8 +6,7 @@ import java.util.*;
 public class Room implements Serializable {
     private RoomType type;
     private String description;
-    private Map<String, Room> exits; // Map direction to neighboring Room
-    private String details;
+    private Map<String, Room> exits;
     private List<Item> items;
     private Map<String, Boolean> exitStates = new HashMap<>();
     private boolean access = false;
@@ -41,20 +40,17 @@ public class Room implements Serializable {
 
 
 
-    public void setDetails(String details) {
-        this.details = details;
-    }
+
     public String inspect() {
 
         StringBuilder list = new StringBuilder();
 
-        for(Character i : Character.getAllCharacters()) {
-            if(i.getCurrentRoom().equals(this)) {
-                list.append(" - ").append(i.getName()).append("\n");
-            }
+
+        for (Character c : getCharacters()) {
+            list.append(" - ").append(c.getName()).append("\n");
         }
         return type.getDetails() + "\nWho is here: \n" + list;
-      //  return details;
+
     }
 
 
@@ -62,9 +58,6 @@ public class Room implements Serializable {
         return lines;
     }
 
-  //  public void setDescription(String description) {
-  //      this.description = description;
-    //}
 
 
     public void setExit(String direction,Room neighbor) {
@@ -155,4 +148,15 @@ public class Room implements Serializable {
     }
 
 
+    public List<Character> getCharacters() {
+        List<Character> here = new ArrayList<>();
+
+        for (Character c : Character.getAllCharacters()) {
+            if (c.getCurrentRoom() == this) {   // same room
+                here.add(c);
+            }
+        }
+
+        return here;
+    }
 }

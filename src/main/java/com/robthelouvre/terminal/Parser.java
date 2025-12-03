@@ -4,11 +4,9 @@ import java.util.Scanner;
 
 public class Parser {
     private final CommandWords commands;
-    private final Scanner reader;
 
     public Parser() {
         commands = new CommandWords();
-        reader = new Scanner(System.in);
     }
 
     public Command parseCommand(String inputLine) {
@@ -22,7 +20,7 @@ public class Parser {
             if (tokenizer.hasNext()) {
                 word1 = tokenizer.next();
                 if (tokenizer.hasNext()) {
-                    word2 = tokenizer.next();   // or nextLine() if you want multi-word second part
+                    word2 = tokenizer.next();
                     if (tokenizer.hasNext()) {
                         word3 = tokenizer.next();
                     }

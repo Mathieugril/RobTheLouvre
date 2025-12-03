@@ -18,8 +18,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Controller {
-  //  public String line;
-
 
         @FXML
         private TextArea messageBox;
@@ -74,7 +72,7 @@ public class Controller {
 
     private void updatePlayerIcon() {
 
-        if (game.player.hasItem("Uniform")) {
+        if (game.getPlayer().hasItem("Uniform")) {
             playerIcon.setImage(uniformImage);
             playerIcon1.setImage(uniformImage);
         } else {

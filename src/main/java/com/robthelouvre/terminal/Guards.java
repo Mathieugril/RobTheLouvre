@@ -1,10 +1,5 @@
 package com.robthelouvre.terminal;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-
-
-
 public class Guards extends Character {
 
     public Guards(String name, Room startingRoom) {
@@ -17,9 +12,8 @@ public class Guards extends Character {
         super.setCurrentRoom(room);
     }
 
-    public static String lie(Command command, Room target) {
+    public static String lie(ZorkULGame game, Command command, Room target) {
         StringBuilder dialog = new StringBuilder();
-
 
         if (!command.hasSecondWord()) {
         for (String lie : Text.Convos.lieToGuards()) {
@@ -37,8 +31,8 @@ public class Guards extends Character {
 
             }
 
-            ZorkULGame.jude.setCurrentRoom(target);
-            ZorkULGame.patrick.setCurrentRoom(target);
+            game.getPatrick().setCurrentRoom(target);
+            game.getJude().setCurrentRoom(target);
         } else {
             dialog.append(" Player: ").append(name).append(" told me.\n");
             for (String wrong : Text.Convos.responseWrong()) {
