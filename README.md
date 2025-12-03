@@ -34,7 +34,7 @@
       Class Name                     Attributes                                          Methods
        Character                 name, currentRoom, inventory            getName, getCurrentRoom, getInventory, pickUpItem, dropItem
        Items             name, description, location, id, isVisible   getDescription, getName, getLocation, getId, isVisible     
-       Room        description, exits, details, items       inspect, getDescription, getExit, searchRoom, removeItem, addItem, getItems, getLongDescription
+       Room        type, description, exits, details, items, exitStates      inspect, getDescription, getExit, searchRoom, removeItem, addItem, getItems, getLongDescription
        ZorkULGame                     parser, player              createRooms, play, printWelcome, processCommand, printHelp, goRoom, details
        Text                                                              Descripstions, Details, ItemDESC, Convos
        Cameras                     room, isOn                            getStatus, setStatus
