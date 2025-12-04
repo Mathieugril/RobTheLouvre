@@ -96,7 +96,7 @@ public class Controller {
             String response = game.processInput(line);
 
 
-            //special cases
+
             if ("lie".equalsIgnoreCase(command.getCommandWord())) {
                 List<String> lieLines = Arrays.asList(response.split("\\R"));
                 playLines(lieLines);

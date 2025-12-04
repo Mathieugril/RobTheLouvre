@@ -322,10 +322,12 @@ public class ZorkULGame{
             if (item.getName().equals("Crown")){
                 if (regaliaCamera.getStatus()){
                     out.append("Cameras caught you, Game over!!\n");
+                    out.append("Type Restart to play again");
                     return true;
                 }
                 if (jude.getCurrentRoom().equals(regaliaGallery)) {
                     out.append("Guards caught you, Game over!!\n");
+                    out.append("Type Restart to play again");
                     return true;
                 }
                 RoomType.BALCONY.setDetails(Text.Details.BALCONY_DET2);
@@ -486,6 +488,7 @@ public class ZorkULGame{
 
         if (!player.hasItem("Uniform")) {
             out.append("You have no disguise, guards caught you.\n");
+            out.append("Type Restart to play again");
             return true;
         }
 
