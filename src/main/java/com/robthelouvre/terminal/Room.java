@@ -40,25 +40,9 @@ public class Room implements Serializable {
 
 
 
-
-    public String inspect() {
-
-        StringBuilder list = new StringBuilder();
-
-
-        for (Character c : getCharacters()) {
-            list.append(" - ").append(c.getName()).append("\n");
-        }
-        return type.getDetails() + "\nWho is here: \n" + list;
-
-    }
-
-
     public List<String> getLines() {
         return lines;
     }
-
-
 
     public void setExit(String direction,Room neighbor) {
         exits.put(direction, neighbor);
@@ -92,25 +76,35 @@ public class Room implements Serializable {
     }
 
     public String searchRoom() {
+        StringBuilder characterList = new StringBuilder();
+        for (Character c : getCharacters()) {
+            characterList.append(" - ").append(c.getName()).append("\n");
+        }
+
         StringBuilder itemsList = new StringBuilder();
+
+
         if (getItems().isEmpty()) {
-            return "No items out in the open";
+            itemsList.append("No items out in the open");
+        } else if (getItems().size() == 1) {
+            itemsList.append("\nIs that, a ").append(getItems().getFirst().getName()).append("!");
+        } else {
+            itemsList.append("I see ");
+            for (int i = 0; i < getItems().size() - 1; i++) {
+                itemsList.append("a ").append(getItems().get(i).getName()).append(", ");
+            }
+            itemsList.append("and a ").append(getItems().getLast().getName()).append("!");
         }
-        if (getItems().size() == 1) {
-            return "Is that, a " + getItems().getFirst().getName() + "!";
-        }
-        itemsList.append("I see ");
-        for(int item = 0; item < getItems().size() - 1; item++) {
-            itemsList.append("a ");
-            itemsList.append(getItems().get(item).getName());
-            itemsList.append(", ");
-        }
-        itemsList.append("and a ");
-        itemsList.append(getItems().getLast().getName());
-        itemsList.append("!");
 
+        if (!containers.isEmpty()) {
+            itemsList.append("\nYou notice:\n");
+            for (Container<?> c : containers) {
+                itemsList.append(" - ").append(c.getName());
+                itemsList.append("\n");
+            }
+        }
 
-        return itemsList.toString();
+        return type.getDetails() + "\nWho is here: \n" + characterList + itemsList;
     }
 
     public void removeItem(Item item) {
@@ -158,5 +152,15 @@ public class Room implements Serializable {
         }
 
         return here;
+    }
+
+    private final List<Container<? extends Item>> containers = new ArrayList<>();
+
+    public void addContainer(Container<? extends Item> c) {
+        containers.add(c);
+    }
+
+    public List<Container<? extends Item>> getContainers() {
+        return containers;
     }
 }

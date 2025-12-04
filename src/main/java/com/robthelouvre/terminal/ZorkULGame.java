@@ -36,6 +36,8 @@ public class ZorkULGame{
     private Item Uniform, Flashlight, Crown, VanKeys;
     private boolean finished = false;
     private boolean isPassageKnown = false;
+    private Container<Item> crownCase;
+    private Container<Item> uniformLocker;
 
     public User getPlayer() {
         return player;
@@ -65,6 +67,27 @@ public class ZorkULGame{
 
     public void create() {
 
+        List<Item> regaliaGalleryItems = new ArrayList<>();
+        List<Item> securityItems = new ArrayList<>();
+        List<Item> guardRoomItems = new ArrayList<>();
+        List<Item> dockItems = new ArrayList<>();
+
+        outside = new Room(RoomType.OUTSIDE);
+        balcony = new Room(RoomType.BALCONY);
+        lobby = new Room(RoomType.LOBBY);
+        regaliaGallery = new Room(RoomType.REGALIA, regaliaGalleryItems, Text.Convos.regaliaConvo());
+        mastersGallery = new Room(RoomType.MASTERS);
+        securityRoom = new Room(RoomType.CONTROL, securityItems);
+        guardRoom = new Room(RoomType.BREAK, guardRoomItems);
+        serviceTunnel = new Room(RoomType.SERVICE_TUNNEL);
+        janitorCloset = new Room(RoomType.JANITOR_CLOSET);
+        deliveryDock = new Room(RoomType.DELIVERY_DOCK, dockItems, Text.Convos.deliveryConvo());
+        garden = new Room(RoomType.GARDEN);
+        secretPassage = new Room(RoomType.SECRET_PASSAGE);
+        vip = new Room(RoomType.VIP);
+        basementTunnel = new Room(RoomType.BASEMENT);
+        van = new Room(RoomType.VAN);
+
         Uniform = new BasicItem("Uniform", Text.ItemDESC.UNIFORM);
 
         Flashlight = new BasicItem("Flashlight", Text.ItemDESC.FLASHLIGHT);
@@ -84,32 +107,14 @@ public class ZorkULGame{
         Item Bread = new BasicItem("Bread", Text.ItemDESC.BREAD);
         Item KeyCard = new BasicItem("Keycard", Text.ItemDESC.KEYCARD);
 
+        crownCase = new Container<>("Case", "A reinforced glass case around the Crown. It looks fragile if the cameras are off...", Crown, true );
+        uniformLocker = new Container<>("Locker", "A metal locker where a guard has left their uniform.", Uniform,false);
+
+        regaliaGallery.addContainer(crownCase);
+        guardRoom.addContainer(uniformLocker);
 
         regaliaCamera = new Cameras();
         deliveryScanner = new Cameras();
-
-        List<Item> regaliaGalleryItems = new ArrayList<>();
-        List<Item> securityItems = new ArrayList<>();
-        List<Item> guardRoomItems = new ArrayList<>();
-        List<Item> dockItems = new ArrayList<>();
-
-
-        outside = new Room(RoomType.OUTSIDE);
-        balcony = new Room(RoomType.BALCONY);
-        lobby = new Room(RoomType.LOBBY);
-        regaliaGallery = new Room(RoomType.REGALIA, regaliaGalleryItems, Text.Convos.regaliaConvo());
-        mastersGallery = new Room(RoomType.MASTERS);
-        securityRoom = new Room(RoomType.CONTROL, securityItems);
-        guardRoom = new Room(RoomType.BREAK, guardRoomItems);
-        serviceTunnel = new Room(RoomType.SERVICE_TUNNEL);
-        janitorCloset = new Room(RoomType.JANITOR_CLOSET);
-        deliveryDock = new Room(RoomType.DELIVERY_DOCK, dockItems, Text.Convos.deliveryConvo());
-        garden = new Room(RoomType.GARDEN);
-        secretPassage = new Room(RoomType.SECRET_PASSAGE);
-        vip = new Room(RoomType.VIP);
-        basementTunnel = new Room(RoomType.BASEMENT);
-        van = new Room(RoomType.VAN);
-
 
         balcony.setExit("north", regaliaGallery, true);
         balcony.setExit("down", garden, true);
@@ -122,7 +127,7 @@ public class ZorkULGame{
         regaliaGallery.setExit("south", balcony, true);
         regaliaGallery.setExit("east", securityRoom);
         regaliaGalleryItems.add(Flashlight);
-        regaliaGalleryItems.add(Crown);
+       // regaliaGalleryItems.add(Crown);
 
         mastersGallery.setExit("south", regaliaGallery);
         mastersGallery.setExit("west", lobby, true);
@@ -133,7 +138,7 @@ public class ZorkULGame{
 
         guardRoom.setExit("west", securityRoom);
         guardRoom.setExit("north", janitorCloset, true);
-        guardRoomItems.add(Uniform);
+      //  guardRoomItems.add(Uniform);
 
         janitorCloset.setExit("south", guardRoom, true);
         janitorCloset.setExit("north", serviceTunnel, true);
@@ -237,8 +242,12 @@ public class ZorkULGame{
             case "drop":
                 dropCommand(command,out);
                 break;
+            case "open":
+                openCommand(command, out);
+                break;
             case "pickpocket", "steal":
                 steal(command, out);
+                if (checkInventoryForKeyItems(out)) {return true;}
                 break;
             case "eavesdrop", "listen":
                 eavesdropCommand(out);
@@ -309,6 +318,45 @@ public class ZorkULGame{
         }
     }
     private boolean takeCommand(Command command , StringBuilder out) {
+        String name = command.getSecondWord();
+        if (name == null) {
+            out.append("Take what?\n");
+            return false;
+        }
+
+        if (name.equalsIgnoreCase("crown") && player.getCurrentRoom().equals(regaliaGallery)) {
+            if (crownCase.isLocked()) {
+                out.append("The Crown is still inside the locked glass case.\n");
+                return false;
+            }
+            Item crown = crownCase.takeItem();
+            if (crown == null) {
+                out.append("The case is empty.\n");
+                return false;
+            }
+            out.append(player.pickUpItem(crown)).append("\n");
+            out.append(crown.getDescription()).append("\n");
+
+            return checkInventoryForKeyItems(out);
+        }
+
+        if (name.equalsIgnoreCase("uniform")
+                && player.getCurrentRoom().equals(guardRoom)) {
+            if (uniformLocker.isLocked()) {
+                out.append("The locker is locked.\n");
+                return false;
+            }
+            Item uniform = uniformLocker.takeItem();
+            if (uniform == null) {
+                out.append("The locker is empty.\n");
+                return false;
+            }
+            out.append(player.pickUpItem(uniform)).append("\n");
+            out.append(uniform.getDescription()).append("\n");
+            return checkInventoryForKeyItems(out);
+        }
+
+
         Item takeItem = ItemsUtil.checkItemAvailable(command.getSecondWord(), player.getCurrentRoom().getItems());
         if (takeItem == null) {
             out.append("I can't find that item!");
@@ -358,6 +406,39 @@ public class ZorkULGame{
         }
         out.append("\n");
     }
+    private void openCommand(Command command, StringBuilder out) {
+        if (!command.hasSecondWord()) {
+            out.append("Open what?\n");
+            return;
+        }
+        String targetName = command.getSecondWord();
+
+        if (player.getCurrentRoom().equals(regaliaGallery) && targetName.equalsIgnoreCase("case")) {
+            if (regaliaCamera.getStatus()) {
+                out.append("You can't open the case while the cameras are on.\n");
+                return;
+            }
+            crownCase.unlock();
+           if (crownCase.isEmpty()) {
+               out.append("You open the case. It is empty.\n");
+           } else {
+               out.append("You quietly open the glass case. The Crown lays there.\n");
+           }
+            return;
+        }
+
+        if (player.getCurrentRoom().equals(guardRoom) && targetName.equalsIgnoreCase("locker")) {
+            uniformLocker.unlock();
+            if (uniformLocker.isEmpty()) {
+                out.append("You open the locker. It is empty.\n");
+            } else {
+                out.append("You open the locker. A Uniform hangs inside.\n");
+            }
+            return;
+        }
+        out.append("There is no ").append(targetName).append(" to open here.\n");
+    }
+
     private boolean checkInventoryForKeyItems(StringBuilder out) {
         if (player.hasItem("Keycard")) {
             lobby.setExit("south", vip, true);
@@ -385,7 +466,6 @@ public class ZorkULGame{
         return false;
     }
     private void inspectRoom(StringBuilder out) {
-        out.append(player.getCurrentRoom().inspect()).append("\n");
         out.append(player.getCurrentRoom().searchRoom()).append("\n");
     }
     private void steal(Command command, StringBuilder out)  {
@@ -459,6 +539,7 @@ public class ZorkULGame{
                 deliveryDock.setExit("inside", van, true);
             }
         }
+
         return out;
     }
     private void eavesdropCommand(StringBuilder out) {

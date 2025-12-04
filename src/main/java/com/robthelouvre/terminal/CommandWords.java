@@ -28,6 +28,8 @@ public class CommandWords {
         validCommands.put("lie", "Tell a lie to fool someone");
         validCommands.put("drop", "drops item on floor");
         validCommands.put("inventory", "Displays items");
+        validCommands.put("open", "Opens lockers, cases, boxes");
+
 
         validCommands.put("quit", "End the game");
         validCommands.put("help", "Show help");
@@ -43,9 +45,9 @@ public class CommandWords {
     }
 
     private static final Set<String> primaryCommands = Set.of(
-            "go [direction] ", "\nquit", "help", "\ninspect [room]", "\neavesdrop - listen to guards talking",
+            "go [direction] ", "\nquit", "help", "\ncheckForCharacters [room]", "\neavesdrop - listen to guards talking",
             "\npickpocket [person]", "\ntamper - for security systems", "\nlie - to deceive guards", "\ntake [item]", "\ndrop [item]",
-            "\ninventory", "save", "load", "restart", "cheat"
+            "\ninventory","\nopen [container]", "save", "load", "restart", "cheat"
     );
 
     public static String showAll() {
