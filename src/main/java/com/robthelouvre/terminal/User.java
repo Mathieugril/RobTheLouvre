@@ -1,10 +1,5 @@
 package com.robthelouvre.terminal;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
-import java.io.Serializable;
-import java.util.ArrayList;
 
 public class User extends Character{
 

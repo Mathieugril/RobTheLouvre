@@ -85,8 +85,8 @@ public class ZorkULGame{
         Item KeyCard = new BasicItem("Keycard", Text.ItemDESC.KEYCARD);
 
 
-         regaliaCamera = new Cameras();
-         deliveryScanner = new Cameras();
+        regaliaCamera = new Cameras();
+        deliveryScanner = new Cameras();
 
         List<Item> regaliaGalleryItems = new ArrayList<>();
         List<Item> securityItems = new ArrayList<>();
@@ -342,7 +342,7 @@ public class ZorkULGame{
                     out.append("Quit what?").append("\n");
                     return false;
                 } else {
-                    return true; // signal to quit
+                    return true;
                 }
             default:
                 out.append("I don't know what you mean...").append("\n");
@@ -394,7 +394,7 @@ public class ZorkULGame{
         String personName = command.getSecondWord();
         Character target = null;
 
-        // find the target character
+
 
         for (Character c : player.getCurrentRoom().getCharacters()) {
             if (c == player) continue;
@@ -404,19 +404,16 @@ public class ZorkULGame{
             }
         }
 
-        // target must be here
         if (target == null || !player.getCurrentRoom().equals(target.getCurrentRoom())) {
             out.append("There is no one called ").append(personName).append(" here.\n");
             return;
         }
 
-        // target must have something
         if (target.getInventory().isEmpty()) {
             out.append(target.getName()).append(" has nothing to steal.\n");
             return;
         }
 
-        // if no item given, just list options
         if (!command.hasThirdWord()) {
             out.append("\n").append(target.getName()).append(" has:\n");
             for (Item item : target.getInventory()) {
@@ -426,13 +423,11 @@ public class ZorkULGame{
             return;
         }
 
-        // steal the named item
         String itemName = command.getThirdWord();
-        Item stolenItem = target.findItemByName(itemName);   // <-- use Character helper
+        Item stolenItem = target.findItemByName(itemName);
 
         if (stolenItem != null) {
 
-        // guard drops item and player picks
             target.dropItem(stolenItem);
             player.pickUpItem(stolenItem);
 
@@ -504,7 +499,6 @@ public class ZorkULGame{
             case BASEMENT       -> basementTunnel;
             case VAN            -> van;
 
-            default             -> regaliaGallery;
         };
     }
 
@@ -567,6 +561,6 @@ public class ZorkULGame{
 
     public static void main(String[] args) {
         ZorkULGame game = new ZorkULGame();
-       // game.play();
+
     }
 }

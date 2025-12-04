@@ -136,7 +136,7 @@ public class Controller {
               return;
         }
 
-        Duration perLine = Duration.seconds(2.0);
+        Duration perLine = Duration.seconds(1.5);
         Timeline timeline = new Timeline();
         for (int i = 0; i < lines.size(); i++) {
             String line = lines.get(i);

@@ -40,7 +40,7 @@ public class Text {
         public static final String GARDEN_DET = "A beaten path in the corner catches your eye. An old seemingly locked door hides at the end of the path.";
         public static final String PASSAGE_DET1 = "Old blueprints and staff scribbles mark this 'staff only' route. You cant go anywhere with out a form of light";
         public static final String PASSAGE_DET2 = "Old blueprints and staff scribbles mark this 'staff only' route, the flashlight lets you see.";
-        public static final String VIP_DET = "Obnoxious tones and low lighting make these people and easy target, but be careful of the guards.";
+        public static final String VIP_DET = "Obnoxious tones and low lighting could make these people an easy target, but the guards make it impossible.";
         public static final String VAN_DET = "Surprisingly clean. A card for a with an address and 10:00h is written on it, you look at radio: 09:38, better not be late.";
     }
 
