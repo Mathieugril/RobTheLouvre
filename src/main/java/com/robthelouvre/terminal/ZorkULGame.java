@@ -204,29 +204,6 @@ public class ZorkULGame{
 
         Command command = parser.parseCommand(input);
         finished = processCommand(command, out);
-
-        if (player.hasItem("Keycard")) {
-                lobby.setExit("south", vip, true);
-                mastersGallery.setExit("south", regaliaGallery, true);
-                regaliaGallery.setExit("north", mastersGallery , true);
-                securityRoom.setExit("east", guardRoom  , true);
-            }
-            if (player.hasItem("Keycard") && (player.hasItem("Uniform"))) {
-                regaliaGallery.setExit("east", securityRoom , true);
-                securityRoom.setExit("west", regaliaGallery  , true);
-                guardRoom.setExit("west", securityRoom, true);
-                deliveryDock.setExit("north", basementTunnel);
-            }
-            if (player.hasItem("Flashlight")) {
-                secretPassage.setExit("north", janitorCloset, true);
-                RoomType.SECRET_PASSAGE.setDetails(Text.Details.PASSAGE_DET2);
-            }
-            if ((player.hasItem("Crown")) && (player.getCurrentRoom().equals(outside))){
-                out.append("\n\nYou have escaped with the Crown of Empress Eugénie, Congrats!!\n");
-                finished = true;
-            }
-
-
         return out.toString();
     }
 
@@ -243,86 +220,34 @@ public class ZorkULGame{
                 appendHelp(out);
                 break;
             case "cheat":
-                cheatGame();
-                out.append("\nGame cheated! Head north to freedom.\n");
+                cheatGame(out);
                 break;
             case "go", "move":
-                goRoom(command, out);
+                goRoom(command,out);
                 break;
             case "inspect", "search", "check":
-                out.append(player.getCurrentRoom().inspect()).append("\n");
-                out.append(player.getCurrentRoom().searchRoom()).append("\n");
+                inspectRoom(out);
                 break;
             case "take", "pick-up", "grab":
-                Item takeItem = ItemsUtil.checkItemAvailable(command.getSecondWord(), player.getCurrentRoom().getItems());
-                if (takeItem == null) {
-                    out.append("I can't find that item!");
-                } else {
-                    out.append(player.pickUpItem(takeItem)).append("\n");
-                    out.append(takeItem.getDescription()).append("\n");
-                    out.append("\nAll Exits: ").append(player.getCurrentRoom().getExitString()).append("\n");
-                }
-                for (Item item : player.getInventory()) {
-                    if (item.getName().equals("Crown")){
-                       if (regaliaCamera.getStatus()){
-                           out.append("Cameras caught you, Game over!!\n");
-                            return true;
-                        }
-                       if (jude.getCurrentRoom().equals(regaliaGallery)) {
-                           out.append("Guards caught you, Game over!!\n");
-                           return true;
-                       }
-                       RoomType.BALCONY.setDetails(Text.Details.BALCONY_DET2);
-                       RoomType.BALCONY.setDescription(Text.Descriptions.BALCONY2);
-                    }
-                }
+                takeCommand(command,out);
                 break;
             case "inventory":
-                out.append("Inventory:");
-                for (Item item : player.getInventory()) {
-                    out.append(item.getName()).append(", ");
-                }
+                inventoryCommand(out);
                 break;
             case "drop":
-                Item dropItem = ItemsUtil.checkItemAvailable(command.getSecondWord(), player.getInventory());
-                if (dropItem == null) {
-                    out.append("I don't have that item!");
-                } else {
-                    player.dropItem(dropItem);
-                }
+                dropCommand(command,out);
                 break;
             case "pickpocket", "steal":
                 steal(command, out);
-                out.append("\nAll Exits: ").append(player.getCurrentRoom().getExitString()).append("\n");
                 break;
             case "eavesdrop", "listen":
-                if(player.getCurrentRoom().equals(regaliaGallery)) {
-                    setSecretPassage(true);
-                    this.isPassageKnown = true;
-                }
+                eavesdropCommand(out);
                 break;
             case "tamper":
-                if(player.getCurrentRoom().equals(securityRoom)) {
-                    regaliaCamera.setStatus(false);
-                    out.append("Cameras in gallery have been disabled!");
-                } else if (player.getCurrentRoom().equals(deliveryDock)) {
-                    deliveryScanner.setStatus(false);
-                    out.append("Scanner has been disabled!").append("\n");
-                } else {
-                    out.append("Nothing to mess with here.").append("\n");
-                }
+                tamperCommand(out);
                 break;
             case "lie":
-                if (player.getCurrentRoom().equals(regaliaGallery)) {
-                   if (player.hasItem("Uniform")) {
-                       out.append(Guards.lie(this, command, guardRoom));
-                   } else {
-                       out.append("You have no disguise,guards caught you.").append("\n");
-                       return true;
-                   }
-                } else {
-                    out.append("This doesn't benefit you here.").append("\n");
-                }
+                lieCommand(command,out);
                 break;
             case "save":
                 saveGame("savegame.dat");
@@ -351,11 +276,22 @@ public class ZorkULGame{
         return false;
     }
 
+    public RoomType getCurrentRoomType() {
+        return player.getCurrentRoom().getType();
+    }
+
+    public void setSecretPassage(boolean passage) {
+        this.isPassageKnown = passage;
+    }
+
+    public boolean isSecretPassageKnown() {
+        return isPassageKnown;
+    }
+
     private void appendHelp(StringBuilder out) {
         out.append("You are in the middle of a heist. You are alone. You wander around the museum.\n");
         out.append(parser.showCommands()).append("\n");
     }
-
     private void goRoom(Command command, StringBuilder out) {
         if (!command.hasSecondWord()) {
             out.append("Go where?\n");
@@ -372,19 +308,84 @@ public class ZorkULGame{
             out.append(player.getCurrentRoom().getLongDescription()).append("\n");
         }
     }
-
-    public RoomType getCurrentRoomType() {
-        return player.getCurrentRoom().getType();
+    private boolean takeCommand(Command command , StringBuilder out) {
+        Item takeItem = ItemsUtil.checkItemAvailable(command.getSecondWord(), player.getCurrentRoom().getItems());
+        if (takeItem == null) {
+            out.append("I can't find that item!");
+            return false;
+        } else {
+            out.append(player.pickUpItem(takeItem)).append("\n");
+            out.append(takeItem.getDescription()).append("\n");
+            out.append("\nAll Exits: ").append(player.getCurrentRoom().getExitString()).append("\n");
+        }
+        for (Item item : player.getInventory()) {
+            if (item.getName().equals("Crown")){
+                if (regaliaCamera.getStatus()){
+                    out.append("Cameras caught you, Game over!!\n");
+                    return true;
+                }
+                if (jude.getCurrentRoom().equals(regaliaGallery)) {
+                    out.append("Guards caught you, Game over!!\n");
+                    return true;
+                }
+                RoomType.BALCONY.setDetails(Text.Details.BALCONY_DET2);
+                RoomType.BALCONY.setDescription(Text.Descriptions.BALCONY2);
+            }
+            if (checkInventoryForKeyItems(out)) {
+                return true;
+            }
+        }
+        return false;
     }
+    private void dropCommand(Command command, StringBuilder out) {
+        Item dropItem = ItemsUtil.checkItemAvailable(
+                command.getSecondWord(),
+                player.getInventory()
+        );
 
-    public void setSecretPassage(boolean passage) {
-        this.isPassageKnown = passage;
+        if (dropItem == null) {
+            out.append("I don't have that item!");
+        } else {
+            player.dropItem(dropItem);
+        }
     }
-
-    public boolean isSecretPassageKnown() {
-        return isPassageKnown;
+    private void inventoryCommand(StringBuilder out) {
+        out.append("Inventory: ");
+        for (Item item : player.getInventory()) {
+            out.append(item.getName()).append(", ");
+        }
+        out.append("\n");
     }
+    private boolean checkInventoryForKeyItems(StringBuilder out) {
+        if (player.hasItem("Keycard")) {
+            lobby.setExit("south", vip, true);
+            mastersGallery.setExit("south", regaliaGallery, true);
+            regaliaGallery.setExit("north", mastersGallery, true);
+            securityRoom.setExit("east", guardRoom, true);
+        }
 
+        if (player.hasItem("Keycard") && player.hasItem("Uniform")) {
+            regaliaGallery.setExit("east", securityRoom, true);
+            securityRoom.setExit("west", regaliaGallery, true);
+            guardRoom.setExit("west", securityRoom, true);
+            deliveryDock.setExit("north", basementTunnel);
+        }
+
+        if (player.hasItem("Flashlight")) {
+            secretPassage.setExit("north", janitorCloset, true);
+            RoomType.SECRET_PASSAGE.setDetails(Text.Details.PASSAGE_DET2);
+        }
+
+        if (player.hasItem("Crown") && player.getCurrentRoom().equals(outside)) {
+            out.append("\n\nYou have escaped with the Crown of Empress Eugénie, Congrats!!\n");
+            return true;
+        }
+        return false;
+    }
+    private void inspectRoom(StringBuilder out) {
+        out.append(player.getCurrentRoom().inspect()).append("\n");
+        out.append(player.getCurrentRoom().searchRoom()).append("\n");
+    }
     private void steal(Command command, StringBuilder out)  {
         if (!command.hasSecondWord()) {
             out.append("Steal from who?\n");
@@ -393,8 +394,6 @@ public class ZorkULGame{
 
         String personName = command.getSecondWord();
         Character target = null;
-
-
 
         for (Character c : player.getCurrentRoom().getCharacters()) {
             if (c == player) continue;
@@ -436,8 +435,9 @@ public class ZorkULGame{
         } else {
             out.append(target.getName()).append(" does not have ").append(itemName).append(".\n");
         }
-    }
 
+        out.append("\nAll Exits: ").append(player.getCurrentRoom().getExitString()).append("\n");
+    }
     public List<String> listen() {
         List<String> out = new ArrayList<>();
 
@@ -459,7 +459,39 @@ public class ZorkULGame{
         }
         return out;
     }
+    private void eavesdropCommand(StringBuilder out) {
+        if (player.getCurrentRoom().equals(regaliaGallery)) {
+            setSecretPassage(true);
+            this.isPassageKnown = true;
+        } else {
+            out.append("Nothing interesting to hear here.\n");
+        }
+    }
+    private void tamperCommand(StringBuilder out) {
+        if (player.getCurrentRoom().equals(securityRoom)) {
+            regaliaCamera.setStatus(false);
+            out.append("Cameras in gallery have been disabled!\n");
+        } else if (player.getCurrentRoom().equals(deliveryDock)) {
+            deliveryScanner.setStatus(false);
+            out.append("Scanner has been disabled!\n");
+        } else {
+            out.append("Nothing to mess with here.\n");
+        }
+    }
+    private boolean lieCommand(Command command, StringBuilder out) {
+        if (!player.getCurrentRoom().equals(regaliaGallery)) {
+            out.append("This doesn't benefit you here.\n");
+            return false;
+        }
 
+        if (!player.hasItem("Uniform")) {
+            out.append("You have no disguise, guards caught you.\n");
+            return true;
+        }
+
+        out.append(Guards.lie(this, command, guardRoom));
+        return false;
+    }
     public void saveGame(String fileName) {
         SaveLoadData data = new SaveLoadData();
 
@@ -479,7 +511,6 @@ public class ZorkULGame{
             e.printStackTrace();
         }
     }
-
     private Room findRoomByType(RoomType type) {
 
         return switch (type) {
@@ -501,7 +532,6 @@ public class ZorkULGame{
 
         };
     }
-
     public void loadGame(String fileName) {
         try (ObjectInputStream in =
                      new ObjectInputStream(new FileInputStream(fileName))) {
@@ -532,7 +562,6 @@ public class ZorkULGame{
             e.printStackTrace();
         }
     }
-
     public void restartGame() {
         Character.resetAll();
         create();
@@ -541,8 +570,7 @@ public class ZorkULGame{
         regaliaCamera.setStatus(true);
         deliveryScanner.setStatus(true);
     }
-
-    public void cheatGame() {
+    public void cheatGame(StringBuilder out) {
         isPassageKnown = true;
         regaliaCamera.setStatus(false);
         deliveryScanner.setStatus(true);
@@ -552,11 +580,9 @@ public class ZorkULGame{
         player.getInventory().add(Uniform);
         player.getInventory().add(VanKeys);
         deliveryDock.setExit("inside", van, true);
-
+        out.append("\nGame cheated! Head north to freedom.\n");
 
     }
-
-
     public static void main(String[] args) {
         ZorkULGame game = new ZorkULGame();
 
