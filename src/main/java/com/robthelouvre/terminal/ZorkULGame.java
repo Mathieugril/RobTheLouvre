@@ -196,7 +196,7 @@ public class ZorkULGame{
     }
 
     public Command parseCommand(String line) {
-        return parser.parseCommand(line); // the new Parser method we wrote earlier
+        return parser.parseCommand(line);
     }
 
     public String processInput(String input) {
@@ -519,8 +519,6 @@ public class ZorkULGame{
                 Item restored = new BasicItem(itemName, "Restored item: " + itemName);
                 player.getInventory().add(restored);
             }
-
-
 
             this.isPassageKnown = data.passageKnown;
             if (isPassageKnown) {

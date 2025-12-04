@@ -99,7 +99,7 @@ public class Controller {
             //special cases
             if ("lie".equalsIgnoreCase(command.getCommandWord())) {
                 List<String> lieLines = Arrays.asList(response.split("\\R"));
-                playLines(lieLines);                  // line-by-line animation
+                playLines(lieLines);
             } else if ("eavesdrop".equalsIgnoreCase(command.getCommandWord())) {
                 List<String> convoLines = game.listen();
                 playLines(convoLines);

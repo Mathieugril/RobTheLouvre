@@ -152,7 +152,7 @@ public class Room implements Serializable {
         List<Character> here = new ArrayList<>();
 
         for (Character c : Character.getAllCharacters()) {
-            if (c.getCurrentRoom() == this) {   // same room
+            if (c.getCurrentRoom() == this) {
                 here.add(c);
             }
         }
