@@ -42,6 +42,14 @@
        Util                                                                      checkItemAvailable
 
 
+<h2>Instructions</h2>
+
+       1. You start on the balcony, placed there by your partners in crime.
+       2. Your target is the Crown of Empress Eugénie.
+       3. Guards, locked doors, cameras and scanners are in your way however.
+       4. Use thievery, deception, and trickery to escape.
+
+
 
 
 
