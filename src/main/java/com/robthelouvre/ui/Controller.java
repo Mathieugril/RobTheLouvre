@@ -116,6 +116,7 @@ public class Controller {
             if (game.isFinished()) {
 
                 inputField.setPromptText("Game over");
+               // inputField.setEditable(false);
             }
         }
 

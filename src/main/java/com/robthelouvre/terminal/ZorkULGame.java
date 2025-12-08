@@ -107,8 +107,8 @@ public class ZorkULGame{
         Item Bread = new BasicItem("Bread", Text.ItemDESC.BREAD);
         Item KeyCard = new BasicItem("Keycard", Text.ItemDESC.KEYCARD);
 
-        crownCase = new Container<>("Case", "A reinforced glass case around the Crown. It looks fragile if the cameras are off...", Crown, true );
-        uniformLocker = new Container<>("Locker", "A metal locker where a guard has left their uniform.", Uniform,false);
+        crownCase = new Container<>("Case", Crown, true );
+        uniformLocker = new Container<>("Locker", Uniform,false);
 
         regaliaGallery.addContainer(crownCase);
         guardRoom.addContainer(uniformLocker);
@@ -316,6 +316,7 @@ public class ZorkULGame{
             player.setCurrentRoom(nextRoom);
             out.append(player.getCurrentRoom().getLongDescription()).append("\n");
         }
+        checkInventoryForKeyItems(out);
     }
     private boolean takeCommand(Command command , StringBuilder out) {
         String name = command.getSecondWord();
